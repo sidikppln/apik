@@ -11,7 +11,7 @@
  Target Server Version : 100419
  File Encoding         : 65001
 
- Date: 13/10/2021 15:38:16
+ Date: 13/10/2021 16:02:01
 */
 
 SET NAMES utf8mb4;
@@ -43,6 +43,8 @@ CREATE TABLE `data_nota_penerimaan`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nomor_nota` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `tanggal_nota` int(11) NULL DEFAULT NULL,
+  `jenis_nota` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `nominal` decimal(32, 0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -64,6 +66,10 @@ DROP TABLE IF EXISTS `data_penerimaan`;
 CREATE TABLE `data_penerimaan`  (
   `id` int(11) NOT NULL,
   `nota_penerimaan_id` int(11) NULL DEFAULT NULL,
+  `tanggal` int(11) NULL DEFAULT NULL,
+  `nominal` decimal(32, 0) NULL DEFAULT NULL,
+  `uraian` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_penerimaan` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
