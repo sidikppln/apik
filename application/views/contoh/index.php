@@ -6,12 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>Contoh</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+              <li class="breadcrumb-item active">Contoh</li>
             </ol>
           </div>
         </div>
@@ -24,23 +24,49 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Title</h3>
+        <button type="button" class="btn btn-outline-success">Tambah</button>
 
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-              <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
         </div>
         <div class="card-body">
-          Start creating your amazing application!
+        <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nomor</th>
+      <th scope="col">Nama</th>
+      <th scope="col">Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+      <?php $no=1; foreach($contoh as $r): ?>
+    <tr>
+      <th scope="row"><?= $no ?></th>
+      <td><?= $r['nomor'];?></td>
+      <td><?= $r['nama'];?></td>
+      <td>
+      <button type="button" class="btn btn-outline-warning">Ubah</button>
+      <button type="button" class="btn btn-outline-danger">Hapus</button>
+      </td>
+    </tr>
+    <?php endforeach;?>
+  </tbody>
+</table>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-          Footer
+        <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-end mb-0">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
         </div>
         <!-- /.card-footer-->
       </div>

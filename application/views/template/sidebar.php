@@ -54,7 +54,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?= base_url();?>contoh" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p>
                 Level 1
