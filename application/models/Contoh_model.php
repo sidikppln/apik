@@ -12,7 +12,6 @@ public function get()
 public function getDetail($id)
 {
     return $this->db->get_where($this->_table,['id'=> $id])->row_array();
-
 }
 public function update($id)
 {
