@@ -5,8 +5,9 @@ class Contoh_model extends CI_Model
 {
     protected $_table = 'data_contoh';
 
-    public function get()
+    public function get($limit = null, $offset = 0)
     {
+        $this->db->limit($limit, $offset);
         return $this->db->get($this->_table)->result_array();
     }
 
@@ -15,16 +16,15 @@ class Contoh_model extends CI_Model
         return $this->db->get_where($this->_table, ['id' => $id])->row_array();
     }
 
-    public function update($data, $id)
+    public function find($name = null)
     {
-        $this->db->update($this->_table, $data, ['id' => $id]);
-        return $this->db->affected_rows();
+        $this->db->like('nama', $name);
+        return $this->db->get($this->_table)->result_array();
     }
 
-    public function delete($id)
+    public function count()
     {
-        $this->db->delete($this->_table, ['id' => $id]);
-        return $this->db->affected_rows();
+        return $this->db->get($this->_table)->num_rows();
     }
 
     public function create($data)
@@ -39,9 +39,15 @@ class Contoh_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function count()
+    public function update($data, $id)
     {
-        return $this->db->get($this->_table)->num_rows();
+        $this->db->update($this->_table, $data, ['id' => $id]);
+        return $this->db->affected_rows();
     }
 
+    public function delete($id)
+    {
+        $this->db->delete($this->_table, ['id' => $id]);
+        return $this->db->affected_rows();
+    }
 }

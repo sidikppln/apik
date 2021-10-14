@@ -12,7 +12,27 @@ class Contoh extends CI_Controller
 
     public function index()
     {
-        $data['contoh'] = $this->contoh_m->get();
+        // setting halaman
+        $config['base_url'] = base_url('contoh/index');
+        $config['total_rows'] = $this->contoh_m->count();
+        $config['per_page'] = 10;
+        $config["num_links"] = 3;
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+        $data['page'] = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
+        $limit = $config["per_page"];
+        $offset = $data['page'];
+
+        // menangkap pencarian jika ada
+        $name = $this->input->post('name');
+        $data['name'] = $name;
+
+        // pilih tampilan data, semua atau berdasarkan pencarian
+        if ($name) {
+            $data['contoh'] = $this->contoh_m->find($name);
+        } else {
+            $data['contoh'] = $this->contoh_m->get($limit, $offset);
+        }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
@@ -24,7 +44,7 @@ class Contoh extends CI_Controller
         [
             'field' => 'nomor',
             'label' => 'Nomor',
-            'rules' => 'required|trim'
+            'rules' => 'required|trim|max_length[5]'
         ],
         [
             'field' => 'nama',
