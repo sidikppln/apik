@@ -7,7 +7,7 @@ class Contoh extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Contoh_model', 'contoh_m');
+        $this->load->model('Data_contoh_model', 'contoh_m');
     }
 
     public function index()
