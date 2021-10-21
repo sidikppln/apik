@@ -75,12 +75,12 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost:8889',
-	'username' => 'root',
-	'password' => 'root',
-	// 'hostname' => 'localhost',
+	// 'hostname' => 'localhost:8889',
 	// 'username' => 'root',
-	// 'password' => '',
+	// 'password' => 'root',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
 	'database' => 'db_apik',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
