@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Transaksi_bank_model extends CI_Model
+class Ref_jenis_model extends CI_Model
 {
-    protected $_table = 'data_transaksi_bank';
+    protected $_table = 'ref_jenis';
 
     public function get($limit = null, $offset = 0)
     {
@@ -18,7 +18,7 @@ class Transaksi_bank_model extends CI_Model
 
     public function find($name = null)
     {
-        $this->db->like('nama', $name);
+        $this->db->like('nama_jenis', $name);
         return $this->db->get($this->_table)->result_array();
     }
 

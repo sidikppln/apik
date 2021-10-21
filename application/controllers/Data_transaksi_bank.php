@@ -1,21 +1,21 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Transaksi_bank extends CI_Controller
+class Data_transaksi_bank extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->load->model('Transaksi_bank_model', 'transaksi_bank_m');
+        $this->load->model('Data_transaksi_bank_model', 'data_transaksi_bank_m');
     }
 
     public function index()
     {
         // setting halaman
-        $config['base_url'] = base_url('transaksi_bank/index');
-        $config['total_rows'] = $this->transaksi_bank_m->count();
+        $config['base_url'] = base_url('data-transaksi-bank/index');
+        $config['total_rows'] = $this->data_transaksi_bank_m->count();
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -26,18 +26,18 @@ class Transaksi_bank extends CI_Controller
 
         // menangkap pencarian jika ada
         $name = $this->input->post('name');
-        $data['name'] = $name;
+        $data['uraian'] = $uraian;
 
         // pilih tampilan data, semua atau berdasarkan pencarian
-        if ($name) {
-            $data['transaksi_bank'] = $this->transaksi_bank_m->find($name);
+        if ($uraian) {
+            $data['transaksi_bank'] = $this->data_transaksi_bank_m->find($uraian);
         } else {
-            $data['transaksi_bank'] = $this->transaksi_bank_m->get($limit, $offset);
+            $data['transaksi_bank'] = $this->data_transaksi_bank_m->get($limit, $offset);
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('transaksi_bank/index', $data);
+        $this->load->view('data_transaksi_bank/index', $data);
         $this->load->view('template/footer');
     }
 
@@ -70,7 +70,7 @@ class Transaksi_bank extends CI_Controller
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('contoh/create');
+        $this->load->view('data_transaksi_bank/create');
         $this->load->view('template/footer');
     }
 
@@ -78,13 +78,13 @@ class Transaksi_bank extends CI_Controller
     {
         if (!isset($id)) show_404();
 
-        $data['contoh'] = $this->contoh_m->getDetail($id);
+        $data['transaksi_bank'] = $this->contoh_m->getDetail($id);
         $validation = $this->form_validation->set_rules($this->rules);
 
         if ($validation->run()) {
             $data = [
                 'nomor' => htmlspecialchars($this->input->post('nomor', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true))
+                'uraian' => htmlspecialchars($this->input->post('nama', true))
             ];
             $this->contoh_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
@@ -93,7 +93,7 @@ class Transaksi_bank extends CI_Controller
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('contoh/update', $data);
+        $this->load->view('data_transaksi_bank/update', $data);
         $this->load->view('template/footer');
     }
 
@@ -104,6 +104,6 @@ class Transaksi_bank extends CI_Controller
         if ($this->contoh_m->delete($id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('transaksi_bank');
+        redirect('data-transaksi-bank');
     }
 }
