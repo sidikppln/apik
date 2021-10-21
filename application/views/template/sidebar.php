@@ -41,7 +41,7 @@
               $sub_sub_menu = $this->sub_sub_menu_m->getSubSubMenu($sm['id']);
             ?>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?= base_url() . $sm['url']; ?>" class="nav-link">
                   <i class="nav-icon fas fa-circle"></i>
                   <p><?= $sm['name']; ?> <?= $sub_sub_menu ? '<i class="right fas fa-angle-left"></i>' : ''; ?></p>
                 </a>

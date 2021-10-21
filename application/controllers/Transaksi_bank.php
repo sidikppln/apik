@@ -7,6 +7,7 @@ class Transaksi_bank extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
         $this->load->model('Transaksi_bank_model', 'transaksi_bank_m');
     }
 
