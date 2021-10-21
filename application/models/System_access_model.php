@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Contoh_model extends CI_Model
+class System_access_model extends CI_Model
 {
-    protected $_table = 'data_contoh';
+    protected $_table = 'system_access';
 
     public function get($limit = null, $offset = 0)
     {
