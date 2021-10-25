@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url');
+$autoload['helper'] = array('url', 'apik');
 
 /*
 | -------------------------------------------------------------------
@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('system_access_model' => 'access_m', 'system_menu_model' => 'menu_m', 'system_role_model' => 'role_m', 'system_sub_menu_model' => 'sub_menu_m', 'system_sub_sub_menu_model' => 'sub_sub_menu_m', 'system_sub_sub_sub_menu_model' => 'sub_sub_sub_menu_m', 'system_user_model' => 'user_m');
+$autoload['model'] = array('system_access_model' => 'access_m', 'system_menu_model' => 'sys_menu_m', 'system_role_model' => 'sys_role_m', 'system_sub_menu_model' => 'sys_sub_menu_m', 'system_sub_sub_menu_model' => 'sys_sub_sub_menu_m', 'system_sub_sub_sub_menu_model' => 'sys_sub_sub_sub_menu_m', 'system_user_model' => 'sys_user_m');
