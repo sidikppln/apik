@@ -7,19 +7,18 @@ class System_user_model extends CI_Model
 
     public function get($limit = null, $offset = 0)
     {
-        $this->db->limit($limit, $offset);
-        return $this->db->get($this->_table)->result_array();
+        // $this->db->limit($limit, $offset);
+        return $this->db->query("SELECT a.*, b.name AS nama_role FROM system_user a LEFT JOIN system_role b ON a.role_id=b.id LIMIT $limit OFFSET $offset")->result_array();
     }
 
     public function getDetail($id)
     {
-        return $this->db->get_where($this->_table, ['id' => $id])->row_array();
+        return $this->db->query("SELECT a.*, b.name AS nama_role FROM system_user a LEFT JOIN system_role b ON a.role_id=b.id WHERE a.id='$id'")->row_array();
     }
 
     public function find($name = null)
     {
-        $this->db->like('nama', $name);
-        return $this->db->get($this->_table)->result_array();
+        return $this->db->query("SELECT a.*, b.name AS nama_role FROM system_user a LEFT JOIN system_role b ON a.role_id=b.id WHERE a.nama LIKE '%$name%'")->result_array();
     }
 
     public function count()
@@ -49,5 +48,10 @@ class System_user_model extends CI_Model
     {
         $this->db->delete($this->_table, ['id' => $id]);
         return $this->db->affected_rows();
+    }
+
+    public function getNip($nip)
+    {
+        return $this->db->get_where($this->_table, ['nip' => $nip])->row_array();
     }
 }

@@ -18,7 +18,7 @@ class System_role_model extends CI_Model
 
     public function find($name = null)
     {
-        $this->db->like('nama', $name);
+        $this->db->like('name', $name);
         return $this->db->get($this->_table)->result_array();
     }
 

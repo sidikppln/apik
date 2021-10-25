@@ -7,7 +7,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active"><a href="#">Pengguna</a></li>
+                        <li class="breadcrumb-item"><a href="#">Pengguna</a></li>
+                        <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div>
             </div>
@@ -45,18 +46,19 @@
                                 </div>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="">Is Active:</label>
-                                <input type="text" name="is_active" class="form-control <?= form_error('is_active') ? 'is-invalid' : ''; ?>">
-                                <div class="invalid-feedback">
-                                    <?= form_error('is_active'); ?>
-                                </div>
+                                <label for="">Role:</label>
+                                <select class="form-control" name="role_id">
+                                    <?php foreach ($role as $r) : ?>
+                                        <option value="<?= $r['id']; ?>"><?= $r['name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-group">
-                                <a href="<?= base_url('pengguna'); ?>" class="btn btn-sm btn-outline-secondary">Batal</a>
+                                <a href="<?= base_url('user'); ?>" class="btn btn-sm btn-outline-secondary">Batal</a>
                                 <button type="submit" class="btn btn-sm btn-outline-secondary ml-1">Simpan</button>
                             </div>
                         </div>
