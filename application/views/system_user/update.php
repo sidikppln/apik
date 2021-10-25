@@ -31,14 +31,14 @@
                         <div class="col-lg-3">
                             <div class="form-group mb-2">
                                 <label for="">Nomor:</label>
-                                <input type="text" name="nomor" class="form-control <?= form_error('nomor') ? 'is-invalid' : ''; ?>">
+                                <input type="text" name="nomor" class="form-control <?= form_error('nomor') ? 'is-invalid' : ''; ?>" value="<?= $contoh['nomor']; ?>">
                                 <div class="invalid-feedback">
                                     <?= form_error('nomor'); ?>
                                 </div>
                             </div>
                             <div class="form-group mb-2">
                                 <label for="">Nama:</label>
-                                <input type="text" name="nama" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>">
+                                <input type="text" name="nama" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>" value="<?= $contoh['nama']; ?>">
                                 <div class="invalid-feedback">
                                     <?= form_error('nama'); ?>
                                 </div>

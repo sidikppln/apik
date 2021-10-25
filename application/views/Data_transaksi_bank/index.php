@@ -34,7 +34,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('contoh/create/'); ?>" class="btn btn-sm btn-outline-success">Tambah</a>
+            <a href="<?= base_url('data-transaksi-bank/create/'); ?>" class="btn btn-sm btn-outline-success">Tambah</a>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
@@ -64,8 +64,8 @@
                 <td><?= $r['tanggal']; ?></td>
                 <td><?= $r['uraian']; ?></td>
                 <td>
-                  <a href="<?= base_url('transaksi_bank/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
-                  <a href="<?= base_url('transaksi_bank/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  <a href="<?= base_url('data-transaksi-bank/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
+                  <a href="<?= base_url('data-transaksi-bank/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                 </td>
               </tr>
             <?php endforeach; ?>

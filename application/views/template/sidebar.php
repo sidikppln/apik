@@ -41,7 +41,7 @@
               $sub_sub_menu = $this->sub_sub_menu_m->getSubSubMenu($sm['id']);
             ?>
               <li class="nav-item">
-                <a href="<?= $sm['url']; ?>" class="nav-link">
+                <a href="<?= base_url() . $sm['url']; ?>" class="nav-link">
                   <i class="<?= $sm['icon']; ?>"></i>
                   <p><?= $sm['name']; ?> <?= $sub_sub_menu ? '<i class="right fas fa-angle-left"></i>' : ''; ?></p>
                 </a>
@@ -53,7 +53,7 @@
                       $sub_sub_sub_menu = $this->sub_sub_sub_menu_m->getSubSubSubMenu($ssm['id']);
                     ?>
                       <li class="nav-item">
-                        <a href="<?= $ssm['url']; ?>" class="nav-link">
+                        <a href="<?= base_url() . $ssm['url']; ?>" class="nav-link">
                           <i class="<?= $ssm['icon']; ?>"></i>
                           <p><?= $ssm['name']; ?> <?= $sub_sub_sub_menu ? '<i class="right fas fa-angle-left"></i>' : ''; ?></p>
                           </p>

@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Contoh extends CI_Controller
+class Access extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Data_contoh_model', 'contoh_m');
+        $this->load->model('System_access_model', 'access_m');
     }
 
     public function index()

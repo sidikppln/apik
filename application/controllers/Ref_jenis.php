@@ -1,21 +1,21 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Contoh extends CI_Controller
+class Ref_jenis extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Data_contoh_model', 'contoh_m');
+        $this->load->model('Ref_jenis_model', 'ref_jenis_m');
     }
 
     public function index()
     {
         // setting halaman
-        $config['base_url'] = base_url('contoh/index');
-        $config['total_rows'] = $this->contoh_m->count();
-        $config['per_page'] = 5;
+        $config['base_url'] = base_url('ref-jenis/index');
+        $config['total_rows'] = $this->ref_jenis_m->count();
+        $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
@@ -29,26 +29,26 @@ class Contoh extends CI_Controller
 
         // pilih tampilan data, semua atau berdasarkan pencarian
         if ($name) {
-            $data['contoh'] = $this->contoh_m->find($name);
+            $data['ref_jenis'] = $this->ref_jenis_m->find($name);
         } else {
-            $data['contoh'] = $this->contoh_m->get($limit, $offset);
+            $data['ref_jenis'] = $this->ref_jenis_m->get($limit, $offset);
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('contoh/index', $data);
+        $this->load->view('ref_jenis/index', $data);
         $this->load->view('template/footer');
     }
 
     private $rules = [
         [
-            'field' => 'nomor',
-            'label' => 'Nomor',
-            'rules' => 'required|trim|max_length[5]'
+            'field' => 'nama_jenis',
+            'label' => 'nama_jenis',
+            'rules' => 'required|trim'
         ],
         [
-            'field' => 'nama',
-            'label' => 'Nama',
+            'field' => 'id_kelompok',
+            'label' => 'id_kelompok',
             'rules' => 'required|trim'
         ]
     ];
@@ -59,17 +59,17 @@ class Contoh extends CI_Controller
 
         if ($validation->run()) {
             $data = [
-                'nomor' => htmlspecialchars($this->input->post('nomor', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true))
+                'nama_jenis' => htmlspecialchars($this->input->post('nama_jenis', true)),
+                'id_kelompok' => htmlspecialchars($this->input->post('id_kelompok', true))
             ];
-            $this->contoh_m->create($data);
+            $this->ref_jenis_m->create($data);
             $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('contoh');
+            redirect('ref-jenis');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('contoh/create');
+        $this->load->view('ref_jenis/create');
         $this->load->view('template/footer');
     }
 
@@ -77,22 +77,22 @@ class Contoh extends CI_Controller
     {
         if (!isset($id)) show_404();
 
-        $data['contoh'] = $this->contoh_m->getDetail($id);
+        $data['ref_jenis'] = $this->ref_jenis_m->getDetail($id);
         $validation = $this->form_validation->set_rules($this->rules);
 
         if ($validation->run()) {
             $data = [
-                'nomor' => htmlspecialchars($this->input->post('nomor', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true))
+                'nama_jenis' => htmlspecialchars($this->input->post('nama_jenis', true)),
+                'id_kelompok' => htmlspecialchars($this->input->post('id_kelompok', true))
             ];
-            $this->contoh_m->update($data, $id);
+            $this->ref_jenis_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('contoh');
+            redirect('ref-jenis');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('contoh/update', $data);
+        $this->load->view('ref_jenis/update', $data);
         $this->load->view('template/footer');
     }
 
@@ -100,9 +100,9 @@ class Contoh extends CI_Controller
     {
         if (!isset($id)) show_404();
 
-        if ($this->contoh_m->delete($id)) {
+        if ($this->ref_jenis_m->delete($id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('contoh');
+        redirect('ref-jenis');
     }
 }

@@ -34,7 +34,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('transaksi_bank/create/'); ?>" class="btn btn-sm btn-outline-success">Tambah</a>
+            <a href="<?= base_url('system-user/create/'); ?>" class="btn btn-sm btn-outline-success">Tambah</a>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
@@ -51,21 +51,21 @@
           <thead>
             <tr class="text-center">
               <th scope="col">#</th>
-              <th scope="col">Nomor</th>
+              <th scope="col">NIK</th>
               <th scope="col">Nama</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
           <tbody>
             <?php $no = $page + 1;
-            foreach ($contoh as $r) : ?>
+            foreach ($system_user as $r) : ?>
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
-                <td><?= $r['nomor']; ?></td>
+                <td><?= $r['nik']; ?></td>
                 <td><?= $r['nama']; ?></td>
                 <td>
-                  <a href="<?= base_url('contoh/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
-                  <a href="<?= base_url('contoh/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  <a href="<?= base_url('sytem-user/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
+                  <a href="<?= base_url('system-user/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                 </td>
               </tr>
             <?php endforeach; ?>
