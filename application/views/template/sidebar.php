@@ -5,6 +5,11 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('auth/logout'); ?>" onclick="return confirm('Apakah Anda yakin akan keluar dari aplikasi ini?')"><i class="fas fa-power-off"></i> Keluar</a>
+      </li>
+    </ul>
   </nav>
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -19,7 +24,7 @@
           <img src="<?= base_url(); ?>asset/img/user.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block"><?= $this->session->userdata('nama'); ?></a>
         </div>
       </div>
 
@@ -29,16 +34,16 @@
 
           <!-- untuk menampilkan menu -->
           <?php
-          $menu = $this->menu_m->get();
+          $menu = $this->sys_menu_m->get();
           foreach ($menu as $m) :
           ?>
             <li class="nav-header"><?= $m['name']; ?></li>
 
             <!-- untuk menampilkan sub_menu -->
             <?php
-            $sub_menu = $this->sub_menu_m->getSubMenu($m['id']);
+            $sub_menu = $this->sys_sub_menu_m->getSubMenu($m['id']);
             foreach ($sub_menu as $sm) :
-              $sub_sub_menu = $this->sub_sub_menu_m->getSubSubMenu($sm['id']);
+              $sub_sub_menu = $this->sys_sub_sub_menu_m->getSubSubMenu($sm['id']);
             ?>
               <li class="nav-item">
                 <a href="<?= base_url() . $sm['url']; ?>" class="nav-link">
@@ -50,7 +55,7 @@
                 <?php if ($sub_sub_menu) : ?>
                   <ul class="nav nav-treeview">
                     <?php foreach ($sub_sub_menu as $ssm) :
-                      $sub_sub_sub_menu = $this->sub_sub_sub_menu_m->getSubSubSubMenu($ssm['id']);
+                      $sub_sub_sub_menu = $this->sys_sub_sub_sub_menu_m->getSubSubSubMenu($ssm['id']);
                     ?>
                       <li class="nav-item">
                         <a href="<?= base_url() . $ssm['url']; ?>" class="nav-link">

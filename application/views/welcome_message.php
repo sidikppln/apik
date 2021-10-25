@@ -89,7 +89,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<p class="hero-paragraph">Dengan kolaborasi antar Bendahara Penerima, Kami hadirkan data dan informasi secara handal, akurat dan terintegrasi.</p>
 							<div class="hero-form field field-grouped">
 								<div class="control">
-									<a class="button button-primary button-block" href="<?= base_url('contoh'); ?>">Masuk Aplikasi</a>
+									<a class="button button-primary button-block" href="<?= base_url('auth'); ?>">Masuk Aplikasi</a>
 								</div>
 							</div>
 						</div>

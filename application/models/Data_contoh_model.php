@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Data_contoh_model extends CI_Model
 {
-    protected $_table = 'data_contoh';
+    private $_table = 'data_contoh';
 
     public function get($limit = null, $offset = 0)
     {

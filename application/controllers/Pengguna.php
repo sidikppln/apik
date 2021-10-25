@@ -1,21 +1,20 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Contoh extends CI_Controller
+class Pengguna extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
         is_logged_in();
-        $this->load->model('Data_contoh_model', 'contoh_m');
+        $this->load->model('Ref_user_model', 'user_m');
     }
 
     public function index()
     {
         // setting halaman
-        $config['base_url'] = base_url('contoh/index');
-        $config['total_rows'] = $this->contoh_m->count();
+        $config['base_url'] = base_url('pengguna/index');
+        $config['total_rows'] = $this->user_m->count();
         $config['per_page'] = 5;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -30,22 +29,22 @@ class Contoh extends CI_Controller
 
         // pilih tampilan data, semua atau berdasarkan pencarian
         if ($name) {
-            $data['contoh'] = $this->contoh_m->find($name);
+            $data['pengguna'] = $this->user_m->find($name);
         } else {
-            $data['contoh'] = $this->contoh_m->get($limit, $offset);
+            $data['pengguna'] = $this->user_m->get($limit, $offset);
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('contoh/index', $data);
+        $this->load->view('pengguna/index', $data);
         $this->load->view('template/footer');
     }
 
     private $rules = [
         [
-            'field' => 'nomor',
-            'label' => 'Nomor',
-            'rules' => 'required|trim|max_length[5]'
+            'field' => 'nip',
+            'label' => 'NIP',
+            'rules' => 'required|trim|exact_length[18]'
         ],
         [
             'field' => 'nama',
@@ -60,17 +59,20 @@ class Contoh extends CI_Controller
 
         if ($validation->run()) {
             $data = [
-                'nomor' => htmlspecialchars($this->input->post('nomor', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true))
+                'nip' => htmlspecialchars($this->input->post('nip', true)),
+                'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'password' => password_hash(htmlspecialchars($this->input->post('password', true)), PASSWORD_DEFAULT),
+                'is_active' => htmlspecialchars($this->input->post('is_active', true)),
+                'date_created' => time()
             ];
-            $this->contoh_m->create($data);
+            $this->user_m->create($data);
             $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('contoh');
+            redirect('pengguna');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('contoh/create');
+        $this->load->view('pengguna/create');
         $this->load->view('template/footer');
     }
 
@@ -78,22 +80,25 @@ class Contoh extends CI_Controller
     {
         if (!isset($id)) show_404();
 
-        $data['contoh'] = $this->contoh_m->getDetail($id);
+        $data['pengguna'] = $this->user_m->getDetail($id);
         $validation = $this->form_validation->set_rules($this->rules);
 
         if ($validation->run()) {
             $data = [
-                'nomor' => htmlspecialchars($this->input->post('nomor', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true))
+                'nip' => htmlspecialchars($this->input->post('nip', true)),
+                'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'password' => password_hash(htmlspecialchars($this->input->post('password', true)), PASSWORD_DEFAULT),
+                'is_active' => htmlspecialchars($this->input->post('is_active', true)),
+                'date_created' => time()
             ];
-            $this->contoh_m->update($data, $id);
+            $this->user_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('contoh');
+            redirect('pengguna');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('contoh/update', $data);
+        $this->load->view('pengguna/update', $data);
         $this->load->view('template/footer');
     }
 
@@ -101,9 +106,9 @@ class Contoh extends CI_Controller
     {
         if (!isset($id)) show_404();
 
-        if ($this->contoh_m->delete($id)) {
+        if ($this->user_m->delete($id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('contoh');
+        redirect('pengguna');
     }
 }
