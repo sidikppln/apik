@@ -1,20 +1,19 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class System_user extends CI_Controller
+class User extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('System_user_model', 'system_user_m');
+        is_logged_in();
     }
 
     public function index()
     {
         // setting halaman
-        $config['base_url'] = base_url('system-user/index');
-        $config['total_rows'] = $this->system_user_m->count();
+        $config['base_url'] = base_url('user/index');
+        $config['total_rows'] = $this->sys_user_m->count();
         $config['per_page'] = 5;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -29,22 +28,22 @@ class System_user extends CI_Controller
 
         // pilih tampilan data, semua atau berdasarkan pencarian
         if ($name) {
-            $data['system_user'] = $this->system_user_m->find($name);
+            $data['user'] = $this->sys_user_m->find($name);
         } else {
-            $data['system_user'] = $this->system_user_m->get($limit, $offset);
+            $data['user'] = $this->sys_user_m->get($limit, $offset);
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('system_user/index', $data);
+        $this->load->view('user/index', $data);
         $this->load->view('template/footer');
     }
 
     private $rules = [
         [
-            'field' => 'nomor',
-            'label' => 'Nomor',
-            'rules' => 'required|trim|max_length[5]'
+            'field' => 'nip',
+            'label' => 'NIP',
+            'rules' => 'required|trim|exact_length[18]'
         ],
         [
             'field' => 'nama',
@@ -55,21 +54,26 @@ class System_user extends CI_Controller
 
     public function create()
     {
+        $data['role'] = $this->sys_role_m->get(null, 0);
+
         $validation = $this->form_validation->set_rules($this->rules);
 
         if ($validation->run()) {
             $data = [
-                'nomor' => htmlspecialchars($this->input->post('nomor', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true))
+                'nip' => htmlspecialchars($this->input->post('nip', true)),
+                'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'password' => password_hash(htmlspecialchars($this->input->post('password', true)), PASSWORD_DEFAULT),
+                'role_id' => htmlspecialchars($this->input->post('role_id', true)),
+                'date_created' => time()
             ];
-            $this->system_user_m->create($data);
+            $this->sys_user_m->create($data);
             $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('contoh');
+            redirect('user');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('system_user/create');
+        $this->load->view('user/create', $data);
         $this->load->view('template/footer');
     }
 
@@ -77,22 +81,26 @@ class System_user extends CI_Controller
     {
         if (!isset($id)) show_404();
 
-        $data['contoh'] = $this->system_user_m->getDetail($id);
+        $data['role'] = $this->sys_role_m->get(null, 0);
+        $data['user'] = $this->sys_user_m->getDetail($id);
         $validation = $this->form_validation->set_rules($this->rules);
 
         if ($validation->run()) {
             $data = [
-                'nomor' => htmlspecialchars($this->input->post('nomor', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true))
+                'nip' => htmlspecialchars($this->input->post('nip', true)),
+                'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'password' => password_hash(htmlspecialchars($this->input->post('password', true)), PASSWORD_DEFAULT),
+                'role_id' => htmlspecialchars($this->input->post('role_id', true)),
+                'date_created' => time()
             ];
-            $this->system_user_m->update($data, $id);
+            $this->sys_user_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('contoh');
+            redirect('user');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('system_user/update', $data);
+        $this->load->view('user/update', $data);
         $this->load->view('template/footer');
     }
 
@@ -100,9 +108,9 @@ class System_user extends CI_Controller
     {
         if (!isset($id)) show_404();
 
-        if ($this->system_user_m->delete($id)) {
+        if ($this->sys_user_m->delete($id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('contoh');
+        redirect('user');
     }
 }

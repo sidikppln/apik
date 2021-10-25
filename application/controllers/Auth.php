@@ -6,7 +6,6 @@ class Auth extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    $this->load->model('ref_user_model', 'user_m');
   }
 
   public function index()
@@ -31,7 +30,7 @@ class Auth extends CI_Controller
     $nip = htmlspecialchars($this->input->post('nip'));
     $password = htmlspecialchars($this->input->post('password'));
 
-    $user = $this->user_m->getNip($nip);
+    $user = $this->sys_user_m->getNip($nip);
     // jika usernya ada
     if ($user) {
       // jika usernya aktif

@@ -1,21 +1,21 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pengguna extends CI_Controller
+class Menu extends CI_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
         is_logged_in();
-        $this->load->model('Ref_user_model', 'user_m');
     }
 
     public function index()
     {
         // setting halaman
-        $config['base_url'] = base_url('pengguna/index');
-        $config['total_rows'] = $this->user_m->count();
-        $config['per_page'] = 5;
+        $config['base_url'] = base_url('menu/index');
+        $config['total_rows'] = $this->sys_menu_m->count();
+        $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
@@ -29,25 +29,20 @@ class Pengguna extends CI_Controller
 
         // pilih tampilan data, semua atau berdasarkan pencarian
         if ($name) {
-            $data['pengguna'] = $this->user_m->find($name);
+            $data['menu'] = $this->sys_menu_m->find($name);
         } else {
-            $data['pengguna'] = $this->user_m->get($limit, $offset);
+            $data['menu'] = $this->sys_menu_m->get($limit, $offset);
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('pengguna/index', $data);
+        $this->load->view('menu/index', $data);
         $this->load->view('template/footer');
     }
 
     private $rules = [
         [
-            'field' => 'nip',
-            'label' => 'NIP',
-            'rules' => 'required|trim|exact_length[18]'
-        ],
-        [
-            'field' => 'nama',
+            'field' => 'name',
             'label' => 'Nama',
             'rules' => 'required|trim'
         ]
@@ -59,20 +54,16 @@ class Pengguna extends CI_Controller
 
         if ($validation->run()) {
             $data = [
-                'nip' => htmlspecialchars($this->input->post('nip', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true)),
-                'password' => password_hash(htmlspecialchars($this->input->post('password', true)), PASSWORD_DEFAULT),
-                'is_active' => htmlspecialchars($this->input->post('is_active', true)),
-                'date_created' => time()
+                'name' => htmlspecialchars($this->input->post('name', true))
             ];
-            $this->user_m->create($data);
+            $this->sys_menu_m->create($data);
             $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('pengguna');
+            redirect('menu');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('pengguna/create');
+        $this->load->view('menu/create');
         $this->load->view('template/footer');
     }
 
@@ -80,25 +71,21 @@ class Pengguna extends CI_Controller
     {
         if (!isset($id)) show_404();
 
-        $data['pengguna'] = $this->user_m->getDetail($id);
+        $data['menu'] = $this->sys_menu_m->getDetail($id);
         $validation = $this->form_validation->set_rules($this->rules);
 
         if ($validation->run()) {
             $data = [
-                'nip' => htmlspecialchars($this->input->post('nip', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true)),
-                'password' => password_hash(htmlspecialchars($this->input->post('password', true)), PASSWORD_DEFAULT),
-                'is_active' => htmlspecialchars($this->input->post('is_active', true)),
-                'date_created' => time()
+                'name' => htmlspecialchars($this->input->post('name', true))
             ];
-            $this->user_m->update($data, $id);
+            $this->sys_menu_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('pengguna');
+            redirect('menu');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('pengguna/update', $data);
+        $this->load->view('menu/update', $data);
         $this->load->view('template/footer');
     }
 
@@ -106,9 +93,9 @@ class Pengguna extends CI_Controller
     {
         if (!isset($id)) show_404();
 
-        if ($this->user_m->delete($id)) {
+        if ($this->sys_menu_m->delete($id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('pengguna');
+        redirect('menu');
     }
 }
