@@ -33,23 +33,17 @@ class Auth extends CI_Controller
     $user = $this->sys_user_m->getNip($nip);
     // jika usernya ada
     if ($user) {
-      // jika usernya aktif
-      if ($user['is_active'] == 1) {
-        // cek password
-        if (password_verify($password, $user['password'])) {
-          $data = [
-            'nip' => $user['nip'],
-            'nama' => $user['nama'],
-            'tahun' => date('Y')
-          ];
-          $this->session->set_userdata($data);
-          redirect('beranda');
-        } else {
-          $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Anda salah!</div>');
-          redirect('auth');
-        }
+      // cek password
+      if (password_verify($password, $user['password'])) {
+        $data = [
+          'nip' => $user['nip'],
+          'nama' => $user['nama'],
+          'tahun' => date('Y')
+        ];
+        $this->session->set_userdata($data);
+        redirect('beranda');
       } else {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Akun Anda belum aktif, Lakukan aktivasi, periksa inbox atau folder spam pada email Anda!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Anda salah!</div>');
         redirect('auth');
       }
     } else {
