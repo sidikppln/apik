@@ -5,8 +5,9 @@ class System_sub_sub_sub_menu_model extends CI_Model
 {
     protected $_table = 'system_sub_sub_sub_menu';
 
-    public function get($limit = null, $offset = 0)
+    public function get($limit = null, $offset = 0, $id = null)
     {
+        $this->db->where('sub_menu_id', $id);
         $this->db->limit($limit, $offset);
         return $this->db->get($this->_table)->result_array();
     }
@@ -16,14 +17,16 @@ class System_sub_sub_sub_menu_model extends CI_Model
         return $this->db->get_where($this->_table, ['id' => $id])->row_array();
     }
 
-    public function find($name = null)
+    public function find($name = null, $id = null)
     {
         $this->db->like('nama', $name);
+        $this->db->where('sub_menu_id', $id);
         return $this->db->get($this->_table)->result_array();
     }
 
-    public function count()
+    public function count($id)
     {
+        $this->db->where('sub_menu_id', $id);
         return $this->db->get($this->_table)->num_rows();
     }
 

@@ -3,11 +3,14 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Menu</h1>
+          <h1>Sub Sub Sub Menu</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active"><a href="#">Menu</a></li>
+            <li class="breadcrumb-item"><a href="#">Menu</a></li>
+            <li class="breadcrumb-item"><a href="#">Sub Menu</a></li>
+            <li class="breadcrumb-item"><a href="#">Sub Sub Menu</a></li>
+            <li class="breadcrumb-item active">Sub Sub Sub Menu</li>
           </ol>
         </div>
       </div>
@@ -32,7 +35,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('menu/create/'); ?>" class="btn btn-sm btn-outline-success">Tambah</a>
+            <a href="<?= base_url('sub-sub-sub-menu/create/') . $menu_id . '/' . $sub_menu_id . '/' . $sub_sub_menu_id; ?>" class="btn btn-sm btn-outline-success">Tambah</a>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
@@ -55,14 +58,13 @@
           </thead>
           <tbody>
             <?php $no = $page + 1;
-            foreach ($menu as $r) : ?>
+            foreach ($sub_sub_sub_menu as $r) : ?>
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $r['name']; ?></td>
                 <td>
-                  <a href="<?= base_url('sub-menu/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-info">Detail</a>
-                  <a href="<?= base_url('menu/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
-                  <a href="<?= base_url('menu/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  <a href="<?= base_url('sub-sub-sub-menu/update/') . $r['id'] . '/' . $r['menu_id'] . '/' . $r['sub_menu_id'] . '/' . $r['sub_sub_menu_id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
+                  <a href="<?= base_url('sub-sub-sub-menu/delete/') . $r['id'] . '/' . $r['menu_id'] . '/' . $r['sub_menu_id'] . '/' . $r['sub_sub_menu_id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                 </td>
               </tr>
             <?php endforeach; ?>
