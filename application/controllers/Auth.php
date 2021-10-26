@@ -43,11 +43,11 @@ class Auth extends CI_Controller
         $this->session->set_userdata($data);
         redirect('beranda');
       } else {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Anda salah!</div>');
+        $this->session->set_flashdata('pesan', 'password Anda salah.');
         redirect('auth');
       }
     } else {
-      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Akun Anda belum terdaftar, Silahkan melakukan pendaftaran terlebih dahulu!</div>');
+      $this->session->set_flashdata('pesan', 'NIP Anda tidak terdaftar.');
       redirect('auth');
     }
   }

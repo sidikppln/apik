@@ -5,6 +5,15 @@
   <div class="card">
     <div class="card-body login-card-body">
 
+      <?php if ($this->session->flashdata('pesan')) : ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Login Gagal</strong> <?= $this->session->flashdata('pesan'); ?>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php endif; ?>
+
       <form action="" method="post" autocomplete="off">
         <div class="form-group has-feedback">
           <label>NIP :</label>
