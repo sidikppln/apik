@@ -54,8 +54,25 @@ class System_sub_sub_menu_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function getSubSubMenu($sub_menu_id)
+    public function getSubSubMenu($sub_menu_id, $role_id)
     {
-        return $this->db->get_where($this->_table, ['sub_menu_id' => $sub_menu_id])->result_array();
+        return $this->db->query("SELECT b.* FROM system_access a LEFT JOIN system_sub_sub_menu b ON a.sub_sub_menu_id = b.id WHERE a.role_id='$role_id' AND b.sub_menu_id='$sub_menu_id'")->result_array();
+    }
+
+    public function getAll($limit = null, $offset = 0)
+    {
+        $this->db->limit($limit, $offset);
+        return $this->db->get($this->_table)->result_array();
+    }
+
+    public function findAll($name = null)
+    {
+        $this->db->like('name', $name);
+        return $this->db->get($this->_table)->result_array();
+    }
+
+    public function countAll()
+    {
+        return $this->db->get($this->_table)->num_rows();
     }
 }

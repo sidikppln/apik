@@ -19,7 +19,7 @@ class System_sub_menu_model extends CI_Model
 
     public function find($name = null, $id = null)
     {
-        $this->db->like('nama', $name);
+        $this->db->like('name', $name);
         $this->db->where('menu_id', $id);
         return $this->db->get($this->_table)->result_array();
     }

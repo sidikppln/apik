@@ -7,6 +7,8 @@ class User extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('System_user_model', 'sys_user_m');
+        $this->load->model('System_role_model', 'sys_role_m');
     }
 
     public function index()

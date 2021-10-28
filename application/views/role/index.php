@@ -3,16 +3,14 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Contoh</h1>
+          <h1>Role</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Contoh</li>
+            <li class="breadcrumb-item active"><a href="#">Role</a></li>
           </ol>
         </div>
       </div>
-    </div><!-- /.container-fluid -->
   </section>
 
   <section class="content">
@@ -34,7 +32,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('data-transaksi-bank/create/'); ?>" class="btn btn-sm btn-outline-success">Tambah</a>
+            <a href="<?= base_url('role/create/'); ?>" class="btn btn-sm btn-outline-success">Tambah</a>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
@@ -51,21 +49,20 @@
           <thead>
             <tr class="text-center">
               <th scope="col">#</th>
-              <th scope="col">Tanggal</th>
-              <th scope="col">Uraian</th>
+              <th scope="col">Nama</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
           <tbody>
             <?php $no = $page + 1;
-            foreach ($transaksi_bank as $r) : ?>
+            foreach ($role as $r) : ?>
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
-                <td><?= $r['tanggal']; ?></td>
-                <td><?= $r['uraian']; ?></td>
+                <td><?= $r['name']; ?></td>
                 <td>
-                  <a href="<?= base_url('data-transaksi-bank/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
-                  <a href="<?= base_url('data-transaksi-bank/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  <a href="<?= base_url('akses/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-info">Detail</a>
+                  <a href="<?= base_url('role/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
+                  <a href="<?= base_url('role/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                 </td>
               </tr>
             <?php endforeach; ?>
