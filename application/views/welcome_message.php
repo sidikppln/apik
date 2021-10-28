@@ -86,7 +86,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<div class="hero-inner">
 						<div class="hero-copy">
 							<h1 class="hero-title mt-0">Aplikasi Penatausahaan Internal Kas</h1>
-							<p class="hero-paragraph">Dengan kolaborasi antar Bendahara Penerima, Kami hadirkan data dan informasi secara handal, akurat dan terintegrasi.</p>
+							<p class="hero-paragraph">Dengan kolaborasi antar stakeholder, Kami hadirkan data dan informasi secara handal, akurat dan terintegrasi.</p>
 							<div class="hero-form field field-grouped">
 								<div class="control">
 									<a class="button button-primary button-block" href="<?= base_url('auth'); ?>">Masuk Aplikasi</a>
