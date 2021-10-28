@@ -1,3 +1,5 @@
+<?php $role_id = $this->session->userdata('role_id'); ?>
+
 <div class="wrapper">
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">
@@ -34,33 +36,33 @@
 
           <!-- untuk menampilkan menu -->
           <?php
-          $menu = $this->sys_menu_m->get();
+          $menu = $this->view_menu_m->getMenu($role_id);
           foreach ($menu as $m) :
           ?>
-            <li class="nav-header"><?= $m['name']; ?></li>
+            <li class="nav-header"><?= $m['nama_menu']; ?></li>
 
             <!-- untuk menampilkan sub_menu -->
             <?php
-            $sub_menu = $this->sys_sub_menu_m->getSubMenu($m['id']);
+            $sub_menu = $this->view_menu_m->getSubMenu($m['id_menu'], $role_id);
             foreach ($sub_menu as $sm) :
-              $sub_sub_menu = $this->sys_sub_sub_menu_m->getSubSubMenu($sm['id']);
+              $sub_sub_menu = $this->view_menu_m->getSubSubMenu($sm['id_sub_menu'], $role_id);
             ?>
               <li class="nav-item">
-                <a href="<?= base_url() . $sm['url']; ?>" class="nav-link">
-                  <i class="<?= $sm['icon']; ?>"></i>
-                  <p><?= $sm['name']; ?> <?= $sub_sub_menu ? '<i class="right fas fa-angle-left"></i>' : ''; ?></p>
+                <a href="<?= base_url() . $sm['url_sub_menu']; ?>" class="nav-link">
+                  <i class="<?= $sm['icon_sub_menu']; ?>"></i>
+                  <p><?= $sm['nama_sub_menu']; ?> <?= $sub_sub_menu ? '<i class="right fas fa-angle-left"></i>' : ''; ?></p>
                 </a>
 
                 <!-- untuk menampilkan sub_sub_menu -->
                 <?php if ($sub_sub_menu) : ?>
                   <ul class="nav nav-treeview">
                     <?php foreach ($sub_sub_menu as $ssm) :
-                      $sub_sub_sub_menu = $this->sys_sub_sub_sub_menu_m->getSubSubSubMenu($ssm['id']);
+                      $sub_sub_sub_menu = $this->sys_sub_sub_sub_menu_m->getSubSubSubMenu($ssm['id_sub_sub_menu']);
                     ?>
                       <li class="nav-item">
-                        <a href="<?= base_url() . $ssm['url']; ?>" class="nav-link">
-                          <i class="<?= $ssm['icon']; ?>"></i>
-                          <p><?= $ssm['name']; ?> <?= $sub_sub_sub_menu ? '<i class="right fas fa-angle-left"></i>' : ''; ?></p>
+                        <a href="<?= base_url() . $ssm['url_sub_sub_menu']; ?>" class="nav-link">
+                          <i class="<?= $ssm['icon_sub_sub_menu']; ?>"></i>
+                          <p><?= $ssm['nama_sub_sub_menu']; ?> <?= $sub_sub_sub_menu ? '<i class="right fas fa-angle-left"></i>' : ''; ?></p>
                           </p>
                         </a>
 

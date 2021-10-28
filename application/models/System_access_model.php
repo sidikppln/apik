@@ -5,10 +5,9 @@ class System_access_model extends CI_Model
 {
     protected $_table = 'system_access';
 
-    public function get($limit = null, $offset = 0)
+    public function get($limit = null, $offset = 0, $id = null)
     {
-        $this->db->limit($limit, $offset);
-        return $this->db->get($this->_table)->result_array();
+        return $this->db->query("SELECT a.id, a.role_id, b.name FROM system_access a LEFT JOIN system_sub_sub_menu b ON a.sub_sub_menu_id = b.id WHERE a.role_id = '$id' LIMIT $limit OFFSET $offset")->result_array();
     }
 
     public function getDetail($id)
@@ -16,14 +15,14 @@ class System_access_model extends CI_Model
         return $this->db->get_where($this->_table, ['id' => $id])->row_array();
     }
 
-    public function find($name = null)
+    public function find($name = null, $id = null)
     {
-        $this->db->like('nama', $name);
-        return $this->db->get($this->_table)->result_array();
+        return $this->db->query("SELECT a.*, a.role_id, b.name FROM system_access a LEFT JOIN system_sub_sub_menu b ON a.sub_sub_menu_id = b.id WHERE a.role_id = '$id' AND b.name LIKE '%$name%'")->result_array();
     }
 
-    public function count()
+    public function count($id)
     {
+        $this->db->where('role_id', $id);
         return $this->db->get($this->_table)->num_rows();
     }
 

@@ -3,11 +3,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Access</h1>
+          <h1>Akses</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active"><a href="#">Menu</a></li>
+            <li class="breadcrumb-item"><a href="#">Role</a></li>
+            <li class="breadcrumb-item active">Akses</li>
           </ol>
         </div>
       </div>
@@ -32,7 +33,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('access/create/'); ?>" class="btn btn-sm btn-outline-success">Tambah</a>
+            <a href="<?= base_url('akses/create/') . $role_id; ?>" class="btn btn-sm btn-outline-success">Tambah</a>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
@@ -55,13 +56,12 @@
           </thead>
           <tbody>
             <?php $no = $page + 1;
-            foreach ($role as $r) : ?>
+            foreach ($access as $r) : ?>
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $r['name']; ?></td>
                 <td>
-                  <a href="<?= base_url('access/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
-                  <a href="<?= base_url('access/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  <a href="<?= base_url('akses/delete/') . $r['id'] . '/' . $r['role_id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                 </td>
               </tr>
             <?php endforeach; ?>

@@ -8,6 +8,7 @@ class Menu extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('System_menu_model', 'sys_menu_m');
     }
 
     public function index()

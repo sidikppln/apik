@@ -8,6 +8,7 @@ class Sub_sub_sub_menu extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('System_sub_sub_sub_menu_model', 'sys_sub_sub_sub_menu_m');
     }
 
     public function index($menu_id = null, $sub_menu_id = null, $sub_sub_menu_id = null)

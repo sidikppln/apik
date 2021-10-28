@@ -12,4 +12,4 @@
   <link rel="stylesheet" href="<?= base_url(); ?>asset/css/adminlte.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
