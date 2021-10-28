@@ -3,12 +3,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Transaksi Bank</h1>
+                    <h1>Referensi Satker</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Transaksi Bank</a></li>
-                        <li class="breadcrumb-item active">Impor CSV</li>
+                        <li class="breadcrumb-item"><a href="#">Referensi Satker</a></li>
+                        <li class="breadcrumb-item active">Tambah</li>
                     </ol>
                 </div>
             </div>
@@ -21,14 +21,21 @@
             </div>
             <div class="card-body">
 
-                <form action="" method="post" autocomplete="off" enctype="multipart/form-data">
+                <form action="" method="post" autocomplete="off">
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="form-group mb-2">
-                                <label for="">File CSV:</label>
-                                <input type="file" name="file_csv" class="form-control <?= form_error('file_csv') ? 'is-invalid' : ''; ?>">
+                                <label for="">Kode:</label>
+                                <input type="text" name="kdsatker" class="form-control <?= form_error('kdsatker') ? 'is-invalid' : ''; ?>">
                                 <div class="invalid-feedback">
-                                    <?= form_error('file_csv'); ?>
+                                    <?= form_error('kdsatker'); ?>
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="">Nama Satker:</label>
+                                <input type="text" name="nmsatker" class="form-control <?= form_error('nmsatker') ? 'is-invalid' : ''; ?>">
+                                <div class="invalid-feedback">
+                                    <?= form_error('nmsatker'); ?>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +43,7 @@
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-group">
-                                <a href="<?= base_url('transaksi-bank'); ?>" class="btn btn-sm btn-outline-success">Batal</a>
+                                <a href="<?= base_url('ref-satker'); ?>" class="btn btn-sm btn-outline-success">Batal</a>
                                 <button type="submit" class="btn btn-sm btn-outline-success ml-1">Simpan</button>
                             </div>
                         </div>

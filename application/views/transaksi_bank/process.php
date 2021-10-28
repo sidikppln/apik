@@ -8,7 +8,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Transaksi Bank</a></li>
-                        <li class="breadcrumb-item active">Ubah</li>
+                        <li class="breadcrumb-item active">Proses</li>
                     </ol>
                 </div>
             </div>
@@ -23,34 +23,32 @@
 
                 <form action="" method="post" autocomplete="off">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group mb-2">
-                                <label for="">Tanggal:</label>
-                                <input type="text" name="tanggal" class="form-control <?= form_error('tanggal') ? 'is-invalid' : ''; ?>" value="<?= $transaksi_bank['tanggal']; ?>">
-                                <div class="invalid-feedback">
-                                    <?= form_error('tanggal'); ?>
-                                </div>
-                            </div>
+                        <div class="col-lg-10">
                             <div class="form-group mb-2">
                                 <label for="">Uraian:</label>
-                                <input type="text" name="uraian" class="form-control <?= form_error('uraian') ? 'is-invalid' : ''; ?>" value="<?= $transaksi_bank['uraian']; ?>">
+                                <textarea name="" id="" cols="30" rows="2" class="form-control" disabled><?= $transaksi_bank['uraian']; ?></textarea>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="">Nomor Virtual Account:</label>
+                                <input type="text" name="virtual_account" class="form-control <?= form_error('virtual_account') ? 'is-invalid' : ''; ?>">
                                 <div class="invalid-feedback">
-                                    <?= form_error('uraian'); ?>
+                                    <?= form_error('virtual_account'); ?>
                                 </div>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="">Debet:</label>
-                                <input type="text" name="debet" class="form-control <?= form_error('debet') ? 'is-invalid' : ''; ?>" value="<?= $transaksi_bank['debet']; ?>">
+                                <label for="">Kode Lelang:</label>
+                                <input type="text" name="kode_lelang" class="form-control <?= form_error('kode_lelang') ? 'is-invalid' : ''; ?>">
                                 <div class="invalid-feedback">
-                                    <?= form_error('debet'); ?>
+                                    <?= form_error('kode_lelang'); ?>
                                 </div>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="">Kredit:</label>
-                                <input type="text" name="kredit" class="form-control <?= form_error('kredit') ? 'is-invalid' : ''; ?>" value="<?= $transaksi_bank['kredit']; ?>">
-                                <div class="invalid-feedback">
-                                    <?= form_error('kredit'); ?>
-                                </div>
+                                <label for="">Jenis Transaksi:</label>
+                                <select class="form-control" name="kode">
+                                    <?php foreach ($view_jenis as $r) : ?>
+                                        <option value="<?= $r['kode']; ?>"><?= $r['nama']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                     </div>

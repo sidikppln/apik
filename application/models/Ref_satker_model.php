@@ -1,13 +1,12 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Data_transaksi_bank_model extends CI_Model
+class Ref_satker_model extends CI_Model
 {
-    protected $_table = 'data_transaksi_bank';
+    private $_table = 'ref_satker';
 
     public function get($limit = null, $offset = 0)
     {
-        $this->db->where('status', '0');
         $this->db->limit($limit, $offset);
         return $this->db->get($this->_table)->result_array();
     }
@@ -19,14 +18,12 @@ class Data_transaksi_bank_model extends CI_Model
 
     public function find($name = null)
     {
-        $this->db->where('status', '0');
-        $this->db->like('uraian', $name);
+        $this->db->like('nmsatker', $name);
         return $this->db->get($this->_table)->result_array();
     }
 
     public function count()
     {
-        $this->db->where('status', '0');
         return $this->db->get($this->_table)->num_rows();
     }
 
@@ -51,6 +48,17 @@ class Data_transaksi_bank_model extends CI_Model
     public function delete($id)
     {
         $this->db->delete($this->_table, ['id' => $id]);
+        return $this->db->affected_rows();
+    }
+
+    public function getNoUrutPenerimaan($kdsatker)
+    {
+        return $this->db->get_where($this->_table, ['kdsatker' => $kdsatker])->row_array()['no_urut_penerimaan'];
+    }
+
+    public function updateNoUrutPenerimaan($data, $kdsatker)
+    {
+        $this->db->update($this->_table, $data, ['kdsatker' => $kdsatker]);
         return $this->db->affected_rows();
     }
 }

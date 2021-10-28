@@ -1,22 +1,22 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class User extends CI_Controller
+class Ref_satker extends CI_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
         is_logged_in();
-        $this->load->model('System_role_model', 'sys_role_m');
         $this->load->model('Ref_satker_model', 'ref_satker_m');
     }
 
     public function index()
     {
         // setting halaman
-        $config['base_url'] = base_url('user/index');
-        $config['total_rows'] = $this->sys_user_m->count();
-        $config['per_page'] = 5;
+        $config['base_url'] = base_url('ref-satker/index');
+        $config['total_rows'] = $this->ref_satker_m->count();
+        $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
@@ -30,54 +30,47 @@ class User extends CI_Controller
 
         // pilih tampilan data, semua atau berdasarkan pencarian
         if ($name) {
-            $data['user'] = $this->sys_user_m->find($name);
+            $data['ref_satker'] = $this->ref_satker_m->find($name);
         } else {
-            $data['user'] = $this->sys_user_m->get($limit, $offset);
+            $data['ref_satker'] = $this->ref_satker_m->get($limit, $offset);
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('user/index', $data);
+        $this->load->view('ref_satker/index', $data);
         $this->load->view('template/footer');
     }
 
     private $rules = [
         [
-            'field' => 'nip',
-            'label' => 'NIP',
-            'rules' => 'required|trim|exact_length[18]'
+            'field' => 'kdsatker',
+            'label' => 'Kode Satker',
+            'rules' => 'required|trim|exact_length[6]'
         ],
         [
-            'field' => 'nama',
-            'label' => 'Nama',
+            'field' => 'nmsatker',
+            'label' => 'Nama Satker',
             'rules' => 'required|trim'
         ]
     ];
 
     public function create()
     {
-        $data['role'] = $this->sys_role_m->get(null, 0);
-        $data['ref_satker'] = $this->ref_satker_m->get(null, 0);
-
         $validation = $this->form_validation->set_rules($this->rules);
 
         if ($validation->run()) {
             $data = [
-                'nip' => htmlspecialchars($this->input->post('nip', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true)),
-                'password' => password_hash(htmlspecialchars($this->input->post('password', true)), PASSWORD_DEFAULT),
-                'role_id' => htmlspecialchars($this->input->post('role_id', true)),
                 'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true)),
-                'date_created' => time()
+                'nmsatker' => htmlspecialchars($this->input->post('nmsatker', true))
             ];
-            $this->sys_user_m->create($data);
+            $this->ref_satker_m->create($data);
             $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('user');
+            redirect('ref-satker');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('user/create', $data);
+        $this->load->view('ref_satker/create');
         $this->load->view('template/footer');
     }
 
@@ -85,28 +78,22 @@ class User extends CI_Controller
     {
         if (!isset($id)) show_404();
 
-        $data['role'] = $this->sys_role_m->get(null, 0);
-        $data['ref_satker'] = $this->ref_satker_m->get(null, 0);
-        $data['user'] = $this->sys_user_m->getDetail($id);
+        $data['ref_satker'] = $this->ref_satker_m->getDetail($id);
         $validation = $this->form_validation->set_rules($this->rules);
 
         if ($validation->run()) {
             $data = [
-                'nip' => htmlspecialchars($this->input->post('nip', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true)),
-                'password' => password_hash(htmlspecialchars($this->input->post('password', true)), PASSWORD_DEFAULT),
-                'role_id' => htmlspecialchars($this->input->post('role_id', true)),
                 'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true)),
-                'date_created' => time()
+                'nmsatker' => htmlspecialchars($this->input->post('nmsatker', true))
             ];
-            $this->sys_user_m->update($data, $id);
+            $this->ref_satker_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('user');
+            redirect('ref-satker');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('user/update', $data);
+        $this->load->view('ref_satker/update', $data);
         $this->load->view('template/footer');
     }
 
@@ -114,9 +101,9 @@ class User extends CI_Controller
     {
         if (!isset($id)) show_404();
 
-        if ($this->sys_user_m->delete($id)) {
+        if ($this->ref_satker_m->delete($id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('user');
+        redirect('ref-satker');
     }
 }

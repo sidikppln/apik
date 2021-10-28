@@ -53,6 +53,14 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div>
+                            <div class="form-group mb-2">
+                                <label for="">Kode Satker:</label>
+                                <select class="form-control" name="kdsatker">
+                                    <?php foreach ($ref_satker as $r) : ?>
+                                        <option value="<?= $r['kdsatker']; ?>"><?= $r['nmsatker']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="row mt-3">

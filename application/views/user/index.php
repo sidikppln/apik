@@ -53,6 +53,7 @@
               <th scope="col">NIP</th>
               <th scope="col">Nama</th>
               <th scope="col">Role</th>
+              <th scope="col">Kode Satker</th>
               <th scope="col">Tgl Rekam</th>
               <th scope="col">Aksi</th>
             </tr>
@@ -65,6 +66,7 @@
                 <td><?= $r['nip']; ?></td>
                 <td><?= $r['nama']; ?></td>
                 <td><?= $r['nama_role']; ?></td>
+                <td><?= $r['kdsatker']; ?></td>
                 <td><?= date('d-m-Y', $r['date_created']); ?></td>
                 <td>
                   <a href="<?= base_url('user/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>

@@ -9,6 +9,9 @@ class Transaksi_bank extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('Data_transaksi_bank_model', 'transaksi_bank_m');
+        $this->load->model('Data_penerimaan_model', 'penerimaan_m');
+        $this->load->model('View_jenis_model', 'view_jenis_m');
+        $this->load->model('Ref_satker_model', 'ref_satker_m');
     }
 
     public function index()
@@ -102,7 +105,7 @@ class Transaksi_bank extends CI_Controller
             ];
             $this->transaksi_bank_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('transaksi_bank');
+            redirect('transaksi-bank');
         }
 
         $this->load->view('template/header');
@@ -126,19 +129,15 @@ class Transaksi_bank extends CI_Controller
         $file_mimes = array('application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 
         if (isset($_FILES['file_csv']['name']) && in_array($_FILES['file_csv']['type'], $file_mimes)) {
-
             $arr_file = explode('.', $_FILES['file_csv']['name']);
             $extension = end($arr_file);
-
             if ('csv' == $extension) {
                 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
                 $reader->setDelimiter(",");
             } else {
                 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
             }
-
             $spreadsheet = $reader->load($_FILES['file_csv']['tmp_name']);
-
             $sheetData = $spreadsheet->getActiveSheet()->toArray();
             for ($i = 1; $i < count($sheetData); $i++) {
                 $tanggal = $sheetData[$i]['0'];
@@ -154,12 +153,68 @@ class Transaksi_bank extends CI_Controller
                 $this->db->insert('data_transaksi_bank', $data);
             }
             $this->session->set_flashdata('pesan', 'Data berhasil diimpor.');
-            redirect('transaksi_bank');
+            redirect('transaksi-bank');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('transaksi_bank/import');
+        $this->load->view('template/footer');
+    }
+
+    public function process($id)
+    {
+        if (!isset($id)) show_404();
+
+        $kdsatker = $this->session->userdata('kdsatker');
+        $no_urut = $this->ref_satker_m->getNoUrutPenerimaan($kdsatker);
+        $no_urut_next = strval($no_urut) + 1;
+        switch (strlen($no_urut_next)) {
+            case '1':
+                $no_urut_next = '0000' . $no_urut_next;
+                break;
+            case '2':
+                $no_urut_next = '000' . $no_urut_next;
+                break;
+            case '3':
+                $no_urut_next = '00' . $no_urut_next;
+                break;
+            case '4':
+                $no_urut_next = '0' . $no_urut_next;
+                break;
+            default:
+                $no_urut_next = $no_urut_next;
+                break;
+        }
+        $data['transaksi_bank'] = $this->transaksi_bank_m->getDetail($id);
+        $data['transaksi_bank']['debet'] == 0 ? $kode_kelompok = 1 : $kode_kelompok = 2;
+        $data['view_jenis'] = $this->view_jenis_m->get($kode_kelompok);
+        $validation = $this->form_validation->set_rules('virtual_account', 'Virtual Account', 'required|numeric|exact_length[16]');
+        if ($validation->run()) {
+            $kode = htmlspecialchars($this->input->post('kode', true));
+            $data = [
+                'tanggal' => strtotime('' . substr($data['transaksi_bank']['tanggal'], 0, 2) . '-' . substr($data['transaksi_bank']['tanggal'], 3, 2) . '-20' . substr($data['transaksi_bank']['tanggal'], 6, 2) . ''),
+                'kdsatker' => $kdsatker,
+                'tahun' => $this->session->userdata('tahun'),
+                'kode_kelompok' => substr($kode, 0, 1),
+                'kode_jenis' => substr($kode, 1, 1),
+                'kode_sub_jenis' => substr($kode, 2, 1),
+                'no_urut' => $no_urut,
+                'kredit' => (preg_replace("/[^0-9]/", "", $data['transaksi_bank']['kredit'])) / 100,
+                'virtual_account' => htmlspecialchars($this->input->post('virtual_account', true)),
+                'kode_lelang' => htmlspecialchars($this->input->post('kode_lelang', true)),
+                'transaksi_bank_id' => $id
+            ];
+            $this->ref_satker_m->updateNoUrutPenerimaan(['no_urut_penerimaan' => $no_urut_next], $kdsatker);
+            $this->transaksi_bank_m->update(['status' => 1], $id);
+            $this->penerimaan_m->create($data);
+            $this->session->set_flashdata('pesan', 'Data berhasil diproses.');
+            redirect('transaksi-bank');
+        }
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('transaksi_bank/process', $data);
         $this->load->view('template/footer');
     }
 }
