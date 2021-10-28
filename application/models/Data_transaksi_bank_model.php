@@ -18,7 +18,7 @@ class Data_transaksi_bank_model extends CI_Model
 
     public function find($name = null)
     {
-        $this->db->like('nama', $name);
+        $this->db->like('uraian', $name);
         return $this->db->get($this->_table)->result_array();
     }
 
