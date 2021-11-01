@@ -50,4 +50,49 @@ class Data_penerimaan_model extends CI_Model
         $this->db->delete($this->_table, ['id' => $id]);
         return $this->db->affected_rows();
     }
+
+    public function countPerNota($nota_penerimaan_id)
+    {
+        $this->db->where('nota_penerimaan_id', $nota_penerimaan_id);
+        return $this->db->get($this->_table)->num_rows();
+    }
+
+    public function findPerNota($name = null, $nota_penerimaan_id)
+    {
+        $this->db->where('nota_penerimaan_id', $nota_penerimaan_id);
+        $this->db->like('nama', $name);
+        return $this->db->get($this->_table)->result_array();
+    }
+
+    public function getPerNota($limit = null, $offset = 0, $nota_penerimaan_id)
+    {
+        $this->db->where('nota_penerimaan_id', $nota_penerimaan_id);
+        $this->db->limit($limit, $offset);
+        return $this->db->get($this->_table)->result_array();
+    }
+
+    public function getAll($limit = null, $offset = 0)
+    {
+        $this->db->where('nota_penerimaan_id', null);
+        $this->db->limit($limit, $offset);
+        return $this->db->get($this->_table)->result_array();
+    }
+
+    public function findAll($name = null)
+    {
+        $this->db->where('nota_penerimaan_id', null);
+        $this->db->like('nama', $name);
+        return $this->db->get($this->_table)->result_array();
+    }
+
+    public function countAll()
+    {
+        $this->db->where('nota_penerimaan_id', null);
+        return $this->db->get($this->_table)->num_rows();
+    }
+
+    public function sumKredit($nota_penerimaan_id)
+    {
+        return $this->db->query("SELECT nota_penerimaan_id, SUM(kredit) AS kredit FROM data_penerimaan WHERE nota_penerimaan_id='$nota_penerimaan_id' GROUP BY nota_penerimaan_id")->row_array();
+    }
 }

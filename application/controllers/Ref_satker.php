@@ -8,7 +8,6 @@ class Ref_satker extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
-        $this->load->model('Ref_satker_model', 'ref_satker_m');
     }
 
     public function index()

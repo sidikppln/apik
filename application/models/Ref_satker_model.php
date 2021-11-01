@@ -61,4 +61,15 @@ class Ref_satker_model extends CI_Model
         $this->db->update($this->_table, $data, ['kdsatker' => $kdsatker]);
         return $this->db->affected_rows();
     }
+
+    public function getNoNotaPenerimaan($kdsatker)
+    {
+        return $this->db->get_where($this->_table, ['kdsatker' => $kdsatker])->row_array()['no_nota_penerimaan'];
+    }
+
+    public function updateNoNotaPenerimaan($data, $kdsatker)
+    {
+        $this->db->update($this->_table, $data, ['kdsatker' => $kdsatker]);
+        return $this->db->affected_rows();
+    }
 }

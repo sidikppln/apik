@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('system_sub_sub_sub_menu_model' => 'sys_sub_sub_sub_menu_m', 'view_menu_model' => 'view_menu_m', 'system_user_model' => 'sys_user_m');
+$autoload['model'] = array('system_sub_sub_sub_menu_model' => 'sys_sub_sub_sub_menu_m', 'view_menu_model' => 'view_menu_m', 'system_user_model' => 'sys_user_m', 'ref_satker_model' => 'ref_satker_m');

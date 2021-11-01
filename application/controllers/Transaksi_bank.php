@@ -11,7 +11,6 @@ class Transaksi_bank extends CI_Controller
         $this->load->model('Data_transaksi_bank_model', 'transaksi_bank_m');
         $this->load->model('Data_penerimaan_model', 'penerimaan_m');
         $this->load->model('View_jenis_model', 'view_jenis_m');
-        $this->load->model('Ref_satker_model', 'ref_satker_m');
     }
 
     public function index()
@@ -167,25 +166,9 @@ class Transaksi_bank extends CI_Controller
         if (!isset($id)) show_404();
 
         $kdsatker = $this->session->userdata('kdsatker');
-        $no_urut = $this->ref_satker_m->getNoUrutPenerimaan($kdsatker);
-        $no_urut_next = strval($no_urut) + 1;
-        switch (strlen($no_urut_next)) {
-            case '1':
-                $no_urut_next = '0000' . $no_urut_next;
-                break;
-            case '2':
-                $no_urut_next = '000' . $no_urut_next;
-                break;
-            case '3':
-                $no_urut_next = '00' . $no_urut_next;
-                break;
-            case '4':
-                $no_urut_next = '0' . $no_urut_next;
-                break;
-            default:
-                $no_urut_next = $no_urut_next;
-                break;
-        }
+        $no_urut = NoUrutPenerimaan($kdsatker)['no_urut'];
+        $no_urut_next = NoUrutPenerimaan($kdsatker)['no_urut_next'];
+
         $data['transaksi_bank'] = $this->transaksi_bank_m->getDetail($id);
         $data['transaksi_bank']['debet'] == 0 ? $kode_kelompok = 1 : $kode_kelompok = 2;
         $data['view_jenis'] = $this->view_jenis_m->get($kode_kelompok);
