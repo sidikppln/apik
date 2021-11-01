@@ -5,8 +5,9 @@ class Ref_jenis_model extends CI_Model
 {
     protected $_table = 'ref_jenis';
 
-    public function get($limit = null, $offset = 0)
+    public function get($limit = null, $offset = 0, $ref_kelompok_id)
     {
+        $this->db->where('ref_kelompok_id', $ref_kelompok_id);
         $this->db->limit($limit, $offset);
         return $this->db->get($this->_table)->result_array();
     }
@@ -16,14 +17,16 @@ class Ref_jenis_model extends CI_Model
         return $this->db->get_where($this->_table, ['id' => $id])->row_array();
     }
 
-    public function find($name = null)
+    public function find($name = null, $ref_kelompok_id)
     {
-        $this->db->like('nama_jenis', $name);
+        $this->db->where('ref_kelompok_id', $ref_kelompok_id);
+        $this->db->like('nama', $name);
         return $this->db->get($this->_table)->result_array();
     }
 
-    public function count()
+    public function count($ref_kelompok_id)
     {
+        $this->db->where('ref_kelompok_id', $ref_kelompok_id);
         return $this->db->get($this->_table)->num_rows();
     }
 

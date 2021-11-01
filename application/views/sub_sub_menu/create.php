@@ -23,40 +23,40 @@
             </div>
             <div class="card-body">
 
-                <form action="" method="post" autocomplete="off">
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="form-group mb-2">
-                                <label for="">Nama:</label>
-                                <input type="text" name="name" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>">
-                                <div class="invalid-feedback">
-                                    <?= form_error('name'); ?>
-                                </div>
+                <?= form_open(); ?>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group mb-2">
+                            <label for="">Nama:</label>
+                            <input type="text" name="name" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>">
+                            <div class="invalid-feedback">
+                                <?= form_error('name'); ?>
                             </div>
-                            <div class="form-group mb-2">
-                                <label for="">URL:</label>
-                                <input type="text" name="url" class="form-control <?= form_error('url') ? 'is-invalid' : ''; ?>">
-                                <div class="invalid-feedback">
-                                    <?= form_error('url'); ?>
-                                </div>
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="">URL:</label>
+                            <input type="text" name="url" class="form-control <?= form_error('url') ? 'is-invalid' : ''; ?>">
+                            <div class="invalid-feedback">
+                                <?= form_error('url'); ?>
                             </div>
-                            <div class="form-group mb-2">
-                                <label for="">Icon:</label>
-                                <input type="text" name="icon" class="form-control <?= form_error('icon') ? 'is-invalid' : ''; ?>">
-                                <div class="invalid-feedback">
-                                    <?= form_error('icon'); ?>
-                                </div>
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="">Icon:</label>
+                            <input type="text" name="icon" class="form-control <?= form_error('icon') ? 'is-invalid' : ''; ?>">
+                            <div class="invalid-feedback">
+                                <?= form_error('icon'); ?>
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col">
-                            <div class="form-group">
-                                <a href="<?= base_url('sub-sub-menu/index/') . $menu_id . '/' . $sub_menu_id; ?>" class="btn btn-sm btn-outline-secondary">Batal</a>
-                                <button type="submit" class="btn btn-sm btn-outline-secondary ml-1">Simpan</button>
-                            </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="form-group">
+                            <a href="<?= base_url('sub-sub-menu/index/') . $menu_id . '/' . $sub_menu_id; ?>" class="btn btn-sm btn-outline-secondary">Batal</a>
+                            <button type="submit" class="btn btn-sm btn-outline-secondary ml-1">Simpan</button>
                         </div>
                     </div>
+                </div>
 
                 </form>
 

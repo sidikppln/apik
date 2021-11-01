@@ -7,9 +7,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Beranda</a></li>
                         <li class="breadcrumb-item"><a href="#">Transaksi Bank</a></li>
-                        <li class="breadcrumb-item active">Create</li>
+                        <li class="breadcrumb-item active">Tambah</li>
                     </ol>
                 </div>
             </div>
@@ -58,8 +57,8 @@
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-group">
-                                <a href="<?= base_url('transaksi-bank'); ?>" class="btn btn-sm btn-outline-secondary">Batal</a>
-                                <button type="submit" class="btn btn-sm btn-outline-secondary ml-1">Simpan</button>
+                                <a href="<?= base_url('transaksi-bank'); ?>" class="btn btn-sm btn-outline-success">Batal</a>
+                                <button type="submit" class="btn btn-sm btn-outline-success ml-1">Simpan</button>
                             </div>
                         </div>
                     </div>

@@ -7,12 +7,11 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Referensi jenis</li>
+            <li class="breadcrumb-item active"><a href="#">Referensi Jenis</a></li>
           </ol>
         </div>
       </div>
-    </div><!-- /.container-fluid -->
+    </div>
   </section>
 
   <section class="content">
@@ -34,7 +33,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('ref-jenis/create/'); ?>" class="btn btn-sm btn-outline-success">Tambah</a>
+            <a href="<?= base_url('ref-jenis/create/') . $ref_kelompok_id; ?>" class="btn btn-sm btn-outline-success">Tambah</a>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
@@ -51,8 +50,8 @@
           <thead>
             <tr class="text-center">
               <th scope="col">#</th>
-              <th scope="col">Nama Jenis</th>
-              <th scope="col">Id Kelompok</th>
+              <th scope="col">Kode</th>
+              <th scope="col">Nama</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
@@ -61,11 +60,12 @@
             foreach ($ref_jenis as $r) : ?>
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
-                <td><?= $r['nama_jenis']; ?></td>
-                <td><?= $r['id_kelompok']; ?></td>
+                <td><?= $r['kode']; ?></td>
+                <td><?= $r['nama']; ?></td>
                 <td>
-                  <a href="<?= base_url('ref-jenis/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
-                  <a href="<?= base_url('ref-jenis/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  <a href="<?= base_url('ref-sub-jenis/index/') . $r['id'] . '/' . $ref_kelompok_id; ?>" class="btn btn-sm btn-outline-info">Detail</a>
+                  <a href="<?= base_url('ref-jenis/update/') . $r['id'] . '/' . $ref_kelompok_id; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
+                  <a href="<?= base_url('ref-jenis/delete/') . $r['id'] . '/' . $ref_kelompok_id; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                 </td>
               </tr>
             <?php endforeach; ?>

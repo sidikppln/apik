@@ -1,13 +1,12 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Data_transaksi_bank_model extends CI_Model
+class Ref_kelompok_model extends CI_Model
 {
-    protected $_table = 'data_transaksi_bank';
+    protected $_table = 'ref_kelompok';
 
     public function get($limit = null, $offset = 0)
     {
-        $this->db->where('status', '0');
         $this->db->limit($limit, $offset);
         return $this->db->get($this->_table)->result_array();
     }
@@ -19,14 +18,12 @@ class Data_transaksi_bank_model extends CI_Model
 
     public function find($name = null)
     {
-        $this->db->where('status', '0');
-        $this->db->like('uraian', $name);
+        $this->db->like('nama', $name);
         return $this->db->get($this->_table)->result_array();
     }
 
     public function count()
     {
-        $this->db->where('status', '0');
         return $this->db->get($this->_table)->num_rows();
     }
 

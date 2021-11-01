@@ -6,12 +6,12 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>
-                        <Ri:art>Referensi Jenis</Ri:art>
+                        <Ri:art>Referensi Sub Jenis</Ri:art>
                     </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Referensi Jenis</a></li>
+                        <li class="breadcrumb-item"><a href="#">Referensi Sub Jenis</a></li>
                         <li class="breadcrumb-item active">Tambah</li>
                     </ol>
                 </div>
@@ -46,7 +46,7 @@
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-group">
-                                <a href="<?= base_url('ref-jenis/index/') . $ref_kelompok_id; ?>" class="btn btn-sm btn-outline-secondary">Batal</a>
+                                <a href="<?= base_url('ref-sub-jenis/index/') . $ref_jenis_id . '/' . $ref_kelompok_id; ?>" class="btn btn-sm btn-outline-secondary">Batal</a>
                                 <button type="submit" class="btn btn-sm btn-outline-secondary ml-1">Simpan</button>
                             </div>
                         </div>

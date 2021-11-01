@@ -3,12 +3,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Contoh</h1>
+                    <h1>Transaksi Bank</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Contoh</li>
+                        <li class="breadcrumb-item"><a href="#">Transaksi Bank</a></li>
+                        <li class="breadcrumb-item active">Ubah</li>
                     </ol>
                 </div>
             </div>
@@ -57,8 +57,8 @@
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-group">
-                                <a href="<?= base_url('transaksi-bank'); ?>" class="btn btn-sm btn-outline-secondary">Batal</a>
-                                <button type="submit" class="btn btn-sm btn-outline-secondary ml-1">Simpan</button>
+                                <a href="<?= base_url('transaksi-bank'); ?>" class="btn btn-sm btn-outline-success">Batal</a>
+                                <button type="submit" class="btn btn-sm btn-outline-success ml-1">Simpan</button>
                             </div>
                         </div>
                     </div>
