@@ -67,7 +67,7 @@
                 <td><?= number_format($r['kredit'], 0, ',', '.'); ?></td>
                 <td>
                   <div class="btn-group">
-                    <a href="<?= base_url('penerimaan/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Detail</a>
+                    <a href="<?= base_url('penerimaan/index/') . $r['id'] . '/' . $r['kode_kelompok'] . $r['kode_jenis'] . $r['kode_sub_jenis']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Detail</a>
                     <a href="<?= base_url('nota-penerimaan/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Ubah</a>
                     <a href="<?= base_url('nota-penerimaan/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                   </div>

@@ -12,18 +12,19 @@ class Penerimaan extends CI_Controller
         $this->load->model('Data_nota_penerimaan_model', 'nota_penerimaan_m');
     }
 
-    public function index($nota_penerimaan_id)
+    public function index($nota_penerimaan_id, $kode)
     {
         $data['nota_penerimaan_id'] = $nota_penerimaan_id;
+        $data['kode'] = $kode;
 
         // setting halaman
-        $config['base_url'] = base_url('penerimaan/index/' . $nota_penerimaan_id . '');
+        $config['base_url'] = base_url('penerimaan/index/' . $nota_penerimaan_id . '/' . $kode . '');
         $config['total_rows'] = $this->penerimaan_m->countPerNota($nota_penerimaan_id);
         $config['per_page'] = 5;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['page'] = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
         $limit = $config["per_page"];
         $offset = $data['page'];
 
@@ -44,18 +45,19 @@ class Penerimaan extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function create($nota_penerimaan_id)
+    public function create($nota_penerimaan_id, $kode)
     {
         $data['nota_penerimaan_id'] = $nota_penerimaan_id;
+        $data['kode'] = $kode;
 
         // setting halaman
-        $config['base_url'] = base_url('penerimaan/create/' . $nota_penerimaan_id . '');
-        $config['total_rows'] = $this->penerimaan_m->countAll();
+        $config['base_url'] = base_url('penerimaan/create/' . $nota_penerimaan_id . '/' . $kode . '/a');
+        $config['total_rows'] = $this->penerimaan_m->countAll($kode);
         $config['per_page'] = 5;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['page'] = $this->uri->segment(6) ? $this->uri->segment(6) : 0;
         $limit = $config["per_page"];
         $offset = $data['page'];
 
@@ -65,9 +67,9 @@ class Penerimaan extends CI_Controller
 
         // pilih tampilan data, semua atau berdasarkan pencarian
         if ($name) {
-            $data['penerimaan'] = $this->penerimaan_m->findAll($name);
+            $data['penerimaan'] = $this->penerimaan_m->findAll($name, $kode);
         } else {
-            $data['penerimaan'] = $this->penerimaan_m->getAll($limit, $offset);
+            $data['penerimaan'] = $this->penerimaan_m->getAll($limit, $offset, $kode);
         }
 
         $this->load->view('template/header');
@@ -76,7 +78,7 @@ class Penerimaan extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function pilih($id, $nota_penerimaan_id)
+    public function pilih($id, $nota_penerimaan_id, $kode)
     {
         if (!isset($nota_penerimaan_id)) show_404();
 
@@ -87,10 +89,10 @@ class Penerimaan extends CI_Controller
         $kredit = $this->penerimaan_m->sumKredit($nota_penerimaan_id)['kredit'];
         $this->nota_penerimaan_m->update(['kredit' => $kredit], $nota_penerimaan_id);
         $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-        redirect('penerimaan/index/' . $nota_penerimaan_id . '');
+        redirect('penerimaan/index/' . $nota_penerimaan_id . '/' . $kode . '');
     }
 
-    public function delete($id, $nota_penerimaan_id)
+    public function delete($id, $nota_penerimaan_id, $kode)
     {
         if (!isset($id)) show_404();
 
@@ -99,6 +101,6 @@ class Penerimaan extends CI_Controller
             $this->nota_penerimaan_m->update(['kredit' => $kredit], $nota_penerimaan_id);
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('penerimaan/index/' . $nota_penerimaan_id . '');
+        redirect('penerimaan/index/' . $nota_penerimaan_id . '/' . $kode . '');
     }
 }
