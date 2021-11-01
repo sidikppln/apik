@@ -32,7 +32,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('penerimaan/create/') . $nota_penerimaan_id; ?>" class="btn btn-sm btn-outline-success">Tambah</a>
+            <a href="<?= base_url('penerimaan/create/') . $nota_penerimaan_id . '/' . $kode . '/a'; ?>" class="btn btn-sm btn-outline-success">Tambah</a>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
@@ -68,7 +68,7 @@
                 <td><?= $r['virtual_account']; ?></td>
                 <td><?= $r['kode_lelang']; ?></td>
                 <td>
-                  <a href="<?= base_url('penerimaan/delete/') . $r['id'] . '/' . $nota_penerimaan_id; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  <a href="<?= base_url('penerimaan/delete/') . $r['id'] . '/' . $nota_penerimaan_id . '/' . $kode; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                 </td>
               </tr>
             <?php endforeach; ?>

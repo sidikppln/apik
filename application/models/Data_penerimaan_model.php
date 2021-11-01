@@ -71,22 +71,31 @@ class Data_penerimaan_model extends CI_Model
         return $this->db->get($this->_table)->result_array();
     }
 
-    public function getAll($limit = null, $offset = 0)
+    public function getAll($limit = null, $offset = 0, $kode)
     {
+        $this->db->where('kode_kelompok', substr($kode, 0, 1));
+        $this->db->where('kode_jenis', substr($kode, 1, 1));
+        $this->db->where('kode_sub_jenis', substr($kode, 2, 1));
         $this->db->where('nota_penerimaan_id', null);
         $this->db->limit($limit, $offset);
         return $this->db->get($this->_table)->result_array();
     }
 
-    public function findAll($name = null)
+    public function findAll($name = null, $kode)
     {
+        $this->db->where('kode_kelompok', substr($kode, 0, 1));
+        $this->db->where('kode_jenis', substr($kode, 1, 1));
+        $this->db->where('kode_sub_jenis', substr($kode, 2, 1));
         $this->db->where('nota_penerimaan_id', null);
         $this->db->like('nama', $name);
         return $this->db->get($this->_table)->result_array();
     }
 
-    public function countAll()
+    public function countAll($kode)
     {
+        $this->db->where('kode_kelompok', substr($kode, 0, 1));
+        $this->db->where('kode_jenis', substr($kode, 1, 1));
+        $this->db->where('kode_sub_jenis', substr($kode, 2, 1));
         $this->db->where('nota_penerimaan_id', null);
         return $this->db->get($this->_table)->num_rows();
     }
