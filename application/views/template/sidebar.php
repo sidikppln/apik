@@ -1,4 +1,7 @@
-<?php $role_id = $this->session->userdata('role_id'); ?>
+<?php
+$role_id = $this->session->userdata('role_id');
+$uri = $this->uri->segment(1);
+?>
 
 <div class="wrapper">
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -45,10 +48,16 @@
             <?php
             $sub_menu = $this->view_menu_m->getSubMenu($m['id_menu'], $role_id);
             foreach ($sub_menu as $sm) :
+              $menu_uri = '';
               $sub_sub_menu = $this->view_menu_m->getSubSubMenu($sm['id_sub_menu'], $role_id);
+              foreach ($sub_sub_menu as $cc) {
+                if ($cc['url_sub_sub_menu'] == $uri) {
+                  $menu_uri = $cc['url_sub_sub_menu'];
+                }
+              }
             ?>
-              <li class="nav-item">
-                <a href="<?= base_url() . $sm['url_sub_menu']; ?>" class="nav-link">
+              <li class="nav-item <?= $menu_uri == $uri ? 'menu-open' : ''; ?>">
+                <a href="<?= base_url() . $sm['url_sub_menu']; ?>" class="nav-link <?= $menu_uri == $uri ? 'active' : ''; ?>">
                   <i class="<?= $sm['icon_sub_menu']; ?>"></i>
                   <p><?= $sm['nama_sub_menu']; ?> <?= $sub_sub_menu ? '<i class="right fas fa-angle-left"></i>' : ''; ?></p>
                 </a>
@@ -60,7 +69,7 @@
                       $sub_sub_sub_menu = $this->sys_sub_sub_sub_menu_m->getSubSubSubMenu($ssm['id_sub_sub_menu']);
                     ?>
                       <li class="nav-item">
-                        <a href="<?= base_url() . $ssm['url_sub_sub_menu']; ?>" class="nav-link">
+                        <a href="<?= base_url() . $ssm['url_sub_sub_menu']; ?>" class="nav-link <?= $ssm['url_sub_sub_menu'] == $uri ? 'active' : ''; ?>">
                           <i class="<?= $ssm['icon_sub_sub_menu']; ?>"></i>
                           <p><?= $ssm['nama_sub_sub_menu']; ?> <?= $sub_sub_sub_menu ? '<i class="right fas fa-angle-left"></i>' : ''; ?></p>
                           </p>

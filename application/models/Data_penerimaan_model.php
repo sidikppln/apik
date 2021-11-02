@@ -51,27 +51,27 @@ class Data_penerimaan_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function countPerNota($nota_penerimaan_id)
+    public function countPerNota($nota_penerimaan_id = null)
     {
         $this->db->where('nota_penerimaan_id', $nota_penerimaan_id);
         return $this->db->get($this->_table)->num_rows();
     }
 
-    public function findPerNota($name = null, $nota_penerimaan_id)
+    public function findPerNota($name = null, $nota_penerimaan_id = null)
     {
         $this->db->where('nota_penerimaan_id', $nota_penerimaan_id);
         $this->db->like('nama', $name);
         return $this->db->get($this->_table)->result_array();
     }
 
-    public function getPerNota($limit = null, $offset = 0, $nota_penerimaan_id)
+    public function getPerNota($limit = null, $offset = 0, $nota_penerimaan_id = null)
     {
         $this->db->where('nota_penerimaan_id', $nota_penerimaan_id);
         $this->db->limit($limit, $offset);
         return $this->db->get($this->_table)->result_array();
     }
 
-    public function getAll($limit = null, $offset = 0, $kode)
+    public function getAll($limit = null, $offset = 0, $kode = null)
     {
         $this->db->where('kode_kelompok', substr($kode, 0, 1));
         $this->db->where('kode_jenis', substr($kode, 1, 1));
@@ -81,7 +81,7 @@ class Data_penerimaan_model extends CI_Model
         return $this->db->get($this->_table)->result_array();
     }
 
-    public function findAll($name = null, $kode)
+    public function findAll($name = null, $kode = null)
     {
         $this->db->where('kode_kelompok', substr($kode, 0, 1));
         $this->db->where('kode_jenis', substr($kode, 1, 1));
@@ -91,7 +91,7 @@ class Data_penerimaan_model extends CI_Model
         return $this->db->get($this->_table)->result_array();
     }
 
-    public function countAll($kode)
+    public function countAll($kode = null)
     {
         $this->db->where('kode_kelompok', substr($kode, 0, 1));
         $this->db->where('kode_jenis', substr($kode, 1, 1));
@@ -100,7 +100,7 @@ class Data_penerimaan_model extends CI_Model
         return $this->db->get($this->_table)->num_rows();
     }
 
-    public function sumKredit($nota_penerimaan_id)
+    public function sumKredit($nota_penerimaan_id = null)
     {
         return $this->db->query("SELECT nota_penerimaan_id, SUM(kredit) AS kredit FROM data_penerimaan WHERE nota_penerimaan_id='$nota_penerimaan_id' GROUP BY nota_penerimaan_id")->row_array();
     }
