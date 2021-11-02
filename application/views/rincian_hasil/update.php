@@ -39,24 +39,10 @@
                                 </div>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="">PNBP:</label>
-                                <input type="text" name="pnbp" class="form-control <?= form_error('pnbp') ? 'is-invalid' : ''; ?>" value="<?= $lelang['pnbp']; ?>">
+                                <label for="">Uang Jaminan Lelang:</label>
+                                <input type="text" name="jaminan" class="form-control <?= form_error('jaminan') ? 'is-invalid' : ''; ?>" value="<?= $lelang['jaminan']; ?>">
                                 <div class="invalid-feedback">
-                                    <?= form_error('pnbp'); ?>
-                                </div>
-                            </div>
-                            <div class="form-group mb-2">
-                                <label for="">PPh:</label>
-                                <input type="text" name="pph" class="form-control <?= form_error('pph') ? 'is-invalid' : ''; ?>" value="<?= $lelang['pph']; ?>">
-                                <div class="invalid-feedback">
-                                    <?= form_error('pph'); ?>
-                                </div>
-                            </div>
-                            <div class="form-group mb-2">
-                                <label for="">Hasil Bersih:</label>
-                                <input type="text" name="bersih" class="form-control <?= form_error('bersih') ? 'is-invalid' : ''; ?>" value="<?= $lelang['bersih']; ?>">
-                                <div class="invalid-feedback">
-                                    <?= form_error('bersih'); ?>
+                                    <?= form_error('jaminan'); ?>
                                 </div>
                             </div>
                         </div>

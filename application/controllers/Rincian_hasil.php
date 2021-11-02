@@ -62,9 +62,7 @@ class Rincian_hasil extends CI_Controller
             $data = [
                 'kode' => htmlspecialchars($this->input->post('kode', true)),
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
-                'pnbp' => htmlspecialchars($this->input->post('pnbp', true)),
-                'pph' => htmlspecialchars($this->input->post('pph', true)),
-                'bersih' => htmlspecialchars($this->input->post('bersih', true))
+                'jaminan' => htmlspecialchars($this->input->post('jaminan', true))
             ];
             $this->lelang_m->create($data);
             $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
@@ -88,9 +86,7 @@ class Rincian_hasil extends CI_Controller
             $data = [
                 'kode' => htmlspecialchars($this->input->post('kode', true)),
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
-                'pnbp' => htmlspecialchars($this->input->post('pnbp', true)),
-                'pph' => htmlspecialchars($this->input->post('pph', true)),
-                'bersih' => htmlspecialchars($this->input->post('bersih', true))
+                'jaminan' => htmlspecialchars($this->input->post('jaminan', true))
             ];
             $this->lelang_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
