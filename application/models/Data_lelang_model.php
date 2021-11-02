@@ -1,23 +1,25 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Data_nota_penerimaan_model extends CI_Model
+class Data_lelang_model extends CI_Model
 {
-    private $_table = 'data_nota_penerimaan';
+    private $_table = 'data_lelang';
 
     public function get($limit = null, $offset = 0)
     {
-        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_nota_penerimaan a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis LIMIT $limit OFFSET $offset")->result_array();
+        $this->db->limit($limit, $offset);
+        return $this->db->get($this->_table)->result_array();
     }
 
-    public function getDetail($id = null)
+    public function getDetail($id)
     {
         return $this->db->get_where($this->_table, ['id' => $id])->row_array();
     }
 
     public function find($name = null)
     {
-        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_nota_penerimaan a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis WHERE a.nomor LIKE '%$name%'")->result_array();
+        $this->db->like('nama', $name);
+        return $this->db->get($this->_table)->result_array();
     }
 
     public function count()
