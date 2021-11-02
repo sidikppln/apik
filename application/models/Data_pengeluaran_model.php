@@ -91,8 +91,8 @@ class Data_pengeluaran_model extends CI_Model
         return $this->db->get($this->_table)->num_rows();
     }
 
-    public function sumKredit($nota_pengeluaran_id = null)
+    public function sumDebet($nota_pengeluaran_id = null)
     {
-        return $this->db->query("SELECT nota_pengeluaran_id, SUM(kredit) AS kredit FROM data_pengeluaran WHERE nota_pengeluaran_id='$nota_pengeluaran_id' GROUP BY nota_pengeluaran_id")->row_array();
+        return $this->db->query("SELECT nota_pengeluaran_id, SUM(debet) AS debet FROM data_pengeluaran WHERE nota_pengeluaran_id='$nota_pengeluaran_id' GROUP BY nota_pengeluaran_id")->row_array();
     }
 }

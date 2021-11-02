@@ -95,4 +95,27 @@ class Data_penerimaan_model extends CI_Model
     {
         return $this->db->query("SELECT nota_penerimaan_id, SUM(kredit) AS kredit FROM data_penerimaan WHERE nota_penerimaan_id='$nota_penerimaan_id' GROUP BY nota_penerimaan_id")->row_array();
     }
+
+    public function getForPengeluaran($limit = null, $offset = 0)
+    {
+        $this->db->where('nota_penerimaan_id > ', 0);
+        $this->db->where('status', 0);
+        $this->db->limit($limit, $offset);
+        return $this->db->get($this->_table)->result_array();
+    }
+
+    public function findForPengeluaran($name = null)
+    {
+        $this->db->where('nota_penerimaan_id > ', 0);
+        $this->db->where('status', 0);
+        $this->db->like('nama', $name);
+        return $this->db->get($this->_table)->result_array();
+    }
+
+    public function countForPengeluaran()
+    {
+        $this->db->where('nota_penerimaan_id > ', 0);
+        $this->db->where('status', 0);
+        return $this->db->get($this->_table)->num_rows();
+    }
 }

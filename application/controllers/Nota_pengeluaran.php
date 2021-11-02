@@ -85,7 +85,7 @@ class Nota_pengeluaran extends CI_Controller
     {
         if (!isset($id)) show_404();
 
-        $data['view_jenis'] = $this->view_jenis_m->get(1);
+        $data['view_jenis'] = $this->view_jenis_m->get(2);
         $data['np'] = $this->nota_pengeluaran_m->getDetail($id);
         $validation = $this->form_validation->set_rules($this->rules);
 
