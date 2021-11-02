@@ -51,9 +51,12 @@
               <th scope="col">#</th>
               <th scope="col">Kode</th>
               <th scope="col">Nama</th>
+              <th scope="col">UJL</th>
+              <th scope="col">Pelunasan</th>
+              <th scope="col">Hasil Lelang</th>
               <th scope="col">PNBP</th>
               <th scope="col">PPh</th>
-              <th scope="col">Bersih</th>
+              <th scope="col">Hasil Bersih</th>
               <th scope="col">Jumlah</th>
               <th scope="col">Aksi</th>
             </tr>
@@ -65,12 +68,16 @@
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $r['kode']; ?></td>
                 <td><?= $r['nama']; ?></td>
+                <td class="text-right"><?= number_format($r['jaminan'], 0, ',', '.'); ?></td>
+                <td class="text-right"><?= number_format($r['pelunasan'], 0, ',', '.'); ?></td>
+                <td class="text-right"><?= number_format($r['jaminan'] + $r['pelunasan'], 0, ',', '.'); ?></td>
                 <td class="text-right"><?= number_format($r['pnbp'], 0, ',', '.'); ?></td>
                 <td class="text-right"><?= number_format($r['pph'], 0, ',', '.'); ?></td>
                 <td class="text-right"><?= number_format($r['bersih'], 0, ',', '.'); ?></td>
                 <td class="text-right"><?= number_format($r['pnbp'] + $r['pph'] + $r['bersih'], 0, ',', '.'); ?></td>
                 <td>
                   <div class="btn-group">
+                    <a href="<?= base_url('penerimaan/show/') . $r['id'] . '/121'; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Detail</a>
                     <a href="<?= base_url('rincian-hasil/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Ubah</a>
                     <a href="<?= base_url('rincian-hasil/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                   </div>

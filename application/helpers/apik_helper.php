@@ -160,3 +160,59 @@ function NoNotaPenerimaan($kdsatker)
     'no_nota_next' => $no_nota_next
   ];
 }
+
+function NoUrutPengeluaran($kdsatker)
+{
+  $ci = get_instance();
+  $no_urut = $ci->ref_satker_m->getNoUrutPengeluaran($kdsatker);
+  $no_urut_next = intval($no_urut) + 1;
+  switch (strlen($no_urut_next)) {
+    case '1':
+      $no_urut_next = '0000' . $no_urut_next;
+      break;
+    case '2':
+      $no_urut_next = '000' . $no_urut_next;
+      break;
+    case '3':
+      $no_urut_next = '00' . $no_urut_next;
+      break;
+    case '4':
+      $no_urut_next = '0' . $no_urut_next;
+      break;
+    default:
+      $no_urut_next = $no_urut_next;
+      break;
+  }
+  return [
+    'no_urut' => $no_urut,
+    'no_urut_next' => $no_urut_next
+  ];
+}
+
+function NoNotaPengeluaran($kdsatker)
+{
+  $ci = get_instance();
+  $no_nota = $ci->ref_satker_m->getNoNotaPengeluaran($kdsatker);
+  $no_nota_next = intval($no_nota) + 1;
+  switch (strlen($no_nota_next)) {
+    case '1':
+      $no_nota_next = '0000' . $no_nota_next;
+      break;
+    case '2':
+      $no_nota_next = '000' . $no_nota_next;
+      break;
+    case '3':
+      $no_nota_next = '00' . $no_nota_next;
+      break;
+    case '4':
+      $no_nota_next = '0' . $no_nota_next;
+      break;
+    default:
+      $no_nota_next = $no_nota_next;
+      break;
+  }
+  return [
+    'no_nota' => $no_nota,
+    'no_nota_next' => $no_nota_next
+  ];
+}

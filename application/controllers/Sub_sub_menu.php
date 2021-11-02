@@ -17,13 +17,13 @@ class Sub_sub_menu extends CI_Controller
         $data['sub_menu_id'] = $sub_menu_id;
 
         // setting halaman
-        $config['base_url'] = base_url('sub-sub-menu/index/' . $menu_id . '/' . $sub_menu_id . '');
+        $config['base_url'] = base_url('sub-sub-menu/index/' . $menu_id . '/' . $sub_menu_id . '/a');
         $config['total_rows'] = $this->sys_sub_sub_menu_m->count($sub_menu_id);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
+        $data['page'] = $this->uri->segment(6) ? $this->uri->segment(6) : 0;
         $limit = $config["per_page"];
         $offset = $data['page'];
 

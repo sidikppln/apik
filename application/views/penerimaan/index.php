@@ -32,7 +32,6 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('penerimaan/create/') . $nota_penerimaan_id . '/' . $kode . '/a'; ?>" class="btn btn-sm btn-outline-success">Tambah</a>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
@@ -51,9 +50,10 @@
               <th scope="col">#</th>
               <th scope="col">Tanggal</th>
               <th scope="col">Kode</th>
-              <th scope="col">Nominal</th>
+              <th scope="col">Jenis</th>
               <th scope="col">Virtual Account</th>
               <th scope="col">Kode Lelang</th>
+              <th scope="col">Nominal</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
@@ -64,11 +64,12 @@
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= date('d-m-Y', $r['tanggal']); ?></td>
                 <td><?= $r['kdsatker'] . '.' . $r['tahun'] . '.' . $r['kode_kelompok'] . '.' . $r['kode_jenis'] . '.' . $r['kode_sub_jenis'] . '.' . $r['no_urut']; ?></td>
-                <td class="text-right"><?= number_format($r['kredit'], 2, ',', '.'); ?></td>
+                <td><?= $r['jenis']; ?></td>
                 <td><?= $r['virtual_account']; ?></td>
                 <td><?= $r['kode_lelang']; ?></td>
+                <td class="text-right"><?= number_format($r['kredit'], 2, ',', '.'); ?></td>
                 <td>
-                  <a href="<?= base_url('penerimaan/delete/') . $r['id'] . '/' . $nota_penerimaan_id . '/' . $kode; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  <a href="<?= base_url('penerimaan/true-delete/') . $r['id'] . '/' . $r['transaksi_bank_id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                 </td>
               </tr>
             <?php endforeach; ?>

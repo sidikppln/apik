@@ -72,4 +72,26 @@ class Ref_satker_model extends CI_Model
         $this->db->update($this->_table, $data, ['kdsatker' => $kdsatker]);
         return $this->db->affected_rows();
     }
+
+    public function getNoUrutPengeluaran($kdsatker)
+    {
+        return $this->db->get_where($this->_table, ['kdsatker' => $kdsatker])->row_array()['no_urut_pengeluaran'];
+    }
+
+    public function updateNoUrutPengeluaran($data, $kdsatker)
+    {
+        $this->db->update($this->_table, $data, ['kdsatker' => $kdsatker]);
+        return $this->db->affected_rows();
+    }
+
+    public function getNoNotaPengeluaran($kdsatker)
+    {
+        return $this->db->get_where($this->_table, ['kdsatker' => $kdsatker])->row_array()['no_nota_pengeluaran'];
+    }
+
+    public function updateNoNotaPengeluaran($data, $kdsatker)
+    {
+        $this->db->update($this->_table, $data, ['kdsatker' => $kdsatker]);
+        return $this->db->affected_rows();
+    }
 }
