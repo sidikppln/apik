@@ -51,6 +51,10 @@
               <th scope="col">#</th>
               <th scope="col">Kode</th>
               <th scope="col">Nama</th>
+              <th scope="col">Urut Penerimaan</th>
+              <th scope="col">Nota Penerimaan</th>
+              <th scope="col">Urut Pengeluaran</th>
+              <th scope="col">Nota Pengeluaran</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
@@ -61,6 +65,10 @@
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $r['kdsatker']; ?></td>
                 <td><?= $r['nmsatker']; ?></td>
+                <td><?= $r['no_urut_penerimaan']; ?></td>
+                <td><?= $r['no_nota_penerimaan']; ?></td>
+                <td><?= $r['no_urut_pengeluaran']; ?></td>
+                <td><?= $r['no_nota_pengeluaran']; ?></td>
                 <td>
                   <div class="btn-group">
                     <a href="<?= base_url('ref-satker/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Ubah</a>

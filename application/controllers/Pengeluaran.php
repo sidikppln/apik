@@ -47,12 +47,13 @@ class Pengeluaran extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function create($nota_pengeluaran_id)
+    public function create($nota_pengeluaran_id = null, $kode = null)
     {
         $data['nota_pengeluaran_id'] = $nota_pengeluaran_id;
+        $data['kode'] = $kode;
 
         // setting halaman
-        $config['base_url'] = base_url('pengeluaran/create/' . $nota_pengeluaran_id . '/a');
+        $config['base_url'] = base_url('pengeluaran/create/' . $nota_pengeluaran_id . '/' . $kode . '');
         $config['total_rows'] = $this->penerimaan_m->countForPengeluaran();
         $config['per_page'] = 5;
         $config["num_links"] = 3;
@@ -79,11 +80,14 @@ class Pengeluaran extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function pilih($id, $nota_pengeluaran_id, $kode)
+    public function pilih($id, $nota_pengeluaran_id, $kode, $kode_balik)
     {
         if (!isset($nota_pengeluaran_id)) show_404();
 
         $kode_kontra = $this->view_jenis_m->getKontra($kode);
+        // jika ujl dicatat sebagai hasil bersih lelang
+        $kode_balik == '232' ? $kode_kontra = '237' : $kode_kontra = $kode_kontra;
+
         $penerimaan = $this->penerimaan_m->getDetail($id);
         $kdsatker = $this->session->userdata('kdsatker');
         $no_urut = NoUrutPengeluaran($kdsatker)['no_urut'];
@@ -109,7 +113,7 @@ class Pengeluaran extends CI_Controller
         $debet = $this->pengeluaran_m->sumDebet($nota_pengeluaran_id)['debet'];
         $this->nota_pengeluaran_m->update(['debet' => $debet], $nota_pengeluaran_id);
         $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-        redirect('pengeluaran/show/' . $nota_pengeluaran_id . '/' . $kode . '');
+        redirect('pengeluaran/show/' . $nota_pengeluaran_id . '/' . $kode_balik . '');
     }
 
     public function delete($id, $nota_pengeluaran_id, $kode, $penerimaan_id)

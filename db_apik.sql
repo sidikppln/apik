@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Waktu pembuatan: 01 Nov 2021 pada 04.05
+-- Waktu pembuatan: 03 Nov 2021 pada 04.13
 -- Versi server: 5.7.26
 -- Versi PHP: 7.3.8
 
@@ -44,6 +44,30 @@ INSERT INTO `data_contoh` (`id`, `nomor`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `data_lelang`
+--
+
+CREATE TABLE `data_lelang` (
+  `id` int(11) NOT NULL,
+  `kode` varchar(6) DEFAULT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `jaminan` decimal(15,0) DEFAULT NULL,
+  `pelunasan` decimal(15,0) DEFAULT NULL,
+  `pnbp` decimal(15,0) DEFAULT NULL,
+  `pph` decimal(15,0) DEFAULT NULL,
+  `bersih` decimal(15,0) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data untuk tabel `data_lelang`
+--
+
+INSERT INTO `data_lelang` (`id`, `kode`, `nama`, `jaminan`, `pelunasan`, `pnbp`, `pph`, `bersih`) VALUES
+(4, 'OKUSYW', 'Lelang Penjualan Kapal Bekas', '400000000', '800000000', '24000000', '30000000', '1146000000');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `data_nota_penerimaan`
 --
 
@@ -62,8 +86,8 @@ CREATE TABLE `data_nota_penerimaan` (
 --
 
 INSERT INTO `data_nota_penerimaan` (`id`, `nomor`, `tanggal`, `kredit`, `kode_kelompok`, `kode_jenis`, `kode_sub_jenis`) VALUES
-(4, '00001', 1635738783, NULL, '1', '1', '1'),
-(5, '00002', 1635738786, NULL, '1', '2', '1');
+(8, '00005', 1635841676, '1200000000.00', '1', '1', '1'),
+(9, '00006', 1635841751, '800000000.00', '1', '2', '1');
 
 -- --------------------------------------------------------
 
@@ -73,9 +97,51 @@ INSERT INTO `data_nota_penerimaan` (`id`, `nomor`, `tanggal`, `kredit`, `kode_ke
 
 CREATE TABLE `data_nota_pengeluaran` (
   `id` int(11) NOT NULL,
-  `nomor_nota` varchar(64) DEFAULT NULL,
-  `tanggal_nota` varchar(11) DEFAULT NULL
+  `nomor` varchar(64) DEFAULT NULL,
+  `tanggal` int(11) DEFAULT NULL,
+  `debet` decimal(15,2) DEFAULT NULL,
+  `kode_kelompok` varchar(1) DEFAULT NULL,
+  `kode_jenis` varchar(1) DEFAULT NULL,
+  `kode_sub_jenis` varchar(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data untuk tabel `data_nota_pengeluaran`
+--
+
+INSERT INTO `data_nota_pengeluaran` (`id`, `nomor`, `tanggal`, `debet`, `kode_kelompok`, `kode_jenis`, `kode_sub_jenis`) VALUES
+(11, '00001', 1635845032, '800000000.00', '2', '3', '1'),
+(13, '00003', 1635867423, '1200000000.00', '2', '3', '2');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `data_pelunasan`
+--
+
+CREATE TABLE `data_pelunasan` (
+  `id` int(11) NOT NULL,
+  `tanggal` int(11) DEFAULT NULL,
+  `kdsatker` varchar(6) DEFAULT NULL,
+  `tahun` varchar(4) DEFAULT NULL,
+  `kode_kelompok` varchar(1) DEFAULT NULL,
+  `kode_jenis` varchar(1) DEFAULT NULL,
+  `kode_sub_jenis` varchar(1) DEFAULT NULL,
+  `no_urut` varchar(5) DEFAULT NULL,
+  `kredit` decimal(15,2) DEFAULT NULL,
+  `virtual_account` varchar(16) DEFAULT NULL,
+  `kode_lelang` varchar(6) DEFAULT NULL,
+  `transaksi_bank_id` int(11) DEFAULT NULL,
+  `nota_penerimaan_id` int(11) DEFAULT NULL,
+  `status` int(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data untuk tabel `data_pelunasan`
+--
+
+INSERT INTO `data_pelunasan` (`id`, `tanggal`, `kdsatker`, `tahun`, `kode_kelompok`, `kode_jenis`, `kode_sub_jenis`, `no_urut`, `kredit`, `virtual_account`, `kode_lelang`, `transaksi_bank_id`, `nota_penerimaan_id`, `status`) VALUES
+(53, 1635911238, '537831', '2021', '1', '2', '1', '00032', '800000000.00', '9880052121102501', 'OKUSYW', 124, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -96,22 +162,21 @@ CREATE TABLE `data_penerimaan` (
   `virtual_account` varchar(16) DEFAULT NULL,
   `kode_lelang` varchar(6) DEFAULT NULL,
   `transaksi_bank_id` int(11) DEFAULT NULL,
-  `nota_penerimaan_id` int(11) DEFAULT NULL
+  `nota_penerimaan_id` int(11) DEFAULT NULL,
+  `status` int(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `data_penerimaan`
 --
 
-INSERT INTO `data_penerimaan` (`id`, `tanggal`, `kdsatker`, `tahun`, `kode_kelompok`, `kode_jenis`, `kode_sub_jenis`, `no_urut`, `kredit`, `virtual_account`, `kode_lelang`, `transaksi_bank_id`, `nota_penerimaan_id`) VALUES
-(11, 1635120000, '537831', '2021', '1', '1', '1', '00002', '400000000.00', '9880052121102502', 'OKUSYW', 125, NULL),
-(12, 1635206400, '537831', '2021', '1', '1', '1', '00003', '400000000.00', '9880052121101902', 'OKUSYW', 138, NULL),
-(13, 1635206400, '537831', '2021', '1', '1', '1', '00004', '400000000.00', '9880052121102202', 'OKUSYW', 141, NULL),
-(14, 1635206400, '537831', '2021', '1', '1', '1', '00005', '192000000.00', '9880052121102505', '2FD0VS', 136, NULL),
-(15, 1635206400, '537831', '2021', '1', '1', '1', '00006', '200000000.00', '9880052121102203', 'I3OHQI', 137, NULL),
-(16, 1635120000, '537831', '2021', '1', '1', '1', '00007', '130000000.00', '9880052121102501', '5SWOB3', 124, NULL),
-(17, 1635120000, '537831', '2021', '1', '1', '1', '00008', '250000.00', '6013010854786945', 'OM3600', 133, NULL),
-(20, 1635120000, '537831', '2021', '1', '1', '1', '00009', '150000.00', '5307952026839705', 'S1ACMB', 122, NULL);
+INSERT INTO `data_penerimaan` (`id`, `tanggal`, `kdsatker`, `tahun`, `kode_kelompok`, `kode_jenis`, `kode_sub_jenis`, `no_urut`, `kredit`, `virtual_account`, `kode_lelang`, `transaksi_bank_id`, `nota_penerimaan_id`, `status`) VALUES
+(43, 1635206400, '537831', '2021', '1', '1', '1', '00022', '400000000.00', '9880052121102202', 'OKUSYW', 141, 8, 1),
+(44, 1635120000, '537831', '2021', '1', '1', '1', '00023', '400000000.00', '9880052121102502', 'OKUSYW', 125, 8, 1),
+(45, 1635206400, '537831', '2021', '1', '1', '1', '00024', '400000000.00', '9880052121101902', 'OKUSYW', 138, 8, 1),
+(50, 1635842059, '537831', '2021', '1', '2', '4', '00029', '746000000.00', '', 'OKUSYW', 0, 9, 1),
+(51, 1635842059, '537831', '2021', '1', '2', '5', '00030', '24000000.00', '', 'OKUSYW', 0, 9, 1),
+(52, 1635842059, '537831', '2021', '1', '2', '6', '00031', '30000000.00', '', 'OKUSYW', 0, 9, 1);
 
 -- --------------------------------------------------------
 
@@ -121,8 +186,31 @@ INSERT INTO `data_penerimaan` (`id`, `tanggal`, `kdsatker`, `tahun`, `kode_kelom
 
 CREATE TABLE `data_pengeluaran` (
   `id` int(11) NOT NULL,
+  `tanggal` int(11) DEFAULT NULL,
+  `kdsatker` varchar(6) DEFAULT NULL,
+  `tahun` varchar(4) DEFAULT NULL,
+  `kode_kelompok` varchar(1) DEFAULT NULL,
+  `kode_jenis` varchar(1) DEFAULT NULL,
+  `kode_sub_jenis` varchar(1) DEFAULT NULL,
+  `no_urut` varchar(5) DEFAULT NULL,
+  `debet` decimal(15,2) DEFAULT NULL,
+  `virtual_account` varchar(16) DEFAULT NULL,
+  `kode_lelang` varchar(6) DEFAULT NULL,
+  `penerimaan_id` int(11) DEFAULT NULL,
   `nota_pengeluaran_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data untuk tabel `data_pengeluaran`
+--
+
+INSERT INTO `data_pengeluaran` (`id`, `tanggal`, `kdsatker`, `tahun`, `kode_kelompok`, `kode_jenis`, `kode_sub_jenis`, `no_urut`, `debet`, `virtual_account`, `kode_lelang`, `penerimaan_id`, `nota_pengeluaran_id`) VALUES
+(55, 1635867402, '537831', '2021', '2', '3', '1', '00003', '400000000.00', '', 'OKUSYW', 43, 11),
+(56, 1635867405, '537831', '2021', '2', '3', '1', '00004', '400000000.00', '', 'OKUSYW', 45, 11),
+(58, 1635867709, '537831', '2021', '2', '3', '2', '00006', '746000000.00', '', 'OKUSYW', 50, 13),
+(59, 1635867715, '537831', '2021', '2', '2', '2', '00007', '24000000.00', '', 'OKUSYW', 51, 13),
+(60, 1635867718, '537831', '2021', '2', '1', '1', '00008', '30000000.00', '', 'OKUSYW', 52, 13),
+(66, 1635903733, '537831', '2021', '2', '3', '7', '00014', '400000000.00', '', 'OKUSYW', 44, 13);
 
 -- --------------------------------------------------------
 
@@ -145,9 +233,9 @@ CREATE TABLE `data_transaksi_bank` (
 
 INSERT INTO `data_transaksi_bank` (`id`, `tanggal`, `uraian`, `debet`, `kredit`, `status`) VALUES
 (121, '25/10/21 08.59.34', 'TRF/PAY/TOP-UP ECHANNEL | PEMINDAHAN DARI 486201000046505 | 6013012085777990 | 00861109        2594', '0', '150,000.00', 0),
-(122, '25/10/21 10.03.31', 'TRF/PAY/TOP-UP ECHANNEL | PEMINDAHAN DARI 54603 | 5307952026839705 | S1ACMB9503      7863', '0', '150,000.00', 1),
+(122, '25/10/21 10.03.31', 'TRF/PAY/TOP-UP ECHANNEL | PEMINDAHAN DARI 54603 | 5307952026839705 | S1ACMB9503      7863', '0', '150,000.00', 0),
 (123, '25/10/21 10.20.10', 'SETOR TUNAI | Sdr VINCENTIUS HERU CHANDRA | PEMBATALAN LELANG DEBITUR PANIN DUBAI AN ZULFARIDA', '0', '250,000.00', 0),
-(124, '25/10/21 10.39.44', 'KREDIT LAIN-LAIN | 9880052121102501 BAMBANG SUTRISNO 5SWOB3 | 002 BAMBANG SUTRISN JMNN LLNG SHM10737 9DES2016 90', '0', '130,000,000.00', 1),
+(124, '25/10/21 10.39.44', 'KREDIT LAIN-LAIN | 9880052121102501 BAMBANG SUTRISNO OKUSYW | 002 BAMBANG SUTRISN JMNN LLNG SHM10737 9DES2016 90', '0', '800,000,000.00', 1),
 (125, '25/10/21 11.38.46', 'KREDIT LAIN-LAIN | 9880052121102502 Kevin lionodjaya OKUSYW | 028 KEVIN LIONODJAY', '0', '400,000,000.00', 1),
 (126, '25/10/21 11.39.57', 'TRF/PAY/TOP-UP ECHANNEL | PEMINDAHAN DARI 76408 | 6019004526587371 | S1G997Z427      6980 | 9880052121021305 KPKNL Tangerang', '0', '21,829,999.00', 0),
 (127, '25/10/21 13.19.49', 'TRANSFER KE | BILL PAYMENT (MPN G2 IDR  ) NO :820211025229541', '15,800,000.00', '0', 0),
@@ -156,11 +244,11 @@ INSERT INTO `data_transaksi_bank` (`id`, `tanggal`, `uraian`, `debet`, `kredit`,
 (130, '25/10/21 15.34.25', 'SETOR TUNAI | RPL 127 KPKNL TANGERANG UTK LE | PT. BINANGUN AGRO LESTARI', '0', '150,000.00', 0),
 (131, '25/10/21 15.51.57', 'TRANSFER DARI | PEMINDAHAN DARI 144845762 Bpk IWAN  KUSTIAWAN | 9880052121101301 Iwan Kustiawan EFNHUP', '0', '84,123,124.00', 0),
 (132, '25/10/21 16.07.25', 'TRF/PAY/TOP-UP ECHANNEL | 5221842154674797 | 00000000300008901987', '0', '150,000.00', 0),
-(133, '25/10/21 17.00.48', 'TRF/PAY/TOP-UP ECHANNEL | 6013010854786945 | OM360002000088884040', '0', '250,000.00', 1),
+(133, '25/10/21 17.00.48', 'TRF/PAY/TOP-UP ECHANNEL | 6013010854786945 | OM360002000088884040', '0', '250,000.00', 0),
 (134, '26/10/21 09.23.05', 'TRANSFER KE | MPN G2 IDR  820211025230557', '780,000.00', '0', 0),
 (135, '26/10/21 09.25.54', 'TRANSFER KE | Hasil lelang rampasan Tabung LPG | SIMSEM PAYROLL BNI DIRECT-LLG', '25,999,999.00', '0', 0),
-(136, '26/10/21 10.38.48', 'SETOR TUNAI | 9880052121102505 Aidil Adhisaputra 2FD0VS', '0', '192,000,000.00', 1),
-(137, '26/10/21 11.05.08', 'TRANSFER DARI | 9880052121102203 NATASYA CHAO I3OHQI | Sdri NATASYA  CHAO   ', '0', '200,000,000.00', 1),
+(136, '26/10/21 10.38.48', 'SETOR TUNAI | 9880052121102505 Aidil Adhisaputra 2FD0VS', '0', '192,000,000.00', 0),
+(137, '26/10/21 11.05.08', 'TRANSFER DARI | 9880052121102203 NATASYA CHAO I3OHQI | Sdri NATASYA  CHAO   ', '0', '200,000,000.00', 0),
 (138, '26/10/21 11.52.29', 'TRANSFER DARI | 9880052121101902 tris chandra putra OKUSYW | Sdr ONGKY GANTENG VEDAYOKO   ', '0', '400,000,000.00', 1),
 (139, '26/10/21 12.06.13', 'SETOR TUNAI | ABDUL MUIS SH  BIAYA PENDAFTARAN LELANG AN OSMOND VALENTINO', '0', '150,000.00', 0),
 (140, '26/10/21 12.07.10', 'SETOR TUNAI | ABDUL MUIS SH  BIAYA PENDAFTARAN LELANG AN ANDREAS WILLIAWAN', '0', '150,000.00', 0),
@@ -215,18 +303,6 @@ INSERT INTO `ref_kelompok` (`id`, `kode`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ref_rekening`
---
-
-CREATE TABLE `ref_rekening` (
-  `id` int(11) NOT NULL,
-  `nomor` varchar(16) DEFAULT NULL,
-  `nama_bank` varchar(128) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `ref_satker`
 --
 
@@ -250,7 +326,7 @@ INSERT INTO `ref_satker` (`id`, `kdsatker`, `nmsatker`, `no_urut_penerimaan`, `n
 (3, '537827', 'KPKNL Banda Aceh', NULL, NULL, NULL, NULL),
 (4, '506069', 'KPKNL Lhokseumawe', NULL, NULL, NULL, NULL),
 (5, '411806', 'Kanwil DJKN Sumatera Utara', NULL, NULL, NULL, NULL),
-(6, '537831', 'KPKNL Medan', '00002', '00001', '00003', NULL),
+(6, '537831', 'KPKNL Medan', '00020', '00015', '00007', '00004'),
 (7, '119703', 'KPKNL Pematang Siantar', NULL, NULL, NULL, NULL),
 (8, '506081', 'KPKNL Kisaran', NULL, NULL, NULL, NULL),
 (9, '506090', 'KPKNL Padang Sidimpuan', NULL, NULL, NULL, NULL),
@@ -346,37 +422,42 @@ CREATE TABLE `ref_sub_jenis` (
   `id` int(11) NOT NULL,
   `kode` varchar(1) DEFAULT NULL,
   `nama` varchar(64) DEFAULT NULL,
-  `ref_jenis_id` int(11) DEFAULT NULL
+  `ref_jenis_id` int(11) DEFAULT NULL,
+  `kode_kontra` varchar(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `ref_sub_jenis`
 --
 
-INSERT INTO `ref_sub_jenis` (`id`, `kode`, `nama`, `ref_jenis_id`) VALUES
-(1, '1', 'Uang Jaminan Lelang', 1),
-(2, '1', 'Pelunasan Lelang', 2),
-(3, '2', 'Kekurangan Pelunasan Lelang', 2),
-(4, '3', 'Kelebihan Pelunasan Lelang', 2),
-(5, '1', 'Angsuran', 3),
-(6, '2', 'Kelebihan Setoran', 3),
-(7, '1', 'Dana Dalam Konfirmasi', 4),
-(8, '2', 'PNBP', 4),
-(9, '3', 'PPh', 4),
-(10, '1', 'PPh Final', 5),
-(11, '1', 'Bea Permohonan Lelang', 6),
-(12, '2', 'Bea Lelang', 6),
-(13, '3', 'Bea Lelang Batal', 6),
-(14, '4', 'Bea Penggantian Kutipan Risalah Lelang', 6),
-(15, '5', 'Bea Lelang Wanprestasi', 6),
-(16, '6', 'Biaya Administrasi Pengurusan Piutang Negara', 6),
-(17, '7', 'Jasa Lainnya', 6),
-(18, '1', 'Pengembalian Uang Jaminan Lelang', 7),
-(19, '2', 'Hasil Bersih Lelang', 7),
-(20, '3', 'Kelebihan Pelunasan Lelang', 7),
-(21, '4', 'Pemindahbukuan Wanprestasi Lelang', 7),
-(22, '5', 'Hak Penyerah Piutang Negara', 7),
-(23, '6', 'Kelebihan Setoran Piutang Negara', 7);
+INSERT INTO `ref_sub_jenis` (`id`, `kode`, `nama`, `ref_jenis_id`, `kode_kontra`) VALUES
+(1, '1', 'Uang Jaminan Lelang', 1, '231'),
+(2, '1', 'Pelunasan Lelang', 2, NULL),
+(3, '2', 'Kekurangan Pelunasan Lelang', 2, NULL),
+(4, '3', 'Kelebihan Pelunasan Lelang', 2, NULL),
+(5, '1', 'Angsuran', 3, NULL),
+(6, '2', 'Kelebihan Setoran', 3, NULL),
+(7, '1', 'Dana Dalam Konfirmasi', 4, NULL),
+(8, '2', 'PNBP', 4, NULL),
+(9, '3', 'PPh', 4, NULL),
+(10, '1', 'PPh Final', 5, NULL),
+(11, '1', 'Bea Permohonan Lelang', 6, NULL),
+(12, '2', 'Bea Lelang', 6, NULL),
+(13, '3', 'Bea Lelang Batal', 6, NULL),
+(14, '4', 'Bea Penggantian Kutipan Risalah Lelang', 6, NULL),
+(15, '5', 'Bea Lelang Wanprestasi', 6, NULL),
+(16, '6', 'Biaya Administrasi Pengurusan Piutang Negara', 6, NULL),
+(17, '7', 'Jasa Lainnya', 6, NULL),
+(18, '1', 'Pengembalian Uang Jaminan Lelang', 7, NULL),
+(19, '2', 'Hasil Bersih Lelang', 7, NULL),
+(20, '3', 'Kelebihan Pelunasan Lelang', 7, NULL),
+(21, '4', 'Pemindahbukuan Wanprestasi Lelang', 7, NULL),
+(22, '5', 'Hak Penyerah Piutang Negara', 7, NULL),
+(23, '6', 'Kelebihan Setoran Piutang Negara', 7, NULL),
+(24, '4', 'Kekurangan Hasil Bersih', 2, '232'),
+(25, '5', 'Bea Lelang', 2, '222'),
+(26, '6', 'PPh', 2, '211'),
+(27, '7', 'Pencatatan UJL', 7, NULL);
 
 -- --------------------------------------------------------
 
@@ -395,41 +476,13 @@ CREATE TABLE `system_access` (
 --
 
 INSERT INTO `system_access` (`id`, `role_id`, `sub_sub_menu_id`) VALUES
-(12, 5, 7),
 (14, 6, 7),
 (15, 5, 1),
 (16, 5, 2),
 (17, 5, 3),
-(18, 5, 10),
-(20, 5, 11),
 (21, 6, 9),
-(22, 5, 9),
 (23, 5, 12),
-(24, 5, 13),
-(25, 5, 7),
-(26, 5, 12),
-(27, 5, 13),
 (28, 5, 14),
-(29, 5, 15),
-(30, 5, 16),
-(31, 5, 17),
-(32, 5, 18),
-(33, 5, 19),
-(34, 5, 20),
-(35, 5, 21),
-(36, 5, 22),
-(37, 5, 23),
-(38, 5, 24),
-(39, 5, 25),
-(40, 5, 26),
-(41, 5, 27),
-(42, 5, 28),
-(43, 5, 29),
-(44, 5, 30),
-(45, 5, 31),
-(47, 5, 33),
-(48, 5, 34),
-(49, 5, 35),
 (50, 9, 17),
 (51, 9, 18),
 (53, 9, 36),
@@ -447,9 +500,6 @@ INSERT INTO `system_access` (`id`, `role_id`, `sub_sub_menu_id`) VALUES
 (65, 9, 35),
 (66, 6, 13),
 (67, 6, 22),
-(68, 5, 38),
-(69, 5, 39),
-(70, 5, 40),
 (71, 10, 7),
 (72, 10, 9),
 (73, 10, 12),
@@ -459,10 +509,16 @@ INSERT INTO `system_access` (`id`, `role_id`, `sub_sub_menu_id`) VALUES
 (77, 10, 19),
 (78, 10, 20),
 (79, 10, 21),
-(80, 5, 42),
 (81, 9, 42),
-(82, 5, 44),
-(83, 10, 44);
+(83, 10, 44),
+(84, 5, 45),
+(85, 5, 7),
+(89, 5, 50),
+(91, 5, 49),
+(92, 5, 48),
+(93, 5, 51),
+(94, 5, 52),
+(95, 5, 53);
 
 -- --------------------------------------------------------
 
@@ -529,10 +585,11 @@ INSERT INTO `system_sub_menu` (`id`, `menu_id`, `name`, `url`, `icon`) VALUES
 (1, 1, 'Beranda', 'beranda', 'nav-icon fas fa-tachometer-alt'),
 (2, 5, 'Setting', '#', 'nav-icon fas fa-wrench'),
 (21, 3, 'Monitoring', 'monitoring', 'nav-icon fas fa-chart-line'),
-(26, 2, 'Lelang', 'lelang', 'nav-icon fas fa-tasks'),
-(27, 2, 'Piutang', 'piutang', 'nav-icon fas fa-columns'),
-(36, 1, 'Timeline', 'timeline', 'nav-icon fas fa-chart-line'),
-(37, 4, 'Laporan', 'laporan', 'nav-icon fas fa-chart-pie');
+(26, 2, 'Penerimaan', '#', 'nav-icon fas fa-home'),
+(27, 2, 'Pengeluaran', '#', 'nav-icon fas fa-columns'),
+(37, 4, 'Laporan', 'laporan', 'nav-icon fas fa-chart-pie'),
+(38, 2, 'Referensi', '#', 'nav-icon fas fa-tasks'),
+(39, 2, 'Laporan', '#', 'nav-icon fas fa-chart-line');
 
 -- --------------------------------------------------------
 
@@ -559,13 +616,12 @@ INSERT INTO `system_sub_sub_menu` (`id`, `menu_id`, `sub_menu_id`, `name`, `url`
 (3, 5, 2, 'User', 'user', 'nav-icon fas fa-angle-right'),
 (7, 2, 26, 'Data Bank', 'transaksi-bank', 'nav-icon fas fa-angle-right'),
 (9, 2, 27, 'Data Bank', 'transaksi-bank-pn', 'nav-icon fas fa-angle-right'),
-(10, 1, 36, 'Referensi Satker', 'ref-satker', 'nav-icon fas fa-angle-right'),
 (11, 4, 37, 'Jenis', 'ref_kelompok', 'nav-icon fas fa-angle-right'),
 (12, 2, 26, 'Penerimaan', 'nota-penerimaan', 'nav-icon fas fa-angle-right'),
 (13, 2, 26, 'Pengesahan', 'pengesahan', 'nav-icon fas fa-angle-right'),
 (14, 2, 26, 'Rincian Hasil Lelang', 'rincian-hasil', 'nav-icon fas fa-angle-right'),
 (15, 2, 26, 'Reklasifikasi', 'reklasifikasi', 'nav-icon fas fa-angle-right'),
-(16, 2, 26, 'Pengeluaran', 'pengeluaran', 'nav-icon fas fa-angle-right'),
+(16, 2, 26, 'Pengeluaran', 'nota-pengeluaran', 'nav-icon fas fa-angle-right'),
 (17, 2, 26, 'Konfirmasi Pembukuan', 'pembukuan', 'nav-icon fas fa-angle-right'),
 (18, 2, 26, 'Konfirmasi Pengeluaran', 'konfirmasi-pengeluaran', 'nav-icon fas fa-angle-right'),
 (19, 2, 27, 'Penerimaan', 'penerimaan-pn', 'nav-icon fas fa-angle-right'),
@@ -591,7 +647,16 @@ INSERT INTO `system_sub_sub_menu` (`id`, `menu_id`, `sub_menu_id`, `name`, `url`
 (40, 3, 21, 'Belum Pindah Buku', 'belum-pindah-buku', 'nav-icon fas fa-angle-right'),
 (41, 3, 21, 'PNBP Lewat 1 Hari', 'pnbp-lewat', 'nav-icon fas fa-angle-right'),
 (42, 2, 26, 'Kuitansi Pelunasan', 'kuitansi', 'nav-icon fas fa-angle-right'),
-(44, 2, 26, 'UJL Wanprestasi', 'wanprestasi', 'nav-icon fas fa-angle-right');
+(44, 2, 26, 'UJL Wanprestasi', 'wanprestasi', 'nav-icon fas fa-angle-right'),
+(45, 2, 26, 'Validasi Penerimaan', 'penerimaan', 'nav-icon fa fa-angle-right'),
+(46, 2, 26, 'Validasi Pengeluaran', 'pengeluaran', 'nav-icon fa fa-angle-right'),
+(47, 2, 26, 'Kodifikasi', 'ref-kelompok', 'nav-icon fa fa-angle-right'),
+(48, 2, 27, 'Pengeluaran', 'nota-pengeluaran', 'nav-icon fa fa-angle-right'),
+(49, 2, 27, 'Validasi Pengeluaran', 'pengeluaran', 'nav-icon fa fa-angle-right'),
+(50, 2, 38, 'Kodifikasi', 'ref-kelompok', 'nav-icon fa fa-angle-right'),
+(51, 2, 39, 'Kas Umum', 'kas-umum', 'nav-icon fa fa-angle-right'),
+(52, 2, 26, 'Validasi Pelunasan', 'pelunasan', 'nav-icon fa fa-angle-right'),
+(53, 2, 38, 'Satker', 'ref-satker', 'nav-icon fa fa-angle-right');
 
 -- --------------------------------------------------------
 
@@ -631,9 +696,6 @@ CREATE TABLE `system_user` (
 
 INSERT INTO `system_user` (`id`, `nip`, `nama`, `password`, `role_id`, `kdsatker`, `date_created`) VALUES
 (1, '198407022003121004', 'Dana Kristiawan', '$2y$10$9PNofw93gxaK/fOynGDB7.qrKEv3kTXllTUJVKbDzUpw8Yy9TAbBW', 5, '537831', 1635437332),
-(7, '333333333333333333', 'Cepot', '$2y$10$Eqb8FU8OO2Fn9yib6F9wCei.bmb63/NH7s/X4GnfkZVps1aGHPZNu', 6, NULL, 1635241153),
-(8, '123456789012345678', 'benma', '$2y$10$Qf3vW6uDl4XpbIsD8oNTj.VrQ3x5boufEJTNmEm2KiPaftcxnsd56', 9, NULL, 1635431296),
-(9, '999999999999999999', 'Verifikator', '$2y$10$sHxXA/b4dFQzRGCWh6ipROtdX0ykyK09Ey2bsD14eH5tUtlg5gcBC', 10, NULL, 1635432152),
 (10, '111111111111111111', 'Tes', '$2y$10$7mlDPlp29pUPD4.9h8/y/O4VCxGp.0c.X9QzxbyzOHqpKBiiMNGwu', 9, '537827', 1635437286);
 
 -- --------------------------------------------------------
@@ -647,6 +709,26 @@ CREATE TABLE `view_jenis` (
 ,`kode_jenis` varchar(1)
 ,`kode_sub_jenis` varchar(1)
 ,`nama_sub_jenis` varchar(64)
+,`kode_kontra` varchar(3)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `view_kas_umum`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `view_kas_umum` (
+`tanggal` int(11)
+,`kdsatker` varchar(6)
+,`tahun` varchar(4)
+,`kode_kelompok` varchar(1)
+,`kode_jenis` varchar(1)
+,`kode_sub_jenis` varchar(1)
+,`no_urut` varchar(5)
+,`nama` varchar(64)
+,`debet` decimal(15,2)
+,`kredit` decimal(18,2)
 );
 
 -- --------------------------------------------------------
@@ -676,7 +758,16 @@ CREATE TABLE `view_menu` (
 --
 DROP TABLE IF EXISTS `view_jenis`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_jenis`  AS  select `a`.`kode` AS `kode_kelompok`,`b`.`kode` AS `kode_jenis`,`c`.`kode` AS `kode_sub_jenis`,`c`.`nama` AS `nama_sub_jenis` from ((`ref_kelompok` `a` left join `ref_jenis` `b` on((`a`.`id` = `b`.`ref_kelompok_id`))) left join `ref_sub_jenis` `c` on((`b`.`id` = `c`.`ref_jenis_id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_jenis`  AS  select `a`.`kode` AS `kode_kelompok`,`b`.`kode` AS `kode_jenis`,`c`.`kode` AS `kode_sub_jenis`,`c`.`nama` AS `nama_sub_jenis`,`c`.`kode_kontra` AS `kode_kontra` from ((`ref_kelompok` `a` left join `ref_jenis` `b` on((`a`.`id` = `b`.`ref_kelompok_id`))) left join `ref_sub_jenis` `c` on((`b`.`id` = `c`.`ref_jenis_id`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `view_kas_umum`
+--
+DROP TABLE IF EXISTS `view_kas_umum`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_kas_umum`  AS  select `data_penerimaan`.`tanggal` AS `tanggal`,`data_penerimaan`.`kdsatker` AS `kdsatker`,`data_penerimaan`.`tahun` AS `tahun`,`data_penerimaan`.`kode_kelompok` AS `kode_kelompok`,`data_penerimaan`.`kode_jenis` AS `kode_jenis`,`data_penerimaan`.`kode_sub_jenis` AS `kode_sub_jenis`,`data_penerimaan`.`no_urut` AS `no_urut`,`view_jenis`.`nama_sub_jenis` AS `nama`,0 AS `debet`,`data_penerimaan`.`kredit` AS `kredit` from (`data_penerimaan` left join `view_jenis` on(((`data_penerimaan`.`kode_kelompok` = convert(`view_jenis`.`kode_kelompok` using utf8mb4)) and (`data_penerimaan`.`kode_jenis` = convert(`view_jenis`.`kode_jenis` using utf8mb4)) and (`data_penerimaan`.`kode_sub_jenis` = convert(`view_jenis`.`kode_sub_jenis` using utf8mb4))))) union all select `data_pengeluaran`.`tanggal` AS `tanggal`,`data_pengeluaran`.`kdsatker` AS `kdsatker`,`data_pengeluaran`.`tahun` AS `tahun`,`data_pengeluaran`.`kode_kelompok` AS `kode_kelompok`,`data_pengeluaran`.`kode_jenis` AS `kode_jenis`,`data_pengeluaran`.`kode_sub_jenis` AS `kode_sub_jenis`,`data_pengeluaran`.`no_urut` AS `no_urut`,`view_jenis`.`nama_sub_jenis` AS `nama`,`data_pengeluaran`.`debet` AS `debet`,0 AS `kredit` from (`data_pengeluaran` left join `view_jenis` on(((`data_pengeluaran`.`kode_kelompok` = convert(`view_jenis`.`kode_kelompok` using utf8mb4)) and (`data_pengeluaran`.`kode_jenis` = convert(`view_jenis`.`kode_jenis` using utf8mb4)) and (`data_pengeluaran`.`kode_sub_jenis` = convert(`view_jenis`.`kode_sub_jenis` using utf8mb4))))) ;
 
 -- --------------------------------------------------------
 
@@ -698,6 +789,12 @@ ALTER TABLE `data_contoh`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
+-- Indeks untuk tabel `data_lelang`
+--
+ALTER TABLE `data_lelang`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `data_nota_penerimaan`
 --
 ALTER TABLE `data_nota_penerimaan`
@@ -707,6 +804,12 @@ ALTER TABLE `data_nota_penerimaan`
 -- Indeks untuk tabel `data_nota_pengeluaran`
 --
 ALTER TABLE `data_nota_pengeluaran`
+  ADD PRIMARY KEY (`id`) USING BTREE;
+
+--
+-- Indeks untuk tabel `data_pelunasan`
+--
+ALTER TABLE `data_pelunasan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
@@ -738,12 +841,6 @@ ALTER TABLE `ref_jenis`
 --
 ALTER TABLE `ref_kelompok`
   ADD PRIMARY KEY (`id`);
-
---
--- Indeks untuk tabel `ref_rekening`
---
-ALTER TABLE `ref_rekening`
-  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Indeks untuk tabel `ref_satker`
@@ -810,22 +907,40 @@ ALTER TABLE `data_contoh`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT untuk tabel `data_lelang`
+--
+ALTER TABLE `data_lelang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT untuk tabel `data_nota_penerimaan`
 --
 ALTER TABLE `data_nota_penerimaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_nota_pengeluaran`
 --
 ALTER TABLE `data_nota_pengeluaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT untuk tabel `data_pelunasan`
+--
+ALTER TABLE `data_pelunasan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_penerimaan`
 --
 ALTER TABLE `data_penerimaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+
+--
+-- AUTO_INCREMENT untuk tabel `data_pengeluaran`
+--
+ALTER TABLE `data_pengeluaran`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_transaksi_bank`
@@ -846,12 +961,6 @@ ALTER TABLE `ref_kelompok`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `ref_rekening`
---
-ALTER TABLE `ref_rekening`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT untuk tabel `ref_satker`
 --
 ALTER TABLE `ref_satker`
@@ -861,13 +970,13 @@ ALTER TABLE `ref_satker`
 -- AUTO_INCREMENT untuk tabel `ref_sub_jenis`
 --
 ALTER TABLE `ref_sub_jenis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `system_access`
 --
 ALTER TABLE `system_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT untuk tabel `system_menu`
@@ -885,19 +994,19 @@ ALTER TABLE `system_role`
 -- AUTO_INCREMENT untuk tabel `system_sub_menu`
 --
 ALTER TABLE `system_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT untuk tabel `system_sub_sub_menu`
 --
 ALTER TABLE `system_sub_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT untuk tabel `system_sub_sub_sub_menu`
 --
 ALTER TABLE `system_sub_sub_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `system_user`

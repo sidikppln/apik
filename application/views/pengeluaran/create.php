@@ -68,7 +68,7 @@
                 <td><?= $r['virtual_account']; ?></td>
                 <td><?= $r['kode_lelang']; ?></td>
                 <td>
-                  <a href="<?= base_url('pengeluaran/pilih/') . $r['id'] . '/' . $nota_pengeluaran_id . '/' . $r['kode_kelompok'] . $r['kode_jenis'] . $r['kode_sub_jenis']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Pilih</a>
+                  <a href="<?= base_url('pengeluaran/pilih/') . $r['id'] . '/' . $nota_pengeluaran_id . '/' . $r['kode_kelompok'] . $r['kode_jenis'] . $r['kode_sub_jenis'] . '/' . $kode; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Pilih</a>
                 </td>
               </tr>
             <?php endforeach; ?>

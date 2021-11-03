@@ -10,6 +10,7 @@ class Transaksi_bank extends CI_Controller
         is_logged_in();
         $this->load->model('Data_transaksi_bank_model', 'transaksi_bank_m');
         $this->load->model('Data_penerimaan_model', 'penerimaan_m');
+        $this->load->model('Data_pelunasan_model', 'pelunasan_m');
         $this->load->model('View_jenis_model', 'view_jenis_m');
     }
 
@@ -176,7 +177,8 @@ class Transaksi_bank extends CI_Controller
         if ($validation->run()) {
             $kode = htmlspecialchars($this->input->post('kode', true));
             $data = [
-                'tanggal' => strtotime('' . substr($data['transaksi_bank']['tanggal'], 0, 2) . '-' . substr($data['transaksi_bank']['tanggal'], 3, 2) . '-20' . substr($data['transaksi_bank']['tanggal'], 6, 2) . ''),
+                // 'tanggal' => strtotime('' . substr($data['transaksi_bank']['tanggal'], 0, 2) . '-' . substr($data['transaksi_bank']['tanggal'], 3, 2) . '-20' . substr($data['transaksi_bank']['tanggal'], 6, 2) . ''),
+                'tanggal' => time(),
                 'kdsatker' => $kdsatker,
                 'tahun' => $this->session->userdata('tahun'),
                 'kode_kelompok' => substr($kode, 0, 1),
@@ -190,7 +192,11 @@ class Transaksi_bank extends CI_Controller
             ];
             $this->ref_satker_m->updateNoUrutPenerimaan(['no_urut_penerimaan' => $no_urut_next], $kdsatker);
             $this->transaksi_bank_m->update(['status' => 1], $id);
-            $this->penerimaan_m->create($data);
+            if ($kode === '121') {
+                $this->pelunasan_m->create($data);
+            } else {
+                $this->penerimaan_m->create($data);
+            }
             $this->session->set_flashdata('pesan', 'Data berhasil diproses.');
             redirect('transaksi-bank');
         }

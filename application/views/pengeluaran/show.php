@@ -32,7 +32,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('pengeluaran/create/') . $nota_pengeluaran_id . '/a'; ?>" class="btn btn-sm btn-outline-success">Tambah</a>
+            <a href="<?= base_url('pengeluaran/create/') . $nota_pengeluaran_id . '/' . $kode; ?>" class="btn btn-sm btn-outline-success">Tambah</a>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
@@ -70,7 +70,7 @@
                 <td><?= $r['kode_lelang']; ?></td>
                 <td class="text-right"><?= number_format($r['debet'], 2, ',', '.'); ?></td>
                 <td>
-                  <a href="<?= base_url('pengeluaran/delete/') . $r['id'] . '/' . $nota_pengeluaran_id . '/' . $r['kode_kelompok'] . $r['kode_jenis'] . $r['kode_sub_jenis'] . '/' . $r['penerimaan_id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  <a href="<?= base_url('pengeluaran/delete/') . $r['id'] . '/' . $nota_pengeluaran_id . '/' . $kode . '/' . $r['penerimaan_id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                 </td>
               </tr>
             <?php endforeach; ?>

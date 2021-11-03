@@ -1,13 +1,14 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Penerimaan extends CI_Controller
+class Pelunasan extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('Data_pelunasan_model', 'pelunasan_m');
         $this->load->model('Data_penerimaan_model', 'penerimaan_m');
         $this->load->model('Data_nota_penerimaan_model', 'nota_penerimaan_m');
         $this->load->model('Data_lelang_model', 'lelang_m');
@@ -20,9 +21,9 @@ class Penerimaan extends CI_Controller
         $data['kode'] = $kode;
 
         // setting halaman
-        $config['base_url'] = base_url('penerimaan/index/' . $nota_penerimaan_id . '/' . $kode . '');
-        $config['total_rows'] = $this->penerimaan_m->countPerNota($nota_penerimaan_id);
-        $config['per_page'] = 10;
+        $config['base_url'] = base_url('pelunasan/index/' . $nota_penerimaan_id . '/' . $kode . '');
+        $config['total_rows'] = $this->pelunasan_m->countPerNota($nota_penerimaan_id);
+        $config['per_page'] = 5;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
@@ -36,14 +37,14 @@ class Penerimaan extends CI_Controller
 
         // pilih tampilan data, semua atau berdasarkan pencarian
         if ($name) {
-            $data['penerimaan'] = $this->penerimaan_m->findPerNota($name, $nota_penerimaan_id);
+            $data['pelunasan'] = $this->pelunasan_m->findPerNota($name, $nota_penerimaan_id);
         } else {
-            $data['penerimaan'] = $this->penerimaan_m->getPerNota($limit, $offset, $nota_penerimaan_id);
+            $data['pelunasan'] = $this->pelunasan_m->getPerNota($limit, $offset, $nota_penerimaan_id);
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('penerimaan/show', $data);
+        $this->load->view('pelunasan/show', $data);
         $this->load->view('template/footer');
     }
 
@@ -53,8 +54,8 @@ class Penerimaan extends CI_Controller
         $data['kode'] = $kode;
 
         // setting halaman
-        $config['base_url'] = base_url('penerimaan/create/' . $nota_penerimaan_id . '/' . $kode . '/a');
-        $config['total_rows'] = $this->penerimaan_m->countAll($kode);
+        $config['base_url'] = base_url('pelunasan/create/' . $nota_penerimaan_id . '/' . $kode . '/a');
+        $config['total_rows'] = $this->pelunasan_m->countAll($kode);
         $config['per_page'] = 5;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -69,14 +70,14 @@ class Penerimaan extends CI_Controller
 
         // pilih tampilan data, semua atau berdasarkan pencarian
         if ($name) {
-            $data['penerimaan'] = $this->penerimaan_m->findAll($name, $kode);
+            $data['pelunasan'] = $this->pelunasan_m->findAll($name, $kode);
         } else {
-            $data['penerimaan'] = $this->penerimaan_m->getAll($limit, $offset, $kode);
+            $data['pelunasan'] = $this->pelunasan_m->getAll($limit, $offset, $kode);
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('penerimaan/create', $data);
+        $this->load->view('pelunasan/create', $data);
         $this->load->view('template/footer');
     }
 
@@ -89,10 +90,10 @@ class Penerimaan extends CI_Controller
         $data = [
             'nota_penerimaan_id' => $nota_penerimaan_id
         ];
-        $this->penerimaan_m->update($data, $id);
+        $this->pelunasan_m->update($data, $id);
         if ($kode === '121') {
             // update tabel data_lelang
-            $pelunasan = $this->penerimaan_m->sumKredit($nota_penerimaan_id, $kode)['kredit'];
+            $pelunasan = $this->pelunasan_m->sumKredit($nota_penerimaan_id, $kode)['kredit'];
             $this->lelang_m->update(['pelunasan' => $pelunasan], $nota_penerimaan_id);
             $lelang = $this->lelang_m->getDetail($nota_penerimaan_id);
             $data_lelang = [
@@ -101,7 +102,7 @@ class Penerimaan extends CI_Controller
                 'bersih' => ($lelang['jaminan'] + $lelang['pelunasan']) * 0.955
             ];
             $this->lelang_m->update($data_lelang, $nota_penerimaan_id);
-            // pembuatan transaksi kekurangan hasil bersih
+            // pembuatan transaksi kekurangan hasil bersih pada tabel data_penerimaan
             $no_urut = NoUrutPenerimaan($kdsatker)['no_urut'];
             $no_urut_next = NoUrutPenerimaan($kdsatker)['no_urut_next'];
             $data_hasil_bersih = [
@@ -119,7 +120,7 @@ class Penerimaan extends CI_Controller
             ];
             $this->ref_satker_m->updateNoUrutPenerimaan(['no_urut_penerimaan' => $no_urut_next], $kdsatker);
             $this->penerimaan_m->create($data_hasil_bersih);
-            // pembuatan transaksi bea lelang
+            // pembuatan transaksi bea lelang pada tabel data_penerimaan
             $no_urut = NoUrutPenerimaan($kdsatker)['no_urut'];
             $no_urut_next = NoUrutPenerimaan($kdsatker)['no_urut_next'];
             $data_pnbp = [
@@ -137,7 +138,7 @@ class Penerimaan extends CI_Controller
             ];
             $this->ref_satker_m->updateNoUrutPenerimaan(['no_urut_penerimaan' => $no_urut_next], $kdsatker);
             $this->penerimaan_m->create($data_pnbp);
-            // pembuatan transaksi pph
+            // pembuatan transaksi pph pada tabel data_penerimaan
             $no_urut = NoUrutPenerimaan($kdsatker)['no_urut'];
             $no_urut_next = NoUrutPenerimaan($kdsatker)['no_urut_next'];
             $data_pph = [
@@ -157,20 +158,20 @@ class Penerimaan extends CI_Controller
             $this->penerimaan_m->create($data_pph);
         } else {
             // update tabel data_nota_penerimaan
-            $kredit = $this->penerimaan_m->sumKredit($nota_penerimaan_id)['kredit'];
+            $kredit = $this->pelunasan_m->sumKredit($nota_penerimaan_id)['kredit'];
             $this->nota_penerimaan_m->update(['kredit' => $kredit], $nota_penerimaan_id);
         }
         $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-        redirect('penerimaan/show/' . $nota_penerimaan_id . '/' . $kode . '');
+        redirect('pelunasan/show/' . $nota_penerimaan_id . '/' . $kode . '');
     }
 
     public function delete($id, $nota_penerimaan_id, $kode)
     {
         if (!isset($id)) show_404();
 
-        if ($this->penerimaan_m->update(['nota_penerimaan_id' => null], $id)) {
+        if ($this->pelunasan_m->update(['nota_penerimaan_id' => null], $id)) {
             if ($kode === '121') {
-                $pelunasan = $this->penerimaan_m->sumKredit($nota_penerimaan_id)['kredit'];
+                $pelunasan = $this->pelunasan_m->sumKredit($nota_penerimaan_id)['kredit'];
                 $this->lelang_m->update(['pelunasan' => $pelunasan], $nota_penerimaan_id);
                 $lelang = $this->lelang_m->getDetail($nota_penerimaan_id);
                 $data_lelang = [
@@ -180,20 +181,20 @@ class Penerimaan extends CI_Controller
                 ];
                 $this->lelang_m->update($data_lelang, $nota_penerimaan_id);
             } else {
-                $kredit = $this->penerimaan_m->sumKredit($nota_penerimaan_id)['kredit'];
+                $kredit = $this->pelunasan_m->sumKredit($nota_penerimaan_id)['kredit'];
                 $this->nota_penerimaan_m->update(['kredit' => $kredit], $nota_penerimaan_id);
             }
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('penerimaan/show/' . $nota_penerimaan_id . '/' . $kode . '');
+        redirect('pelunasan/show/' . $nota_penerimaan_id . '/' . $kode . '');
     }
 
     public function index()
     {
         // setting halaman
-        $config['base_url'] = base_url('penerimaan/index');
-        $config['total_rows'] = $this->penerimaan_m->count();
-        $config['per_page'] = 10;
+        $config['base_url'] = base_url('pelunasan/index');
+        $config['total_rows'] = $this->pelunasan_m->count();
+        $config['per_page'] = 5;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
@@ -207,14 +208,14 @@ class Penerimaan extends CI_Controller
 
         // pilih tampilan data, semua atau berdasarkan pencarian
         if ($name) {
-            $data['penerimaan'] = $this->penerimaan_m->find($name);
+            $data['pelunasan'] = $this->pelunasan_m->find($name);
         } else {
-            $data['penerimaan'] = $this->penerimaan_m->get($limit, $offset);
+            $data['pelunasan'] = $this->pelunasan_m->get($limit, $offset);
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('penerimaan/index', $data);
+        $this->load->view('pelunasan/index', $data);
         $this->load->view('template/footer');
     }
 
@@ -222,10 +223,10 @@ class Penerimaan extends CI_Controller
     {
         if (!isset($id)) show_404();
 
-        if ($this->penerimaan_m->delete($id)) {
+        if ($this->pelunasan_m->delete($id)) {
             $this->transaksi_bank_m->update(['status' => 0], $transaksi_bank_id);
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('penerimaan/index');
+        redirect('pelunasan/index');
     }
 }
