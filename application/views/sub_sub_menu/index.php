@@ -40,7 +40,7 @@
             <form action="" method="post" autocomplete="off">
               <div class="input-group">
                 <input type="text" name="name" class="form-control form-control-sm" placeholder="Nama">
-                <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
+                <button class="btn btn-sm btn-outline-success" type="submit">Cari</button>
               </div>
             </form>
           </div>
@@ -62,9 +62,11 @@
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $r['name']; ?></td>
                 <td>
-                  <a href="<?= base_url('sub-sub-sub-menu/index/') . $r['menu_id'] . '/' . $r['sub_menu_id'] . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info">Detail</a>
-                  <a href="<?= base_url('sub-sub-menu/update/') . $r['id'] . '/' . $r['menu_id'] . '/' . $r['sub_menu_id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
-                  <a href="<?= base_url('sub-sub-menu/delete/') . $r['id'] . '/' . $r['menu_id'] . '/' . $r['sub_menu_id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  <div class="btn-group">
+                    <a href="<?= base_url('sub-sub-sub-menu/index/') . $r['menu_id'] . '/' . $r['sub_menu_id'] . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Detail</a>
+                    <a href="<?= base_url('sub-sub-menu/update/') . $r['id'] . '/' . $r['menu_id'] . '/' . $r['sub_menu_id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Ubah</a>
+                    <a href="<?= base_url('sub-sub-menu/delete/') . $r['id'] . '/' . $r['menu_id'] . '/' . $r['sub_menu_id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  </div>
                 </td>
               </tr>
             <?php endforeach; ?>

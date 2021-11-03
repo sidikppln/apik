@@ -39,7 +39,7 @@
             <form action="" method="post" autocomplete="off">
               <div class="input-group">
                 <input type="text" name="name" class="form-control form-control-sm" placeholder="Nama">
-                <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
+                <button class="btn btn-sm btn-outline-success" type="submit">Cari</button>
               </div>
             </form>
           </div>
@@ -69,8 +69,10 @@
                 <td><?= $r['kdsatker']; ?></td>
                 <td><?= date('d-m-Y', $r['date_created']); ?></td>
                 <td>
-                  <a href="<?= base_url('user/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
-                  <a href="<?= base_url('user/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  <div class="btn-group">
+                    <a href="<?= base_url('user/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Ubah</a>
+                    <a href="<?= base_url('user/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  </div>
                 </td>
               </tr>
             <?php endforeach; ?>
