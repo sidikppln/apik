@@ -39,7 +39,7 @@
             <form action="" method="post" autocomplete="off">
               <div class="input-group">
                 <input type="text" name="name" class="form-control form-control-sm" placeholder="Nama">
-                <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
+                <button class="btn btn-sm btn-outline-success" type="submit">Cari</button>
               </div>
             </form>
           </div>
@@ -59,7 +59,7 @@
             foreach ($access as $r) : ?>
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
-                <td><?= $r['name']; ?></td>
+                <td><?= $r['nama_menu'] . ' - ' . $r['nama_sub_menu'] . ' - ' . $r['name']; ?></td>
                 <td>
                   <div class="btn-group">
                     <a href="<?= base_url('akses/delete/') . $r['id'] . '/' . $r['role_id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>

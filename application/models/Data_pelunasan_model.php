@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Data_penerimaan_model extends CI_Model
+class Data_pelunasan_model extends CI_Model
 {
-    private $_table = 'data_penerimaan';
+    private $_table = 'data_pelunasan';
 
     public function get($limit = null, $offset = 0)
     {
-        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_penerimaan a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis LIMIT $limit OFFSET $offset")->result_array();
+        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_pelunasan a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis LIMIT $limit OFFSET $offset")->result_array();
     }
 
     public function getDetail($id)
@@ -57,12 +57,12 @@ class Data_penerimaan_model extends CI_Model
 
     public function findPerNota($name = null, $nota_penerimaan_id = null)
     {
-        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_penerimaan a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis WHERE a.nota_penerimaan_id='$nota_penerimaan_id' AND b.nama_sub_jenis LIKE '%$name%'")->result_array();
+        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_pelunasan a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis WHERE a.nota_penerimaan_id='$nota_penerimaan_id' AND b.nama_sub_jenis LIKE '%$name%'")->result_array();
     }
 
     public function getPerNota($limit = null, $offset = 0, $nota_penerimaan_id = null)
     {
-        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_penerimaan a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis WHERE a.nota_penerimaan_id='$nota_penerimaan_id' LIMIT $limit OFFSET $offset")->result_array();
+        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_pelunasan a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis WHERE a.nota_penerimaan_id='$nota_penerimaan_id' LIMIT $limit OFFSET $offset")->result_array();
     }
 
     public function getAll($limit = null, $offset = 0, $kode = null)
@@ -93,7 +93,7 @@ class Data_penerimaan_model extends CI_Model
 
     public function sumKredit($nota_penerimaan_id = null)
     {
-        return $this->db->query("SELECT nota_penerimaan_id, SUM(kredit) AS kredit FROM data_penerimaan WHERE nota_penerimaan_id='$nota_penerimaan_id' GROUP BY nota_penerimaan_id")->row_array();
+        return $this->db->query("SELECT nota_penerimaan_id, SUM(kredit) AS kredit FROM data_pelunasan WHERE nota_penerimaan_id='$nota_penerimaan_id' GROUP BY nota_penerimaan_id")->row_array();
     }
 
     public function getForPengeluaran($limit = null, $offset = 0)

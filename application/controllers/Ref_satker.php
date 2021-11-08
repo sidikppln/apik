@@ -60,7 +60,11 @@ class Ref_satker extends CI_Controller
         if ($validation->run()) {
             $data = [
                 'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true)),
-                'nmsatker' => htmlspecialchars($this->input->post('nmsatker', true))
+                'nmsatker' => htmlspecialchars($this->input->post('nmsatker', true)),
+                'no_urut_penerimaan' => htmlspecialchars($this->input->post('no_urut_penerimaan', true)),
+                'no_nota_penerimaan' => htmlspecialchars($this->input->post('no_nota_penerimaan', true)),
+                'no_urut_pengeluaran' => htmlspecialchars($this->input->post('no_urut_pengeluaran', true)),
+                'no_nota_pengeluaran' => htmlspecialchars($this->input->post('no_nota_pengeluaran', true))
             ];
             $this->ref_satker_m->create($data);
             $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
@@ -83,7 +87,11 @@ class Ref_satker extends CI_Controller
         if ($validation->run()) {
             $data = [
                 'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true)),
-                'nmsatker' => htmlspecialchars($this->input->post('nmsatker', true))
+                'nmsatker' => htmlspecialchars($this->input->post('nmsatker', true)),
+                'no_urut_penerimaan' => htmlspecialchars($this->input->post('no_urut_penerimaan', true)),
+                'no_nota_penerimaan' => htmlspecialchars($this->input->post('no_nota_penerimaan', true)),
+                'no_urut_pengeluaran' => htmlspecialchars($this->input->post('no_urut_pengeluaran', true)),
+                'no_nota_pengeluaran' => htmlspecialchars($this->input->post('no_nota_pengeluaran', true))
             ];
             $this->ref_satker_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');

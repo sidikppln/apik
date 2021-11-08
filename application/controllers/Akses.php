@@ -44,14 +44,6 @@ class Akses extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    private $rules = [
-        [
-            'field' => 'name',
-            'label' => 'Nama',
-            'rules' => 'required|trim'
-        ]
-    ];
-
     public function create($role_id)
     {
         $data['role_id'] = $role_id;

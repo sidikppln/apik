@@ -63,8 +63,10 @@
                 <td><?= $r['kode']; ?></td>
                 <td><?= $r['nama']; ?></td>
                 <td>
-                  <a href="<?= base_url('ref-sub-jenis/update/') . $r['id'] . '/' . $ref_jenis_id . '/' . $ref_kelompok_id; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
-                  <a href="<?= base_url('ref-sub-jenis/delete/') . $r['id'] . '/' . $ref_jenis_id . '/' . $ref_kelompok_id; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  <div class="btn-group">
+                    <a href="<?= base_url('ref-sub-jenis/update/') . $r['id'] . '/' . $ref_jenis_id . '/' . $ref_kelompok_id; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Ubah</a>
+                    <a href="<?= base_url('ref-sub-jenis/delete/') . $r['id'] . '/' . $ref_jenis_id . '/' . $ref_kelompok_id; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  </div>
                 </td>
               </tr>
             <?php endforeach; ?>

@@ -38,6 +38,34 @@
                                     <?= form_error('nmsatker'); ?>
                                 </div>
                             </div>
+                            <div class="form-group mb-2">
+                                <label for="">No Urut Penerimaan:</label>
+                                <input type="text" name="no_urut_penerimaan" class="form-control <?= form_error('no_urut_penerimaan') ? 'is-invalid' : ''; ?>" value="<?= $ref_satker['no_urut_penerimaan']; ?>">
+                                <div class="invalid-feedback">
+                                    <?= form_error('no_urut_penerimaan'); ?>
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="">No Nota Penerimaan:</label>
+                                <input type="text" name="no_nota_penerimaan" class="form-control <?= form_error('no_nota_penerimaan') ? 'is-invalid' : ''; ?>" value="<?= $ref_satker['no_nota_penerimaan']; ?>">
+                                <div class="invalid-feedback">
+                                    <?= form_error('no_nota_penerimaan'); ?>
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="">No Urut Pengeluaran:</label>
+                                <input type="text" name="no_urut_pengeluaran" class="form-control <?= form_error('no_urut_pengeluaran') ? 'is-invalid' : ''; ?>" value="<?= $ref_satker['no_urut_pengeluaran']; ?>">
+                                <div class="invalid-feedback">
+                                    <?= form_error('no_urut_pengeluaran'); ?>
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="">No Nota Pengeluaran:</label>
+                                <input type="text" name="no_nota_pengeluaran" class="form-control <?= form_error('no_nota_pengeluaran') ? 'is-invalid' : ''; ?>" value="<?= $ref_satker['no_nota_pengeluaran']; ?>">
+                                <div class="invalid-feedback">
+                                    <?= form_error('no_nota_pengeluaran'); ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row mt-3">
