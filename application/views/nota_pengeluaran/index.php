@@ -64,7 +64,7 @@
                 <td><?= $r['nomor']; ?></td>
                 <td><?= date('d-m-Y', $r['tanggal']); ?></td>
                 <td><?= $r['jenis']; ?></td>
-                <td><?= number_format($r['debet'], 0, ',', '.'); ?></td>
+                <td><?= number_format($r['kredit'], 0, ',', '.'); ?></td>
                 <td>
                   <div class="btn-group">
                     <a href="<?= base_url('pengeluaran/show/') . $r['id'] . '/' . $r['kode_kelompok'] . $r['kode_jenis'] . $r['kode_sub_jenis']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Detail</a>

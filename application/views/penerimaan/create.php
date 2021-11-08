@@ -64,7 +64,7 @@
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= date('d-m-Y', $r['tanggal']); ?></td>
                 <td><?= $r['kdsatker'] . '.' . $r['tahun'] . '.' . $r['kode_kelompok'] . '.' . $r['kode_jenis'] . '.' . $r['kode_sub_jenis'] . '.' . $r['no_urut']; ?></td>
-                <td class="text-right"><?= number_format($r['kredit'], 2, ',', '.'); ?></td>
+                <td class="text-right"><?= number_format($r['debet'], 2, ',', '.'); ?></td>
                 <td><?= $r['virtual_account']; ?></td>
                 <td><?= $r['kode_lelang']; ?></td>
                 <td>

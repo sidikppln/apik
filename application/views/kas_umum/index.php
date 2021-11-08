@@ -60,7 +60,7 @@
             <?php $no = $page + 1;
             $s_awal = 0;
             $s_akhir = 0;
-            foreach ($kas_umum as $r) : $s_akhir = $s_awal + ($r['kredit'] - $r['debet']); ?>
+            foreach ($kas_umum as $r) : $s_akhir = $s_awal + ($r['debet'] - $r['kredit']); ?>
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= date('d-m-Y h:i:s', $r['tanggal']); ?></td>
