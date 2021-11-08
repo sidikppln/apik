@@ -85,11 +85,8 @@ class Penerimaan extends CI_Controller
         if (!isset($nota_penerimaan_id)) show_404();
 
         $kdsatker = $this->session->userdata('kdsatker');
+        $this->penerimaan_m->update(['nota_penerimaan_id' => $nota_penerimaan_id], $id);
 
-        $data = [
-            'nota_penerimaan_id' => $nota_penerimaan_id
-        ];
-        $this->penerimaan_m->update($data, $id);
         if ($kode === '121') {
             // update tabel data_lelang
             $pelunasan = $this->penerimaan_m->sumKredit($nota_penerimaan_id, $kode)['kredit'];

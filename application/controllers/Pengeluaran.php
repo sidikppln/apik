@@ -12,6 +12,7 @@ class Pengeluaran extends CI_Controller
         $this->load->model('Data_pengeluaran_model', 'pengeluaran_m');
         $this->load->model('Data_nota_pengeluaran_model', 'nota_pengeluaran_m');
         $this->load->model('View_jenis_model', 'view_jenis_m');
+        $this->load->model('Data_koreksi_model', 'koreksi_m');
     }
 
     public function show($nota_pengeluaran_id, $kode)
@@ -83,32 +84,100 @@ class Pengeluaran extends CI_Controller
     public function pilih($id, $nota_pengeluaran_id, $kode, $kode_balik)
     {
         if (!isset($nota_pengeluaran_id)) show_404();
+        $kdsatker = $this->session->userdata('kdsatker');
 
         $kode_kontra = $this->view_jenis_m->getKontra($kode);
         // jika ujl dicatat sebagai hasil bersih lelang
         $kode_balik == '232' ? $kode_kontra = '237' : $kode_kontra = $kode_kontra;
+        // jika ujl dicatat sebagai nota koreksi
+        if ($kode_balik == '234') {
+            $kode_kontra = '234';
+            // pembuatan transaksi wanprestasi lelang - keluar
+            $penerimaan = $this->penerimaan_m->getDetail($id);
+            $no_urut = NoUrutPengeluaran($kdsatker)['no_urut'];
+            $no_urut_next = NoUrutPengeluaran($kdsatker)['no_urut_next'];
+            $data = [
+                'tanggal' => time(),
+                'kdsatker' => $kdsatker,
+                'tahun' => $this->session->userdata('tahun'),
+                'kode_kelompok' => substr($kode_kontra, 0, 1),
+                'kode_jenis' => substr($kode_kontra, 1, 1),
+                'kode_sub_jenis' => substr($kode_kontra, 2, 1),
+                'no_urut' => $no_urut,
+                'debet' => $penerimaan['kredit'],
+                'virtual_account' => '',
+                'kode_lelang' => $penerimaan['kode_lelang'],
+                'penerimaan_id' => $id,
+                'nota_pengeluaran_id' => $nota_pengeluaran_id
+            ];
+            $this->pengeluaran_m->create($data);
+            $this->ref_satker_m->updateNoUrutPengeluaran(['no_urut_pengeluaran' => $no_urut_next], $kdsatker);
+            $this->penerimaan_m->update(['status' => 1], $id);
+            // pembuatan transaksi koreksi pnbp - keluar
+            $kode_kontra = '225';
+            $koreksi = $this->koreksi_m->getDetail($nota_pengeluaran_id);
+            $no_urut = NoUrutPengeluaran($kdsatker)['no_urut'];
+            $no_urut_next = NoUrutPengeluaran($kdsatker)['no_urut_next'];
+            $data = [
+                'tanggal' => time(),
+                'kdsatker' => $kdsatker,
+                'tahun' => $this->session->userdata('tahun'),
+                'kode_kelompok' => substr($kode_kontra, 0, 1),
+                'kode_jenis' => substr($kode_kontra, 1, 1),
+                'kode_sub_jenis' => substr($kode_kontra, 2, 1),
+                'no_urut' => $no_urut,
+                'debet' => $koreksi['debet'],
+                'virtual_account' => '',
+                'kode_lelang' => $penerimaan['kode_lelang'],
+                'penerimaan_id' => $id,
+                'nota_pengeluaran_id' => $nota_pengeluaran_id
+            ];
+            $this->pengeluaran_m->create($data);
+            $this->ref_satker_m->updateNoUrutPengeluaran(['no_urut_pengeluaran' => $no_urut_next], $kdsatker);
+            // pembuatan transaksi koreksi pnbp - masuk
+            $kode_kontra = '142';
+            $koreksi = $this->koreksi_m->getDetail($nota_pengeluaran_id);
+            $no_urut = NoUrutPenerimaan($kdsatker)['no_urut'];
+            $no_urut_next = NoUrutPenerimaan($kdsatker)['no_urut_next'];
+            $data = [
+                'tanggal' => time(),
+                'kdsatker' => $kdsatker,
+                'tahun' => $this->session->userdata('tahun'),
+                'kode_kelompok' => substr($kode_kontra, 0, 1),
+                'kode_jenis' => substr($kode_kontra, 1, 1),
+                'kode_sub_jenis' => substr($kode_kontra, 2, 1),
+                'no_urut' => $no_urut,
+                'kredit' => $koreksi['kredit'],
+                'virtual_account' => '',
+                'kode_lelang' => $penerimaan['kode_lelang'],
+                'transaksi_bank_id' => '',
+                'nota_penerimaan_id' => $nota_pengeluaran_id
+            ];
+            $this->penerimaan_m->create($data);
+            $this->ref_satker_m->updateNoUrutPenerimaan(['no_urut_pengeluaran' => $no_urut_next], $kdsatker);
+        } else {
+            $penerimaan = $this->penerimaan_m->getDetail($id);
+            $no_urut = NoUrutPengeluaran($kdsatker)['no_urut'];
+            $no_urut_next = NoUrutPengeluaran($kdsatker)['no_urut_next'];
+            $data = [
+                'tanggal' => time(),
+                'kdsatker' => $kdsatker,
+                'tahun' => $this->session->userdata('tahun'),
+                'kode_kelompok' => substr($kode_kontra, 0, 1),
+                'kode_jenis' => substr($kode_kontra, 1, 1),
+                'kode_sub_jenis' => substr($kode_kontra, 2, 1),
+                'no_urut' => $no_urut,
+                'debet' => $penerimaan['kredit'],
+                'virtual_account' => '',
+                'kode_lelang' => $penerimaan['kode_lelang'],
+                'penerimaan_id' => $id,
+                'nota_pengeluaran_id' => $nota_pengeluaran_id
+            ];
+            $this->pengeluaran_m->create($data);
+            $this->ref_satker_m->updateNoUrutPengeluaran(['no_urut_pengeluaran' => $no_urut_next], $kdsatker);
+            $this->penerimaan_m->update(['status' => 1], $id);
+        }
 
-        $penerimaan = $this->penerimaan_m->getDetail($id);
-        $kdsatker = $this->session->userdata('kdsatker');
-        $no_urut = NoUrutPengeluaran($kdsatker)['no_urut'];
-        $no_urut_next = NoUrutPengeluaran($kdsatker)['no_urut_next'];
-        $data = [
-            'tanggal' => time(),
-            'kdsatker' => $kdsatker,
-            'tahun' => $this->session->userdata('tahun'),
-            'kode_kelompok' => substr($kode_kontra, 0, 1),
-            'kode_jenis' => substr($kode_kontra, 1, 1),
-            'kode_sub_jenis' => substr($kode_kontra, 2, 1),
-            'no_urut' => $no_urut,
-            'debet' => $penerimaan['kredit'],
-            'virtual_account' => '',
-            'kode_lelang' => $penerimaan['kode_lelang'],
-            'penerimaan_id' => $id,
-            'nota_pengeluaran_id' => $nota_pengeluaran_id
-        ];
-        $this->pengeluaran_m->create($data);
-        $this->ref_satker_m->updateNoUrutPengeluaran(['no_urut_pengeluaran' => $no_urut_next], $kdsatker);
-        $this->penerimaan_m->update(['status' => 1], $id);
         // update tabel data_nota_pengeluaran
         $debet = $this->pengeluaran_m->sumDebet($nota_pengeluaran_id)['debet'];
         $this->nota_pengeluaran_m->update(['debet' => $debet], $nota_pengeluaran_id);
