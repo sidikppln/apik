@@ -68,7 +68,7 @@
                 <td><?= $r['jenis']; ?></td>
                 <td><?= $r['virtual_account']; ?></td>
                 <td><?= $r['kode_lelang']; ?></td>
-                <td class="text-right"><?= number_format($r['kredit'], 2, ',', '.'); ?></td>
+                <td class="text-right"><?= number_format($r['debet'], 2, ',', '.'); ?></td>
                 <td>
                   <a href="<?= base_url('pelunasan/delete/') . $r['id'] . '/' . $nota_penerimaan_id . '/' . $r['kode_kelompok'] . $r['kode_jenis'] . $r['kode_sub_jenis']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                 </td>

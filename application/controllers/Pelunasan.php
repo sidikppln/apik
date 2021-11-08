@@ -93,7 +93,7 @@ class Pelunasan extends CI_Controller
         $this->pelunasan_m->update($data, $id);
         if ($kode === '121') {
             // update tabel data_lelang
-            $pelunasan = $this->pelunasan_m->sumKredit($nota_penerimaan_id, $kode)['kredit'];
+            $pelunasan = $this->pelunasan_m->sumDebet($nota_penerimaan_id, $kode)['debet'];
             $this->lelang_m->update(['pelunasan' => $pelunasan], $nota_penerimaan_id);
             $lelang = $this->lelang_m->getDetail($nota_penerimaan_id);
             $data_lelang = [
@@ -113,7 +113,7 @@ class Pelunasan extends CI_Controller
                 'kode_jenis' => '2',
                 'kode_sub_jenis' => '4',
                 'no_urut' => $no_urut,
-                'kredit' => $lelang['pelunasan'] - ($data_lelang['pnbp'] + $data_lelang['pph']),
+                'debet' => $lelang['pelunasan'] - ($data_lelang['pnbp'] + $data_lelang['pph']),
                 'virtual_account' => '',
                 'kode_lelang' => $lelang['kode'],
                 'transaksi_bank_id' => ''
@@ -131,7 +131,7 @@ class Pelunasan extends CI_Controller
                 'kode_jenis' => '2',
                 'kode_sub_jenis' => '5',
                 'no_urut' => $no_urut,
-                'kredit' => $data_lelang['pnbp'],
+                'debet' => $data_lelang['pnbp'],
                 'virtual_account' => '',
                 'kode_lelang' => $lelang['kode'],
                 'transaksi_bank_id' => ''
@@ -149,7 +149,7 @@ class Pelunasan extends CI_Controller
                 'kode_jenis' => '2',
                 'kode_sub_jenis' => '6',
                 'no_urut' => $no_urut,
-                'kredit' => $data_lelang['pph'],
+                'debet' => $data_lelang['pph'],
                 'virtual_account' => '',
                 'kode_lelang' => $lelang['kode'],
                 'transaksi_bank_id' => ''
@@ -158,8 +158,8 @@ class Pelunasan extends CI_Controller
             $this->penerimaan_m->create($data_pph);
         } else {
             // update tabel data_nota_penerimaan
-            $kredit = $this->pelunasan_m->sumKredit($nota_penerimaan_id)['kredit'];
-            $this->nota_penerimaan_m->update(['kredit' => $kredit], $nota_penerimaan_id);
+            $debet = $this->pelunasan_m->sumDebet($nota_penerimaan_id)['debet'];
+            $this->nota_penerimaan_m->update(['debet' => $debet], $nota_penerimaan_id);
         }
         $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
         redirect('pelunasan/show/' . $nota_penerimaan_id . '/' . $kode . '');
@@ -171,7 +171,7 @@ class Pelunasan extends CI_Controller
 
         if ($this->pelunasan_m->update(['nota_penerimaan_id' => null], $id)) {
             if ($kode === '121') {
-                $pelunasan = $this->pelunasan_m->sumKredit($nota_penerimaan_id)['kredit'];
+                $pelunasan = $this->pelunasan_m->sumDebet($nota_penerimaan_id)['debet'];
                 $this->lelang_m->update(['pelunasan' => $pelunasan], $nota_penerimaan_id);
                 $lelang = $this->lelang_m->getDetail($nota_penerimaan_id);
                 $data_lelang = [
@@ -181,8 +181,8 @@ class Pelunasan extends CI_Controller
                 ];
                 $this->lelang_m->update($data_lelang, $nota_penerimaan_id);
             } else {
-                $kredit = $this->pelunasan_m->sumKredit($nota_penerimaan_id)['kredit'];
-                $this->nota_penerimaan_m->update(['kredit' => $kredit], $nota_penerimaan_id);
+                $debet = $this->pelunasan_m->sumDebet($nota_penerimaan_id)['debet'];
+                $this->nota_penerimaan_m->update(['debet' => $debet], $nota_penerimaan_id);
             }
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }

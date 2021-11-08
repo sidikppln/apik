@@ -104,7 +104,7 @@ class Pengeluaran extends CI_Controller
                 'kode_jenis' => substr($kode_kontra, 1, 1),
                 'kode_sub_jenis' => substr($kode_kontra, 2, 1),
                 'no_urut' => $no_urut,
-                'debet' => $penerimaan['kredit'],
+                'kredit' => $penerimaan['debet'],
                 'virtual_account' => '',
                 'kode_lelang' => $penerimaan['kode_lelang'],
                 'penerimaan_id' => $id,
@@ -126,7 +126,7 @@ class Pengeluaran extends CI_Controller
                 'kode_jenis' => substr($kode_kontra, 1, 1),
                 'kode_sub_jenis' => substr($kode_kontra, 2, 1),
                 'no_urut' => $no_urut,
-                'debet' => $koreksi['debet'],
+                'kredit' => $koreksi['kredit'],
                 'virtual_account' => '',
                 'kode_lelang' => $penerimaan['kode_lelang'],
                 'penerimaan_id' => $id,
@@ -147,7 +147,7 @@ class Pengeluaran extends CI_Controller
                 'kode_jenis' => substr($kode_kontra, 1, 1),
                 'kode_sub_jenis' => substr($kode_kontra, 2, 1),
                 'no_urut' => $no_urut,
-                'kredit' => $koreksi['kredit'],
+                'debet' => $koreksi['debet'],
                 'virtual_account' => '',
                 'kode_lelang' => $penerimaan['kode_lelang'],
                 'transaksi_bank_id' => '',
@@ -167,7 +167,7 @@ class Pengeluaran extends CI_Controller
                 'kode_jenis' => substr($kode_kontra, 1, 1),
                 'kode_sub_jenis' => substr($kode_kontra, 2, 1),
                 'no_urut' => $no_urut,
-                'debet' => $penerimaan['kredit'],
+                'kredit' => $penerimaan['debet'],
                 'virtual_account' => '',
                 'kode_lelang' => $penerimaan['kode_lelang'],
                 'penerimaan_id' => $id,
@@ -179,8 +179,8 @@ class Pengeluaran extends CI_Controller
         }
 
         // update tabel data_nota_pengeluaran
-        $debet = $this->pengeluaran_m->sumDebet($nota_pengeluaran_id)['debet'];
-        $this->nota_pengeluaran_m->update(['debet' => $debet], $nota_pengeluaran_id);
+        $kredit = $this->pengeluaran_m->sumKredit($nota_pengeluaran_id)['kredit'];
+        $this->nota_pengeluaran_m->update(['kredit' => $kredit], $nota_pengeluaran_id);
         $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
         redirect('pengeluaran/show/' . $nota_pengeluaran_id . '/' . $kode_balik . '');
     }
@@ -192,8 +192,8 @@ class Pengeluaran extends CI_Controller
         if ($this->pengeluaran_m->delete($id)) {
             $this->penerimaan_m->update(['status' => 0], $penerimaan_id);
             // update tabel data_nota_pengeluaran
-            $debet = $this->pengeluaran_m->sumDebet($nota_pengeluaran_id)['debet'];
-            $this->nota_pengeluaran_m->update(['debet' => $debet], $nota_pengeluaran_id);
+            $kredit = $this->pengeluaran_m->sumKredit($nota_pengeluaran_id)['kredit'];
+            $this->nota_pengeluaran_m->update(['kredit' => $kredit], $nota_pengeluaran_id);
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
         redirect('pengeluaran/show/' . $nota_pengeluaran_id . '/' . $kode . '');

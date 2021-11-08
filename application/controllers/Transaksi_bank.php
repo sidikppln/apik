@@ -177,7 +177,6 @@ class Transaksi_bank extends CI_Controller
         if ($validation->run()) {
             $kode = htmlspecialchars($this->input->post('kode', true));
             $data = [
-                // 'tanggal' => strtotime('' . substr($data['transaksi_bank']['tanggal'], 0, 2) . '-' . substr($data['transaksi_bank']['tanggal'], 3, 2) . '-20' . substr($data['transaksi_bank']['tanggal'], 6, 2) . ''),
                 'tanggal' => time(),
                 'kdsatker' => $kdsatker,
                 'tahun' => $this->session->userdata('tahun'),
@@ -185,7 +184,7 @@ class Transaksi_bank extends CI_Controller
                 'kode_jenis' => substr($kode, 1, 1),
                 'kode_sub_jenis' => substr($kode, 2, 1),
                 'no_urut' => $no_urut,
-                'kredit' => (preg_replace("/[^0-9]/", "", $data['transaksi_bank']['kredit'])) / 100,
+                'debet' => (preg_replace("/[^0-9]/", "", $data['transaksi_bank']['kredit'])) / 100,
                 'virtual_account' => htmlspecialchars($this->input->post('virtual_account', true)),
                 'kode_lelang' => htmlspecialchars($this->input->post('kode_lelang', true)),
                 'transaksi_bank_id' => $id

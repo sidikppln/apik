@@ -91,9 +91,9 @@ class Data_penerimaan_model extends CI_Model
         return $this->db->get($this->_table)->num_rows();
     }
 
-    public function sumKredit($nota_penerimaan_id = null)
+    public function sumDebet($nota_penerimaan_id = null)
     {
-        return $this->db->query("SELECT nota_penerimaan_id, SUM(kredit) AS kredit FROM data_penerimaan WHERE nota_penerimaan_id='$nota_penerimaan_id' GROUP BY nota_penerimaan_id")->row_array();
+        return $this->db->query("SELECT nota_penerimaan_id, SUM(debet) AS debet FROM data_penerimaan WHERE nota_penerimaan_id='$nota_penerimaan_id' GROUP BY nota_penerimaan_id")->row_array();
     }
 
     public function getForPengeluaran($limit = null, $offset = 0)
