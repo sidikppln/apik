@@ -22,14 +22,14 @@
             <div class="card-body">
 
                 <?= form_open();
-                $kode = $np['kode_kelompok'] . $np['kode_jenis'] . $np['kode_sub_jenis']; ?>
+                $kode = $np['kode_kelompok'] . $np['kode_jenis']; ?>
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-6">
                         <div class="form-group mb-2">
                             <label for="">Jenis Transaksi:</label>
                             <select class="form-control" name="kode">
                                 <?php foreach ($view_jenis as $r) : ?>
-                                    <option value="<?= $r['kode']; ?>" <?= $r['kode'] == $kode ? 'selected' : ''; ?>><?= $r['nama']; ?></option>
+                                    <option value="<?= $r['kode_kelompok'] . $r['kode_jenis']; ?>" <?= $r['kode_kelompok'] . $r['kode_jenis'] == $kode ? 'selected' : ''; ?>><?= $r['nama_jenis']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

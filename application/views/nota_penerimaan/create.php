@@ -23,11 +23,11 @@
 
                 <?= form_open(); ?>
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-6">
                         <div class="form-group mb-2">
                             <label for="">Jenis Transaksi:</label>
                             <select class="form-control" name="kode">
-                                <?php foreach ($view_jenis as $r) : ?>
+                                <?php foreach ($ref_nota as $r) : ?>
                                     <option value="<?= $r['kode']; ?>"><?= $r['nama']; ?></option>
                                 <?php endforeach; ?>
                             </select>

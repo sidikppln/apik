@@ -7,7 +7,11 @@ class Data_nota_penerimaan_model extends CI_Model
 
     public function get($limit = null, $offset = 0)
     {
-        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_nota_penerimaan a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis LIMIT $limit OFFSET $offset")->result_array();
+        $this->db->select('a.*, b.nama AS nama_nota');
+        $this->db->from('data_nota_penerimaan a');
+        $this->db->join('ref_nota b', 'a.kode_nota =b.kode', 'left');
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result_array();
     }
 
     public function getDetail($id = null)
@@ -17,7 +21,11 @@ class Data_nota_penerimaan_model extends CI_Model
 
     public function find($name = null)
     {
-        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_nota_penerimaan a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis WHERE a.nomor LIKE '%$name%'")->result_array();
+        $this->db->select('a.*, b.nama AS nama_nota');
+        $this->db->from('data_nota_penerimaan a');
+        $this->db->join('ref_nota b', 'a.kode_nota =b.kode', 'left');
+        $this->db->like('a.nomor', $name);
+        return $this->db->get()->result_array();
     }
 
     public function count()

@@ -53,7 +53,6 @@
               <th scope="col">Kode</th>
               <th scope="col">Nominal</th>
               <th scope="col">Virtual Account</th>
-              <th scope="col">Kode Lelang</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
@@ -66,7 +65,6 @@
                 <td><?= $r['kdsatker'] . '.' . $r['tahun'] . '.' . $r['kode_kelompok'] . '.' . $r['kode_jenis'] . '.' . $r['kode_sub_jenis'] . '.' . $r['no_urut']; ?></td>
                 <td class="text-right"><?= number_format($r['debet'], 2, ',', '.'); ?></td>
                 <td><?= $r['virtual_account']; ?></td>
-                <td><?= $r['kode_lelang']; ?></td>
                 <td>
                   <a href="<?= base_url('penerimaan/pilih/') . $r['id'] . '/' . $nota_penerimaan_id . '/' . $r['kode_kelompok'] . $r['kode_jenis'] . $r['kode_sub_jenis']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Pilih</a>
                 </td>

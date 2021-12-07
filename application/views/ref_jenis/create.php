@@ -41,6 +41,13 @@
                                     <?= form_error('nama'); ?>
                                 </div>
                             </div>
+                            <div class="form-group mb-2">
+                                <label for="">Status:</label>
+                                <input type="text" name="status" class="form-control <?= form_error('status') ? 'is-invalid' : ''; ?>">
+                                <div class="invalid-feedback">
+                                    <?= form_error('status'); ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row mt-3">

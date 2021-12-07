@@ -63,11 +63,11 @@
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $r['nomor']; ?></td>
                 <td><?= date('d-m-Y', $r['tanggal']); ?></td>
-                <td><?= $r['jenis']; ?></td>
+                <td><?= $r['nama_nota']; ?></td>
                 <td><?= number_format($r['debet'], 0, ',', '.'); ?></td>
                 <td>
                   <div class="btn-group">
-                    <a href="<?= base_url('penerimaan/show/') . $r['id'] . '/' . $r['kode_kelompok'] . $r['kode_jenis']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Detail</a>
+                    <a href="<?= base_url('nota-penerimaan/detail/') . $r['id'] . '/' . $r['kode_nota']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Detail</a>
                     <a href="<?= base_url('nota-penerimaan/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Ubah</a>
                     <a href="<?= base_url('nota-penerimaan/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                   </div>

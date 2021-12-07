@@ -52,6 +52,7 @@
               <th scope="col">#</th>
               <th scope="col">Kode</th>
               <th scope="col">Nama</th>
+              <th scope="col">Status</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
@@ -62,6 +63,7 @@
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $r['kode']; ?></td>
                 <td><?= $r['nama']; ?></td>
+                <td><?= $r['status']; ?></td>
                 <td>
                   <div class="btn-group">
                     <a href="<?= base_url('ref-sub-jenis/index/') . $r['id'] . '/' . $ref_kelompok_id; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Detail</a>

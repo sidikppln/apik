@@ -55,7 +55,8 @@ class Menu extends CI_Controller
 
         if ($validation->run()) {
             $data = [
-                'name' => htmlspecialchars($this->input->post('name', true))
+                'name' => htmlspecialchars($this->input->post('name', true)),
+                'urutan' => htmlspecialchars($this->input->post('urutan', true))
             ];
             $this->sys_menu_m->create($data);
             $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
@@ -77,7 +78,8 @@ class Menu extends CI_Controller
 
         if ($validation->run()) {
             $data = [
-                'name' => htmlspecialchars($this->input->post('name', true))
+                'name' => htmlspecialchars($this->input->post('name', true)),
+                'urutan' => htmlspecialchars($this->input->post('urutan', true))
             ];
             $this->sys_menu_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');

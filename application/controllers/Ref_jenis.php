@@ -63,6 +63,7 @@ class Ref_jenis extends CI_Controller
             $data = [
                 'kode' => htmlspecialchars($this->input->post('kode', true)),
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'status' => htmlspecialchars($this->input->post('status', true)),
                 'ref_kelompok_id' => $ref_kelompok_id
             ];
             $this->ref_jenis_m->create($data);
@@ -88,6 +89,7 @@ class Ref_jenis extends CI_Controller
             $data = [
                 'kode' => htmlspecialchars($this->input->post('kode', true)),
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'status' => htmlspecialchars($this->input->post('status', true)),
                 'ref_kelompok_id' => $ref_kelompok_id
             ];
             $this->ref_jenis_m->update($data, $id);

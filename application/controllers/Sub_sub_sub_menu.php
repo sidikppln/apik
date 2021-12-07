@@ -66,6 +66,7 @@ class Sub_sub_sub_menu extends CI_Controller
                 'name' => htmlspecialchars($this->input->post('name', true)),
                 'url' => htmlspecialchars($this->input->post('url', true)),
                 'icon' => htmlspecialchars($this->input->post('icon', true)),
+                'urutan' => htmlspecialchars($this->input->post('urutan', true)),
                 'menu_id' => $menu_id,
                 'sub_menu_id' => $sub_menu_id,
                 'sub_sub_menu_id' => $sub_sub_menu_id
@@ -96,6 +97,7 @@ class Sub_sub_sub_menu extends CI_Controller
                 'name' => htmlspecialchars($this->input->post('name', true)),
                 'url' => htmlspecialchars($this->input->post('url', true)),
                 'icon' => htmlspecialchars($this->input->post('icon', true)),
+                'urutan' => htmlspecialchars($this->input->post('urutan', true)),
                 'menu_id' => $menu_id,
                 'sub_menu_id' => $sub_menu_id
             ];

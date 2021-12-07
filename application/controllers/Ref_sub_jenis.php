@@ -52,6 +52,11 @@ class Ref_sub_jenis extends CI_Controller
             'field' => 'nama',
             'label' => 'nama',
             'rules' => 'required|trim'
+        ],
+        [
+            'field' => 'status',
+            'label' => 'status',
+            'rules' => 'required|trim'
         ]
     ];
 
@@ -65,6 +70,7 @@ class Ref_sub_jenis extends CI_Controller
             $data = [
                 'kode' => htmlspecialchars($this->input->post('kode', true)),
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'status' => htmlspecialchars($this->input->post('status', true)),
                 'ref_jenis_id' => $ref_jenis_id
             ];
             $this->ref_sub_jenis_m->create($data);
@@ -91,6 +97,7 @@ class Ref_sub_jenis extends CI_Controller
             $data = [
                 'kode' => htmlspecialchars($this->input->post('kode', true)),
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'status' => htmlspecialchars($this->input->post('status', true)),
                 'ref_jenis_id' => $ref_jenis_id
             ];
             $this->ref_sub_jenis_m->update($data, $id);

@@ -8,6 +8,7 @@ class System_sub_sub_sub_menu_model extends CI_Model
     public function get($limit = null, $offset = 0, $id = null)
     {
         $this->db->where('sub_menu_id', $id);
+        $this->db->order_by('urutan', 'asc');
         $this->db->limit($limit, $offset);
         return $this->db->get($this->_table)->result_array();
     }
@@ -20,6 +21,7 @@ class System_sub_sub_sub_menu_model extends CI_Model
     public function find($name = null, $id = null)
     {
         $this->db->like('name', $name);
+        $this->db->order_by('urutan', 'asc');
         $this->db->where('sub_menu_id', $id);
         return $this->db->get($this->_table)->result_array();
     }

@@ -31,6 +31,13 @@
                                     <?= form_error('name'); ?>
                                 </div>
                             </div>
+                            <div class="form-group mb-2">
+                                <label for="">Urutan:</label>
+                                <input type="text" name="urutan" class="form-control <?= form_error('urutan') ? 'is-invalid' : ''; ?>" value="<?= $menu['urutan']; ?>">
+                                <div class="invalid-feedback">
+                                    <?= form_error('urutan'); ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row mt-3">
