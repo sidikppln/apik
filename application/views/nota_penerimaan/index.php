@@ -32,50 +32,54 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('nota-penerimaan/create/'); ?>" class="btn btn-sm btn-outline-success">Tambah</a>
+            <a href="<?= base_url('nota-penerimaan/index/0'); ?>" class="btn btn-sm btn-outline-info <?= $this->uri->segment(3) == 0 ? 'active' : ''; ?>">Lelang</a>
+            <a href="<?= base_url('nota-penerimaan/index/1'); ?>" class="btn btn-sm btn-outline-info ml-1 <?= $this->uri->segment(3) == 1 ? 'active' : ''; ?>">Piutang Negara</a>
           </div>
           <div class="col-lg-6">
-            <?= form_open(); ?>
-            <div class="input-group">
-              <input type="text" name="name" class="form-control form-control-sm" placeholder="Nomor">
-              <button class="btn btn-sm btn-outline-success" type="submit">Cari</button>
-            </div>
+            <form action="" method="post" autocomplete="off">
+              <div class="input-group">
+                <input type="text" name="name" class="form-control form-control-sm" placeholder="Nama">
+                <button class="btn btn-sm btn-outline-info" type="submit">Cari</button>
+              </div>
             </form>
           </div>
         </div>
       </div>
       <div class="card-body">
-        <table class="table table-bordered table-hover table-sm">
-          <thead>
-            <tr class="text-center">
-              <th scope="col">#</th>
-              <th scope="col">Nomor</th>
-              <th scope="col">Tanggal</th>
-              <th scope="col">Jenis</th>
-              <th scope="col">Nominal</th>
-              <th scope="col">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php $no = $page + 1;
-            foreach ($nota_penerimaan as $r) : ?>
-              <tr>
-                <td class="text-center"><?= $no++; ?></td>
-                <td><?= $r['nomor']; ?></td>
-                <td><?= date('d-m-Y', $r['tanggal']); ?></td>
-                <td><?= $r['jenis']; ?></td>
-                <td><?= number_format($r['debet'], 0, ',', '.'); ?></td>
-                <td>
-                  <div class="btn-group">
-                    <a href="<?= base_url('penerimaan/show/') . $r['id'] . '/' . $r['kode_kelompok'] . $r['kode_jenis']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Detail</a>
-                    <a href="<?= base_url('nota-penerimaan/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Ubah</a>
-                    <a href="<?= base_url('nota-penerimaan/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
-                  </div>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
+        <div class="row mb-2">
+          <div class="col">
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <table class="table table-bordered table-hover table-sm">
+              <thead>
+                <tr class="text-center">
+                  <th scope="col">#</th>
+                  <th scope="col">Nomor</th>
+                  <th scope="col">Nama</th>
+                  <th scope="col">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php $no = $page + 1;
+                foreach ($kegiatan as $r) : ?>
+                  <tr>
+                    <td class="text-center"><?= $no++; ?></td>
+                    <td><?= $r['kode']; ?></td>
+                    <td><?= $r['nama']; ?></td>
+                    <td>
+                      <div class="btn-group">
+                        <a href="<?= base_url('nota-penerimaan/detail/') . $jenis . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Detail</a>
+                      </div>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
       <div class="card-footer">
         <?= $name == null ? $pagination : ''; ?>

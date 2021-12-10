@@ -5,9 +5,14 @@ class Data_nota_pengeluaran_model extends CI_Model
 {
     private $_table = 'data_nota_pengeluaran';
 
-    public function get($limit = null, $offset = 0)
+    public function get($limit = null, $offset = 0, $kegiatan_id = null, $status = 0)
     {
-        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_nota_pengeluaran a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis LIMIT $limit OFFSET $offset")->result_array();
+        $this->db->select('a.*, b.nama AS nama_nota');
+        $this->db->from('data_nota_pengeluaran a');
+        $this->db->join('view_ref_nota b', 'a.kode_nota =b.kode', 'left');
+        $this->db->where(['a.kegiatan_id' => $kegiatan_id, 'a.status' => $status]);
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result_array();
     }
 
     public function getDetail($id = null)
@@ -15,13 +20,19 @@ class Data_nota_pengeluaran_model extends CI_Model
         return $this->db->get_where($this->_table, ['id' => $id])->row_array();
     }
 
-    public function find($name = null)
+    public function find($name = null, $kegiatan_id = null, $status = 0)
     {
-        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_nota_pengeluaran a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis WHERE a.nomor LIKE '%$name%'")->result_array();
+        $this->db->select('a.*, b.nama AS nama_nota');
+        $this->db->from('data_nota_pengeluaran a');
+        $this->db->join('view_ref_nota b', 'a.kode_nota =b.kode', 'left');
+        $this->db->where(['a.kegiatan_id' => $kegiatan_id, 'a.status' => $status]);
+        $this->db->like('a.nomor', $name);
+        return $this->db->get()->result_array();
     }
 
-    public function count()
+    public function count($kegiatan_id = null, $status = 0)
     {
+        $this->db->where(['kegiatan_id' => $kegiatan_id, 'status' => $status]);
         return $this->db->get($this->_table)->num_rows();
     }
 

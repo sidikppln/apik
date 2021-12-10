@@ -9,12 +9,9 @@ class View_kas_umum_model extends CI_Model
     {
         $this->db->limit($limit, $offset);
         $this->db->order_by('tanggal', 'asc');
+        $this->db->order_by('kode_kelompok', 'asc');
+        $this->db->order_by('kode_jenis', 'asc');
         return $this->db->get($this->_table)->result_array();
-    }
-
-    public function getDetail($id)
-    {
-        return $this->db->get_where($this->_table, ['id' => $id])->row_array();
     }
 
     public function find($name = null)
@@ -25,6 +22,29 @@ class View_kas_umum_model extends CI_Model
 
     public function count()
     {
+        return $this->db->get($this->_table)->num_rows();
+    }
+
+    public function getPembantu($limit = null, $offset = 0, $kode_kelompok = null)
+    {
+        $this->db->where('kode_kelompok', $kode_kelompok);
+        $this->db->limit($limit, $offset);
+        $this->db->order_by('tanggal', 'asc');
+        $this->db->order_by('kode_kelompok', 'asc');
+        $this->db->order_by('kode_jenis', 'asc');
+        return $this->db->get($this->_table)->result_array();
+    }
+
+    public function findPembantu($name = null, $kode_kelompok = null)
+    {
+        $this->db->where('kode_kelompok', $kode_kelompok);
+        $this->db->like('nama', $name);
+        return $this->db->get($this->_table)->result_array();
+    }
+
+    public function countPembantu($kode_kelompok = null)
+    {
+        $this->db->where('kode_kelompok', $kode_kelompok);
         return $this->db->get($this->_table)->num_rows();
     }
 }

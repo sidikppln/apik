@@ -51,6 +51,7 @@
             <tr class="text-center">
               <th scope="col">#</th>
               <th scope="col">Nama</th>
+              <th scope="col">Urutan</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
@@ -60,6 +61,7 @@
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $r['name']; ?></td>
+                <td><?= $r['urutan']; ?></td>
                 <td>
                   <div class="btn-group">
                     <a href="<?= base_url('sub-sub-menu/index/') . $r['menu_id'] . '/' . $r['id'] . '/a'; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Detail</a>

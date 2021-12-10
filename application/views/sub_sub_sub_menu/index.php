@@ -53,6 +53,7 @@
             <tr class="text-center">
               <th scope="col">#</th>
               <th scope="col">Nama</th>
+              <th scope="col">Urutan</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
@@ -62,6 +63,7 @@
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $r['name']; ?></td>
+                <td><?= $r['urutan']; ?></td>
                 <td>
                   <a href="<?= base_url('sub-sub-sub-menu/update/') . $r['id'] . '/' . $r['menu_id'] . '/' . $r['sub_menu_id'] . '/' . $r['sub_sub_menu_id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
                   <a href="<?= base_url('sub-sub-sub-menu/delete/') . $r['id'] . '/' . $r['menu_id'] . '/' . $r['sub_menu_id'] . '/' . $r['sub_sub_menu_id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>

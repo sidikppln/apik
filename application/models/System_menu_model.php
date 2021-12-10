@@ -7,6 +7,7 @@ class System_menu_model extends CI_Model
 
     public function get($limit = null, $offset = 0)
     {
+        $this->db->order_by('urutan', 'asc');
         $this->db->limit($limit, $offset);
         return $this->db->get($this->_table)->result_array();
     }
@@ -18,6 +19,7 @@ class System_menu_model extends CI_Model
 
     public function find($name = null)
     {
+        $this->db->order_by('urutan', 'asc');
         $this->db->like('name', $name);
         return $this->db->get($this->_table)->result_array();
     }
