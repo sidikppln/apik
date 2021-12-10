@@ -30,20 +30,6 @@
 
     <div class="card">
       <div class="card-header">
-        <div class="row">
-          <div class="col-lg-6">
-            <a href="<?= base_url('rekening-koran/create/'); ?>" class="btn btn-sm btn-outline-success">Tambah</a>
-            <a href="<?= base_url('rekening-koran/import/'); ?>" class="btn btn-sm btn-outline-success ml-1">Impor CSV</a>
-          </div>
-          <div class="col-lg-6">
-            <form action="" method="post" autocomplete="off">
-              <div class="input-group">
-                <input type="text" name="name" class="form-control form-control-sm" placeholder="Nama">
-                <button class="btn btn-sm btn-outline-success" type="submit">Cari</button>
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
       <div class="card-body">
         <table class="table table-bordered table-hover table-sm">
@@ -71,8 +57,8 @@
                 <?php else : ?>
                   <td>
                     <div class="btn-group">
-                      <a href="<?= base_url('rekening-koran/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Ubah</a>
-                      <a href="<?= base_url('rekening-koran/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                      <a href="<?= base_url('rekening-koran/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Ubah</a>
+                      <a href="<?= base_url('rekening-koran/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                     </div>
                   </td>
                 <?php endif; ?>

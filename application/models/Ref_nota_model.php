@@ -5,9 +5,8 @@ class Ref_nota_model extends CI_Model
 {
     protected $_table = 'ref_nota';
 
-    public function get($limit = null, $offset = 0, $ref_kelompok_id)
+    public function get($limit = null, $offset = 0)
     {
-        $this->db->where('ref_kelompok_id', $ref_kelompok_id);
         $this->db->limit($limit, $offset);
         return $this->db->get($this->_table)->result_array();
     }
@@ -17,16 +16,14 @@ class Ref_nota_model extends CI_Model
         return $this->db->get_where($this->_table, ['id' => $id])->row_array();
     }
 
-    public function find($name = null, $ref_kelompok_id)
+    public function find($name = null)
     {
-        $this->db->where('ref_kelompok_id', $ref_kelompok_id);
         $this->db->like('nama', $name);
         return $this->db->get($this->_table)->result_array();
     }
 
-    public function count($ref_kelompok_id)
+    public function count()
     {
-        $this->db->where('ref_kelompok_id', $ref_kelompok_id);
         return $this->db->get($this->_table)->num_rows();
     }
 
@@ -54,9 +51,9 @@ class Ref_nota_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function getPenerimaan()
+    public function getPerKode($kode)
     {
-        $query = "SELECT DISTINCT kode,nama FROM ref_nota WHERE status='Debet'";
-        return $this->db->query($query)->result_array();
+        $this->db->where('kode', $kode);
+        return $this->db->get($this->_table)->result_array();
     }
 }

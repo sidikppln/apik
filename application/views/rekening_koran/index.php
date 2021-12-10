@@ -28,56 +28,60 @@
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="row">
-          <div class="col-lg-6">
-            <a href="<?= base_url('rekening-koran/create/'); ?>" class="btn btn-sm btn-outline-success">Tambah</a>
-            <a href="<?= base_url('rekening-koran/import/'); ?>" class="btn btn-sm btn-outline-success ml-1">Impor CSV</a>
-          </div>
-          <div class="col-lg-6">
-            <form action="" method="post" autocomplete="off">
-              <div class="input-group">
-                <input type="text" name="name" class="form-control form-control-sm" placeholder="Nama">
-                <button class="btn btn-sm btn-outline-success" type="submit">Cari</button>
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-lg-6">
+                <a href="<?= base_url('rekening-koran/create/'); ?>" class="btn btn-sm btn-outline-info">Tambah</a>
+                <a href="<?= base_url('rekening-koran/import/'); ?>" class="btn btn-sm btn-outline-info ml-1">Impor CSV</a>
               </div>
-            </form>
+              <div class="col-lg-6">
+                <form action="" method="post" autocomplete="off">
+                  <div class="input-group">
+                    <input type="text" name="name" class="form-control form-control-sm" placeholder="Nama">
+                    <button class="btn btn-sm btn-outline-info" type="submit">Cari</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered table-hover table-sm">
+              <thead>
+                <tr class="text-center">
+                  <th scope="col">#</th>
+                  <th scope="col">Tanggal Transaksi</th>
+                  <th scope="col">Jumlah Debet</th>
+                  <th scope="col">Jumlah Kredit</th>
+                  <th scope="col">Jumlah Transaksi</th>
+                  <th scope="col">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php $no = $page + 1;
+                foreach ($view_rekening_koran as $r) : ?>
+                  <tr>
+                    <td class="text-center"><?= $no++; ?></td>
+                    <td><?= $r['tanggal'] . '-' . $r['bulan'] . '-20' . $r['tahun']; ?></td>
+                    <td><?= $r['debet']; ?></td>
+                    <td><?= $r['kredit']; ?></td>
+                    <td><?= $r['jumlah']; ?></td>
+                    <td>
+                      <div class="btn-group">
+                        <a href="<?= base_url('rekening-koran/detail/') . $r['tanggal'] . '-' . $r['bulan'] . '-' . $r['tahun']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Detail</a>
+                      </div>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer">
+            <?= $name == null ? $pagination : ''; ?>
           </div>
         </div>
-      </div>
-      <div class="card-body">
-        <table class="table table-bordered table-hover table-sm">
-          <thead>
-            <tr class="text-center">
-              <th scope="col">#</th>
-              <th scope="col">Tanggal Transaksi</th>
-              <th scope="col">Jumlah Debet</th>
-              <th scope="col">Jumlah Kredit</th>
-              <th scope="col">Jumlah Transaksi</th>
-              <th scope="col">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php $no = $page + 1;
-            foreach ($view_rekening_koran as $r) : ?>
-              <tr>
-                <td class="text-center"><?= $no++; ?></td>
-                <td><?= $r['tanggal'] . '-' . $r['bulan'] . '-20' . $r['tahun']; ?></td>
-                <td><?= $r['debet']; ?></td>
-                <td><?= $r['kredit']; ?></td>
-                <td><?= $r['jumlah']; ?></td>
-                <td>
-                  <div class="btn-group">
-                    <a href="<?= base_url('rekening-koran/detail/') . $r['tanggal'] . '-' . $r['bulan'] . '-' . $r['tahun']; ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Detail</a>
-                  </div>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-      <div class="card-footer">
-        <?= $name == null ? $pagination : ''; ?>
       </div>
     </div>
 

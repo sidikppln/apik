@@ -15,4 +15,10 @@ class View_jenis_model extends CI_Model
         $this->db->where(['kode_kelompok' => '1', 'status' => 'Debet']);
         return $this->db->get($this->_table)->result_array();
     }
+
+    public function getPerNota($kode_nota)
+    {
+        $this->db->where('kode_nota', $kode_nota);
+        return $this->db->get($this->_table)->result_array();
+    }
 }

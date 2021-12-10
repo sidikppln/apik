@@ -49,48 +49,6 @@ class Data_pengeluaran_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function countPerNota($nota_pengeluaran_id = null)
-    {
-        $this->db->where('nota_pengeluaran_id', $nota_pengeluaran_id);
-        return $this->db->get($this->_table)->num_rows();
-    }
-
-    public function findPerNota($name = null, $nota_pengeluaran_id = null)
-    {
-        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_nota_pengeluaran a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis WHERE a.nota_pengeluaran_id='$nota_pengeluaran_id' AND a.nomor LIKE '%$name%'")->result_array();
-    }
-
-    public function getPerNota($limit = null, $offset = 0, $nota_pengeluaran_id = null)
-    {
-        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_pengeluaran a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis WHERE a.nota_pengeluaran_id='$nota_pengeluaran_id' LIMIT $limit OFFSET $offset")->result_array();
-    }
-
-    public function getAll($limit = null, $offset = 0, $kode = null)
-    {
-        $this->db->where('kode_kelompok', substr($kode, 0, 1));
-        $this->db->where('kode_jenis', substr($kode, 1, 1));
-        $this->db->where('nota_pengeluaran_id', null);
-        $this->db->limit($limit, $offset);
-        return $this->db->get($this->_table)->result_array();
-    }
-
-    public function findAll($name = null, $kode = null)
-    {
-        $this->db->where('kode_kelompok', substr($kode, 0, 1));
-        $this->db->where('kode_jenis', substr($kode, 1, 1));
-        $this->db->where('nota_pengeluaran_id', null);
-        $this->db->like('nama', $name);
-        return $this->db->get($this->_table)->result_array();
-    }
-
-    public function countAll($kode = null)
-    {
-        $this->db->where('kode_kelompok', substr($kode, 0, 1));
-        $this->db->where('kode_jenis', substr($kode, 1, 1));
-        $this->db->where('nota_pengeluaran_id', null);
-        return $this->db->get($this->_table)->num_rows();
-    }
-
     public function sumKredit($nota_pengeluaran_id = null)
     {
         return $this->db->query("SELECT nota_pengeluaran_id, SUM(kredit) AS kredit FROM data_pengeluaran WHERE nota_pengeluaran_id='$nota_pengeluaran_id' GROUP BY nota_pengeluaran_id")->row_array();

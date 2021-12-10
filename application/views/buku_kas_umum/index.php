@@ -37,7 +37,7 @@
             <form action="" method="post" autocomplete="off">
               <div class="input-group">
                 <input type="text" name="name" class="form-control form-control-sm" placeholder="Nama">
-                <button class="btn btn-sm btn-outline-success" type="submit">Cari</button>
+                <button class="btn btn-sm btn-outline-info" type="submit">Cari</button>
               </div>
             </form>
           </div>

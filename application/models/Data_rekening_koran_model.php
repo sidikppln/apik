@@ -7,9 +7,6 @@ class Data_rekening_koran_model extends CI_Model
 
     public function getTanggal($tanggal = null, $limit = null, $offset = 0)
     {
-        // $this->db->where('substr(tanggal,1,2)', substr($tanggal, 1, 2));
-        // $this->db->limit($limit, $offset);
-        // return $this->db->get($this->_table)->result_array();
         $query = "SELECT * FROM data_rekening_koran WHERE substr(tanggal,1,2)=substr('$tanggal',1,2) AND substr(tanggal,4,2)=substr('$tanggal',4,2)";
         $this->db->limit($limit, $offset);
         return $this->db->query($query)->result_array();
@@ -57,23 +54,23 @@ class Data_rekening_koran_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function getVerifikasiPenerimaan($limit = null, $offset = 0)
+    public function get($limit = null, $offset = 0, $status = 0)
     {
-        $this->db->where(['status' => 0, 'debet' => '0']);
+        $this->db->where(['status' => $status, 'debet' => '0']);
         $this->db->limit($limit, $offset);
         return $this->db->get($this->_table)->result_array();
     }
 
-    public function findVerifikasiPenerimaan($name = null)
+    public function find($name = null, $status = 0)
     {
-        $this->db->where(['status' => 0, 'debet' => '0']);
+        $this->db->where(['status' => $status, 'debet' => '0']);
         $this->db->like('uraian', $name);
         return $this->db->get($this->_table)->result_array();
     }
 
-    public function countVerifikasiPenerimaan()
+    public function count($status = 0)
     {
-        $this->db->where(['status' => 0, 'debet' => '0']);
+        $this->db->where(['status' => $status, 'debet' => '0']);
         return $this->db->get($this->_table)->num_rows();
     }
 }

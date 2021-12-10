@@ -23,7 +23,7 @@
 
                 <form action="" method="post" autocomplete="off">
                     <div class="row">
-                        <div class="col-lg-3">
+                        <div class="col">
                             <div class="form-group mb-2">
                                 <label for="">Kode:</label>
                                 <input type="text" name="kode" class="form-control <?= form_error('kode') ? 'is-invalid' : ''; ?>">
@@ -33,7 +33,7 @@
                             </div>
                             <div class="form-group mb-2">
                                 <label for="">Nama:</label>
-                                <input type="text" name="nama" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>">
+                                <textarea name="nama" cols="30" rows="5" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>"></textarea>
                                 <div class="invalid-feedback">
                                     <?= form_error('nama'); ?>
                                 </div>
@@ -43,8 +43,8 @@
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-group">
-                                <a href="<?= base_url('kegiatan/index/') . $jenis; ?>" class="btn btn-sm btn-outline-success">Batal</a>
-                                <button type="submit" class="btn btn-sm btn-outline-success ml-1">Simpan</button>
+                                <a href="<?= base_url('kegiatan/index/') . $jenis; ?>" class="btn btn-sm btn-outline-info">Batal</a>
+                                <button type="submit" class="btn btn-sm btn-outline-info ml-1">Simpan</button>
                             </div>
                         </div>
                     </div>
