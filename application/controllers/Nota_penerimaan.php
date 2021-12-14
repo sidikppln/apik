@@ -279,6 +279,40 @@ class Nota_penerimaan extends CI_Controller
                 $this->penerimaan_m->create($data);
             }
             $this->penerimaan_m->delete($id);
+            //khusus transaksi setoran pn
+        } else if ($kode_nota == '03') {
+            $penerimaan = $this->penerimaan_m->getDetail($id);
+            $hak_pp = $penerimaan['debet'] * 0.9;
+            $biad = $penerimaan['debet'] * 0.1;
+            $transaksi = [
+                [
+                    'kode_kelompok' => '1',
+                    'kode_jenis' => '06',
+                    'debet' => $hak_pp
+                ],
+                [
+                    'kode_kelompok' => '2',
+                    'kode_jenis' => '07',
+                    'debet' => $biad
+                ]
+            ];
+            foreach ($transaksi as $r) {
+                $data = [
+                    'tanggal' => $penerimaan['tanggal'],
+                    'kdsatker' => $penerimaan['kdsatker'],
+                    'tahun' => $penerimaan['tahun'],
+                    'kode_kelompok' => $r['kode_kelompok'],
+                    'kode_jenis' => $r['kode_jenis'],
+                    'no_urut' => $penerimaan['no_urut'],
+                    'debet' => $r['debet'],
+                    'virtual_account' => $penerimaan['virtual_account'],
+                    'rekening_koran_id' => $penerimaan['rekening_koran_id'],
+                    'nota_penerimaan_id' => $nota_penerimaan_id,
+                    'status' => 1
+                ];
+                $this->penerimaan_m->create($data);
+            }
+            $this->penerimaan_m->delete($id);
         } else {
             $data = [
                 'nota_penerimaan_id' => $nota_penerimaan_id,

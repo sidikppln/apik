@@ -224,6 +224,9 @@ class Nota_pengeluaran extends CI_Controller
             case '11':
                 $kredit = $kegiatan['biad_ppn'];
                 break;
+            case '13':
+                $kredit = $kegiatan['bea_batal'];
+                break;
         }
 
         $validation = $this->form_validation->set_rules($this->rules);
