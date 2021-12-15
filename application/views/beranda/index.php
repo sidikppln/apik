@@ -2,9 +2,9 @@
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
-        <div class="col-sm-6">
+        <div class="col">
           <h1>Penting Hari Ini</h1>
-          <span class="text-secondary">Aktifitas yang harus dipantau agar transaksi masuk dan keluar dapat segera diproses.</span>
+          <span class="text-secondary">Aktivitas dan transaksi yang harus dipantau agar dapat segera diselesaikan.</span>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
                 <div class="info-box-content">
-                  <span class="info-box-text text-secondary">Kegiatan</span>
+                  <span class="info-box-text text-secondary">Aktivitas</span>
                   <span class="info-box-number text-xl m-0">41,410</span>
                 </div>
               </div>
@@ -93,7 +93,7 @@
           <div class="row mb-2 mt-3">
             <div class="col">
               <h3 class="mb-0">Analisa Rekening</h3>
-              <span class="text-secondary">Pembukuan bendahara dan posisi rekening penerimaan yang harus dijaga agar tetap seimbang.</span>
+              <span class="text-secondary">Pembukuan bendahara dan posisi rekening penerimaan yang harus diperhatikan agar tetap seimbang.</span>
             </div>
           </div>
 
@@ -101,12 +101,12 @@
             <div class="col-lg-6">
               <div class="card">
                 <div class="card-header border-transparent">
-                  <h3 class="card-title text-info"><i class="fas fa-book mr-2"></i>Pembukuan Bendahara</h3>
+                  <h3 class="card-title text-bold p-1">Informasi rekening</h3>
                 </div>
                 <div class="card-body p-0">
                   <div class="table-responsive">
-                    <table class="table m-0">
-                      <thead>
+                    <table class="table table-sm table-hover m-0">
+                      <thead class="text-info">
                         <tr>
                           <th>Jenis</th>
                           <th>Debet</th>
@@ -116,7 +116,7 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td>Dana Pihak Ketiga</td>
+                          <td>DPK</td>
                           <td>187.234.123.000</td>
                           <td>187.234.123.000</td>
                           <td>0</td>
@@ -144,14 +144,14 @@
             <div class="col-lg-6">
               <div class="card">
                 <div class="card-header border-transparent">
-                  <h3 class="card-title text-info"><i class="fas fa-money-bill mr-2"></i>Posisi Rekening</h3>
+                  <h3 class="card-title text-bold p-1"></i>Jumlah per aktivitas</h3>
                 </div>
                 <div class="card-body p-0">
                   <div class="table-responsive">
-                    <table class="table m-0">
-                      <thead>
+                    <table class="table table-sm table-hover m-0">
+                      <thead class="text-info">
                         <tr>
-                          <th>Kegiatan</th>
+                          <th>Aktivitas</th>
                           <th>Debet</th>
                           <th>Kredit</th>
                           <th>Saldo</th>
@@ -165,7 +165,7 @@
                           <td>0</td>
                         </tr>
                         <tr>
-                          <td>Piutang Negara</td>
+                          <td>Piutang</td>
                           <td>187.234.123.000</td>
                           <td>187.234.123.000</td>
                           <td>0</td>
@@ -185,13 +185,13 @@
         <div class="col-lg-3">
           <div class="card card-default">
             <div class="card-header">
-              <h3 class="card-title text-info"><i class="fas fa-user mr-2"></i>Tugas terkait</h3>
+              <h3 class="card-title text-bold pt-1 pb-1">Tugas yang belum selesai</h3>
             </div>
-            <div class="card-body">
+            <div class="card-body m-0">
               <div class="callout callout-info">
                 <h5>Verifikator</h5>
                 <p><i class="fas fa-exclamation-circle mr-1 text-warning"></i>Ada 145 transaksi yang belum diverifikasi.</p>
-                <p><i class="fas fa-exclamation-circle mr-1 text-warning"></i>Ada 145 nota yang belum diselesaikan.</p>
+                <p><i class="fas fa-exclamation-circle mr-1 text-warning"></i>Ada 14 nota yang belum dikirim.</p>
               </div>
               <div class="callout callout-info">
                 <h5>Otorisator</h5>
