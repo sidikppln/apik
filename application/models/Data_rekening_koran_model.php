@@ -5,9 +5,9 @@ class Data_rekening_koran_model extends CI_Model
 {
     protected $_table = 'data_rekening_koran';
 
-    public function getTanggal($tanggal = null, $limit = null, $offset = 0)
+    public function getTanggal($tanggal = null, $kode_bank = 1, $limit = null, $offset = 0)
     {
-        $query = "SELECT * FROM data_rekening_koran WHERE substr(tanggal,1,2)=substr('$tanggal',1,2) AND substr(tanggal,4,2)=substr('$tanggal',4,2)";
+        $query = "SELECT * FROM data_rekening_koran WHERE substr(tanggal,1,2)=substr('$tanggal',1,2) AND substr(tanggal,4,2)=substr('$tanggal',4,2) AND kode_bank='$kode_bank'";
         $this->db->limit($limit, $offset);
         return $this->db->query($query)->result_array();
     }
@@ -17,16 +17,18 @@ class Data_rekening_koran_model extends CI_Model
         return $this->db->get_where($this->_table, ['id' => $id])->row_array();
     }
 
-    public function findTanggal($tanggal = null, $name = null)
+    public function findTanggal($tanggal = null, $kode_bank = 1, $name = null)
     {
         $this->db->where('substr(tanggal,0,2)', substr($tanggal, 0, 2));
+        $this->db->where('kode_bank', $kode_bank);
         $this->db->like('uraian', $name);
         return $this->db->get($this->_table)->result_array();
     }
 
-    public function countTanggal($tanggal = null)
+    public function countTanggal($tanggal = null, $kode_bank = 1)
     {
         $this->db->where('substr(tanggal,0,2)', substr($tanggal, 0, 2));
+        $this->db->where('kode_bank', $kode_bank);
         return $this->db->get($this->_table)->num_rows();
     }
 
@@ -71,6 +73,13 @@ class Data_rekening_koran_model extends CI_Model
     public function count($status = 0)
     {
         $this->db->where(['status' => $status, 'debet' => '0']);
+        return $this->db->get($this->_table)->num_rows();
+    }
+
+    public function getBeranda()
+    {
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
+        $this->db->where(['status' => 0, 'debet' => '0']);
         return $this->db->get($this->_table)->num_rows();
     }
 }

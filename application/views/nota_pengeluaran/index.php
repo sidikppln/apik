@@ -32,8 +32,9 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('nota-pengeluaran/index/0'); ?>" class="btn btn-sm btn-outline-info <?= $this->uri->segment(3) == 0 ? 'active' : ''; ?>">Lelang</a>
-            <a href="<?= base_url('nota-pengeluaran/index/1'); ?>" class="btn btn-sm btn-outline-info ml-1 <?= $this->uri->segment(3) == 1 ? 'active' : ''; ?>">Piutang Negara</a>
+            <?php foreach ($ref_jenis_aktivitas as $r) : ?>
+              <a href="<?= base_url('nota-pengeluaran/index/') . $r['kode']; ?>" class="btn btn-sm btn-outline-info ml-1 <?= $jenis_aktivitas == $r['kode'] ? 'active' : ''; ?>"><?= $r['nama']; ?></a>
+            <?php endforeach; ?>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
@@ -64,14 +65,14 @@
               </thead>
               <tbody>
                 <?php $no = $page + 1;
-                foreach ($kegiatan as $r) : ?>
+                foreach ($aktivitas as $r) : ?>
                   <tr>
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $r['kode']; ?></td>
                     <td><?= $r['nama']; ?></td>
                     <td>
                       <div class="btn-group">
-                        <a href="<?= base_url('nota-pengeluaran/detail/') . $jenis . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Detail</a>
+                        <a href="<?= base_url('nota-pengeluaran/detail/') . $jenis_aktivitas . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Detail</a>
                       </div>
                     </td>
                   </tr>

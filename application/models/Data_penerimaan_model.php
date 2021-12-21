@@ -38,4 +38,11 @@ class Data_penerimaan_model extends CI_Model
     {
         return $this->db->query("SELECT nota_penerimaan_id, SUM(debet) AS debet FROM data_penerimaan WHERE nota_penerimaan_id='$nota_penerimaan_id' GROUP BY nota_penerimaan_id")->row_array();
     }
+
+    public function getBeranda()
+    {
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
+        $this->db->where('status', 0);
+        return $this->db->get($this->_table)->num_rows();
+    }
 }

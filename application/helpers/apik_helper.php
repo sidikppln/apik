@@ -60,7 +60,7 @@ function tanggal($tgl)
     '12' => 'Desember',
   ];
   $nama_bulan = $daftar_bulan[$bulan];
-  return date('d', $tgl) . ' ' . $nama_bulan . ' ' . date('Y', $tgl);
+  return $tgl == null ? '' : date('d', $tgl) . ' ' . $nama_bulan . ' ' . date('Y', $tgl);
 }
 
 function jam($tgl)
@@ -105,7 +105,7 @@ function bulan($tgl)
   return $nama_bulan;
 }
 
-function NoUrutPenerimaan($kdsatker)
+function noUrutPenerimaan($kdsatker)
 {
   $ci = get_instance();
   $no_urut = $ci->ref_satker_m->getNoUrutPenerimaan($kdsatker);
@@ -133,7 +133,7 @@ function NoUrutPenerimaan($kdsatker)
   ];
 }
 
-function NoNotaPenerimaan($kdsatker)
+function noNotaPenerimaan($kdsatker)
 {
   $ci = get_instance();
   $no_nota = $ci->ref_satker_m->getNoNotaPenerimaan($kdsatker);
@@ -161,7 +161,7 @@ function NoNotaPenerimaan($kdsatker)
   ];
 }
 
-function NoUrutPengeluaran($kdsatker)
+function noUrutPengeluaran($kdsatker)
 {
   $ci = get_instance();
   $no_urut = $ci->ref_satker_m->getNoUrutPengeluaran($kdsatker);
@@ -189,7 +189,7 @@ function NoUrutPengeluaran($kdsatker)
   ];
 }
 
-function NoNotaPengeluaran($kdsatker)
+function noNotaPengeluaran($kdsatker)
 {
   $ci = get_instance();
   $no_nota = $ci->ref_satker_m->getNoNotaPengeluaran($kdsatker);
@@ -215,4 +215,16 @@ function NoNotaPengeluaran($kdsatker)
     'no_nota' => $no_nota,
     'no_nota_next' => $no_nota_next
   ];
+}
+
+function kdsatker()
+{
+  $ci = get_instance();
+  return $ci->session->userdata('kdsatker');
+}
+
+function tahun()
+{
+  $ci = get_instance();
+  return $ci->session->userdata('tahun');
 }

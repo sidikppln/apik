@@ -12,7 +12,7 @@ class View_jenis_model extends CI_Model
 
     public function getPenerimaan()
     {
-        $this->db->where(['kode_kelompok' => '1', 'status' => 'Debet']);
+        $this->db->where(['status' => 'Debet']);
         return $this->db->get($this->_table)->result_array();
     }
 

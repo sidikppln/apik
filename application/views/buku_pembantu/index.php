@@ -32,9 +32,9 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('buku-pembantu/index/1'); ?>" class="btn btn-sm btn-outline-info <?= $kode_kelompok == 1 ? 'active' : ''; ?>">Dana Pihak Ketiga</a>
-            <a href="<?= base_url('buku-pembantu/index/2'); ?>" class="btn btn-sm btn-outline-info ml-1 <?= $kode_kelompok == 2 ? 'active' : ''; ?>">PNBP</a>
-            <a href="<?= base_url('buku-pembantu/index/3'); ?>" class="btn btn-sm btn-outline-info ml-1 <?= $kode_kelompok == 3 ? 'active' : ''; ?>">PPh</a>
+            <?php foreach ($ref_kode_kelompok as $r) : ?>
+              <a href="<?= base_url('buku-pembantu/index/') . $r['kode']; ?>" class="btn btn-sm btn-outline-info <?= $kode_kelompok == $r['kode'] ? 'active' : ''; ?>"><?= $r['nama']; ?></a>
+            <?php endforeach; ?>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">

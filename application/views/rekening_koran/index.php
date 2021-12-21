@@ -29,15 +29,19 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-8">
+      <div class="col-lg-10">
         <div class="card">
           <div class="card-header">
             <div class="row">
-              <div class="col-lg-6">
-                <a href="<?= base_url('rekening-koran/create/'); ?>" class="btn btn-sm btn-outline-info">Tambah</a>
+              <div class="col-lg-8">
                 <a href="<?= base_url('rekening-koran/import/'); ?>" class="btn btn-sm btn-outline-info ml-1">Impor CSV</a>
+                <span style="width: 0px; height: 100px; border: 1px #BFC5CD solid;" class="ml-2 mr-2">
+                </span>
+                <?php foreach ($ref_bank as $r) : ?>
+                  <a href="<?= base_url('rekening-koran/index/') . $r['kode']; ?>" class="btn btn-sm btn-outline-info ml-1 <?= $kode_bank == $r['kode'] ? 'active' : ''; ?>"><?= $r['nama']; ?></a>
+                <?php endforeach; ?>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-4">
                 <form action="" method="post" autocomplete="off">
                   <div class="input-group">
                     <input type="text" name="name" class="form-control form-control-sm" placeholder="Nama">
@@ -70,7 +74,7 @@
                     <td><?= $r['jumlah']; ?></td>
                     <td>
                       <div class="btn-group">
-                        <a href="<?= base_url('rekening-koran/detail/') . $r['tanggal'] . '-' . $r['bulan'] . '-' . $r['tahun']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Detail</a>
+                        <a href="<?= base_url('rekening-koran/detail/') . $r['tanggal'] . '-' . $r['bulan'] . '-' . $r['tahun'] . '/' . $r['kode_bank']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Detail</a>
                       </div>
                     </td>
                   </tr>

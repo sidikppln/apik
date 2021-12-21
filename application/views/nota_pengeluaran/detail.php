@@ -33,7 +33,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('nota-pengeluaran/create/') . $jenis . '/' . $kegiatan_id; ?>" class="btn btn-sm btn-outline-info">Tambah</a>
+            <a href="<?= base_url('nota-pengeluaran/create/') . $jenis_aktivitas . '/' . $aktivitas_id; ?>" class="btn btn-sm btn-outline-info">Tambah</a>
           </div>
           <div class="col-lg-6">
             <?= form_open(); ?>
@@ -68,9 +68,10 @@
                 <td><?= number_format($r['kredit'], 0, ',', '.'); ?></td>
                 <td>
                   <div class="btn-group">
-                    <a href="<?= base_url('nota-pengeluaran/transaksi/') . $jenis . '/' . $kegiatan_id . '/'  . $r['id'] . '/' . $r['kode_nota']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Transaksi</a>
-                    <a href="<?= base_url('nota-pengeluaran/update/') . $jenis . '/' . $kegiatan_id . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Ubah</a>
-                    <a href="<?= base_url('nota-pengeluaran/delete/') . $jenis . '/' . $kegiatan_id  . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                    <a href="<?= base_url('nota-pengeluaran/transaksi/') . $jenis_aktivitas . '/' . $aktivitas_id . '/'  . $r['id'] . '/' . $r['kode_nota']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Transaksi</a>
+                    <a href="<?= base_url('nota-pengeluaran/update/') . $jenis_aktivitas . '/' . $aktivitas_id . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Ubah</a>
+                    <a href="<?= base_url('nota-pengeluaran/delete/') . $jenis_aktivitas . '/' . $aktivitas_id  . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                    <a href="<?= base_url('nota-pengeluaran/kirim/') . $jenis_aktivitas . '/' . $aktivitas_id  . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan mengirim data ini?');">Kirim</a>
                   </div>
                 </td>
               </tr>

@@ -3,11 +3,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Transaksi Bank</h1>
+                    <h1>Aktivitas</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Transaksi Bank</a></li>
+                        <li class="breadcrumb-item"><a href="#">Aktivitas</a></li>
                         <li class="breadcrumb-item active">Tambah</li>
                     </ol>
                 </div>
@@ -23,41 +23,35 @@
 
                 <form action="" method="post" autocomplete="off">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-8">
                             <div class="form-group mb-2">
-                                <label for="">Tanggal:</label>
-                                <input type="text" name="tanggal" class="form-control <?= form_error('tanggal') ? 'is-invalid' : ''; ?>">
+                                <label for="">Kode:</label>
+                                <input type="text" name="kode" class="form-control <?= form_error('kode') ? 'is-invalid' : ''; ?>">
                                 <div class="invalid-feedback">
-                                    <?= form_error('tanggal'); ?>
+                                    <?= form_error('kode'); ?>
                                 </div>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="">Uraian:</label>
-                                <input type="text" name="uraian" class="form-control <?= form_error('uraian') ? 'is-invalid' : ''; ?>">
+                                <label for="">Nama:</label>
+                                <textarea name="nama" cols="30" rows="5" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>"></textarea>
                                 <div class="invalid-feedback">
-                                    <?= form_error('uraian'); ?>
+                                    <?= form_error('nama'); ?>
                                 </div>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="">Debet:</label>
-                                <input type="text" name="debet" class="form-control <?= form_error('debet') ? 'is-invalid' : ''; ?>">
-                                <div class="invalid-feedback">
-                                    <?= form_error('debet'); ?>
-                                </div>
-                            </div>
-                            <div class="form-group mb-2">
-                                <label for="">Kredit:</label>
-                                <input type="text" name="kredit" class="form-control <?= form_error('kredit') ? 'is-invalid' : ''; ?>">
-                                <div class="invalid-feedback">
-                                    <?= form_error('kredit'); ?>
-                                </div>
+                                <label for="">Jenis Aktivitas:</label>
+                                <select name="jenis_aktivitas" class="form-control">
+                                    <?php foreach ($ref_jenis_aktivitas as $r) : ?>
+                                        <option value="<?= $r['kode']; ?>"><?= $r['nama']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-group">
-                                <a href="<?= base_url('rekening-koran'); ?>" class="btn btn-sm btn-outline-info">Batal</a>
+                                <a href="<?= base_url('aktivitas'); ?>" class="btn btn-sm btn-outline-info">Batal</a>
                                 <button type="submit" class="btn btn-sm btn-outline-info ml-1">Simpan</button>
                             </div>
                         </div>

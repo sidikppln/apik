@@ -3,11 +3,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Kegiatan</h1>
+                    <h1>Aktivitas</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Kegiatang</a></li>
+                        <li class="breadcrumb-item"><a href="#">Aktivitas</a></li>
                         <li class="breadcrumb-item active">Ubah</li>
                     </ol>
                 </div>
@@ -23,34 +23,35 @@
 
                 <form action="" method="post" autocomplete="off">
                     <div class="row">
-                        <div class="col-lg-3">
+                        <div class="col">
                             <div class="form-group mb-2">
-                                <label for="">Hak Penyerah Piutang:</label>
-                                <input type="text" name="hak_pp" class="form-control <?= form_error('hak_pp') ? 'is-invalid' : ''; ?>" value="<?= $kegiatan['hak_pp']; ?>">
+                                <label for="">Kode:</label>
+                                <input type="text" name="kode" class="form-control <?= form_error('kode') ? 'is-invalid' : ''; ?>" value="<?= $aktivitas['kode']; ?>">
                                 <div class="invalid-feedback">
-                                    <?= form_error('hak_pp'); ?>
+                                    <?= form_error('kode'); ?>
                                 </div>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="">BIAD PPN:</label>
-                                <input type="text" name="biad_ppn" class="form-control <?= form_error('biad_ppn') ? 'is-invalid' : ''; ?>" value="<?= $kegiatan['biad_ppn']; ?>">
+                                <label for="">Nama:</label>
+                                <textarea name="nama" cols="30" rows="5" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>"><?= $aktivitas['nama']; ?></textarea>
                                 <div class="invalid-feedback">
-                                    <?= form_error('biad_ppn'); ?>
+                                    <?= form_error('nama'); ?>
                                 </div>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="">Kelebihan:</label>
-                                <input type="text" name="lebih" class="form-control <?= form_error('lebih') ? 'is-invalid' : ''; ?>" value="<?= $kegiatan['lebih']; ?>">
-                                <div class="invalid-feedback">
-                                    <?= form_error('lebih'); ?>
-                                </div>
+                                <label for="">Jenis Aktivitas:</label>
+                                <select name="jenis_aktivitas" class="form-control">
+                                    <?php foreach ($ref_jenis_aktivitas as $r) : ?>
+                                        <option value="<?= $r['kode']; ?>" <?= $r['kode'] == $aktivitas['jenis_aktivitas'] ? 'selected' : ''; ?>><?= $r['nama']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-group">
-                                <a href="<?= base_url('kegiatan/detail/') . $jenis . '/' . $id; ?>" class="btn btn-sm btn-outline-info">Batal</a>
+                                <a href="<?= base_url('aktivitas/index/') . $jenis_aktivitas; ?>" class="btn btn-sm btn-outline-info">Batal</a>
                                 <button type="submit" class="btn btn-sm btn-outline-info ml-1">Simpan</button>
                             </div>
                         </div>

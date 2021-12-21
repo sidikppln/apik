@@ -13,6 +13,8 @@ class Buku_pembantu extends CI_Controller
 
     public function index($kode_kelompok = 1)
     {
+        $data['ref_kode_kelompok'] = $this->view_kas_umum_m->getKodeKelompok();
+
         $data['kode_kelompok'] = $kode_kelompok;
         // setting halaman
         $config['base_url'] = base_url('buku-pembantu/index/' . $kode_kelompok . '');

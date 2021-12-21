@@ -68,7 +68,7 @@
                 <td><?= $r['virtual_account']; ?></td>
                 <td class="text-right"><?= number_format($r['debet'], 2, ',', '.'); ?></td>
                 <td>
-                  <a href="<?= base_url('nota-penerimaan/pilih-transaksi/') . $jenis . '/' . $kegiatan_id . '/' . $nota_penerimaan_id . '/' . $kode_nota . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Pilih</a>
+                  <a href="<?= base_url('nota-penerimaan/pilih-transaksi/') . $jenis_aktivitas . '/' . $aktivitas_id . '/' . $nota_penerimaan_id . '/' . $kode_nota . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Pilih</a>
                 </td>
               </tr>
             <?php endforeach; ?>
