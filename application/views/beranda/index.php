@@ -16,18 +16,18 @@
         <div class="col-lg-9">
           <div class="row">
             <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box">
+              <div class="info-box mb-3">
                 <div class="info-box-content">
-                  <span class="info-box-text text-secondary">Rekening Koran</span>
-                  <span class="info-box-number text-xl m-0">10</span>
+                  <span class="info-box-text text-secondary">Aktivitas</span>
+                  <span class="info-box-number text-xl m-0"><?= number_format($aktivitas, 0, ',', '.'); ?></span>
                 </div>
               </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
+              <div class="info-box">
                 <div class="info-box-content">
-                  <span class="info-box-text text-secondary">Aktivitas</span>
-                  <span class="info-box-number text-xl m-0">41,410</span>
+                  <span class="info-box-text text-secondary">Rekening Koran</span>
+                  <span class="info-box-number text-xl m-0"><?= number_format($rekening_koran, 0, ',', '.'); ?></span>
                 </div>
               </div>
             </div>
@@ -37,16 +37,16 @@
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
                 <div class="info-box-content">
-                  <span class="info-box-text text-secondary">Belum Verifikasi</span>
-                  <span class="info-box-number text-xl m-0">760</span>
+                  <span class="info-box-text text-secondary">Verifikasi</span>
+                  <span class="info-box-number text-xl m-0"><?= number_format($penerimaan, 0, ',', '.'); ?></span>
                 </div>
               </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
                 <div class="info-box-content">
-                  <span class="info-box-text text-secondary">Sudah Verifikasi</span>
-                  <span class="info-box-number text-xl m-0">2,000</span>
+                  <span class="info-box-text text-secondary">Nota Penerimaan</span>
+                  <span class="info-box-number text-xl m-0"><?= number_format($nota_penerimaan, 0, ',', '.'); ?></span>
                 </div>
               </div>
             </div>
@@ -56,16 +56,16 @@
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box">
                 <div class="info-box-content">
-                  <span class="info-box-text text-secondary">Nota Penerimaan</span>
-                  <span class="info-box-number text-xl m-0">10</span>
+                  <span class="info-box-text text-secondary">Nota Pengeluaran</span>
+                  <span class="info-box-number text-xl m-0"><?= number_format($nota_pengeluaran, 0, ',', '.'); ?></span>
                 </div>
               </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
                 <div class="info-box-content">
-                  <span class="info-box-text text-secondary">Nota Pengeluaran</span>
-                  <span class="info-box-number text-xl m-0">41,410</span>
+                  <span class="info-box-text text-secondary">Pengesahan</span>
+                  <span class="info-box-number text-xl m-0"><?= number_format($pengesahan, 0, ',', '.'); ?></span>
                 </div>
               </div>
             </div>
@@ -75,16 +75,16 @@
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
                 <div class="info-box-content">
-                  <span class="info-box-text text-secondary">Pengesahan</span>
-                  <span class="info-box-number text-xl m-0">760</span>
+                  <span class="info-box-text text-secondary">Pemindahbukuan di Bank</span>
+                  <span class="info-box-number text-xl m-0"><?= number_format($pemindahbukuan, 0, ',', '.'); ?></span>
                 </div>
               </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
                 <div class="info-box-content">
-                  <span class="info-box-text text-secondary">Pembukuan</span>
-                  <span class="info-box-number text-xl m-0">2,000</span>
+                  <span class="info-box-text text-secondary">Pencatatan di Sakti</span>
+                  <span class="info-box-number text-xl m-0"><?= number_format($pencatatan, 0, ',', '.'); ?></span>
                 </div>
               </div>
             </div>
@@ -115,24 +115,14 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>DPK</td>
-                          <td>187.234.123.000</td>
-                          <td>187.234.123.000</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>PNBP</td>
-                          <td>187.234.000</td>
-                          <td>187.234.000</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>PPh</td>
-                          <td>18.234.000</td>
-                          <td>18.234.000</td>
-                          <td>0</td>
-                        </tr>
+                        <?php foreach ($kelompok as $r) : ?>
+                          <tr>
+                            <td><?= $r['nama']; ?></td>
+                            <td><?= number_format($r['debet'], 0, ',', '.'); ?></td>
+                            <td><?= number_format($r['kredit'], 0, ',', '.'); ?></td>
+                            <td><?= number_format($r['debet'] - $r['kredit'], 0, ',', '.'); ?></td>
+                          </tr>
+                        <?php endforeach; ?>
                       </tbody>
                     </table>
                   </div>
@@ -158,18 +148,14 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Lelang</td>
-                          <td>187.234.123.000</td>
-                          <td>187.234.123.000</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>Piutang</td>
-                          <td>187.234.123.000</td>
-                          <td>187.234.123.000</td>
-                          <td>0</td>
-                        </tr>
+                        <?php foreach ($jenis_aktivitas as $r) : ?>
+                          <tr>
+                            <td><?= $r['nama']; ?></td>
+                            <td><?= number_format($r['debet'], 0, ',', '.'); ?></td>
+                            <td><?= number_format($r['kredit'], 0, ',', '.'); ?></td>
+                            <td><?= number_format($r['debet'] - $r['kredit'], 0, ',', '.'); ?></td>
+                          </tr>
+                        <?php endforeach; ?>
                       </tbody>
                     </table>
                   </div>
@@ -190,16 +176,27 @@
             <div class="card-body m-0">
               <div class="callout callout-info">
                 <h5>Verifikator</h5>
-                <p><i class="fas fa-exclamation-circle mr-1 text-warning"></i>Ada 145 transaksi yang belum diverifikasi.</p>
-                <p><i class="fas fa-exclamation-circle mr-1 text-warning"></i>Ada 14 nota yang belum dikirim.</p>
+                <?php if ($rekening_koran > 0) : ?>
+                  <p><i class="fas fa-exclamation-circle mr-1 text-warning"></i>Ada <?= number_format($rekening_koran, 0, ',', '.'); ?> transaksi yang belum dilakukan verifikasi.</p>
+                <?php endif; ?>
+                <?php if ($verifikasi > 0) : ?>
+                  <p><i class="fas fa-exclamation-circle mr-1 text-warning"></i>Ada <?= number_format($verifikasi, 0, ',', '.'); ?> nota yang belum dikirim ke Otorisator.</p>
+                <?php endif; ?>
               </div>
               <div class="callout callout-info">
                 <h5>Otorisator</h5>
-                <p><i class="fas fa-exclamation-circle mr-1 text-warning"></i>Ada 453 nota yang belum disahkan.</p>
+                <?php if ($pengesahan > 0) : ?>
+                  <p><i class="fas fa-exclamation-circle mr-1 text-warning"></i>Ada <?= number_format($pengesahan, 0, ',', '.'); ?> nota yang belum dilakukan pengesahan.</p>
+                <?php endif; ?>
               </div>
               <div class="callout callout-info">
                 <h5>Bendahara Penerimaan</h5>
-                <p><i class="fas fa-exclamation-circle mr-1 text-warning"></i>Ada 123 nota yang belum dibukukan.</p>
+                <?php if ($pemindahbukuan > 0) : ?>
+                  <p><i class="fas fa-exclamation-circle mr-1 text-warning"></i>Ada <?= number_format($pemindahbukuan, 0, ',', '.'); ?> nota yang belum dilakukan pemindahbukuan.</p>
+                <?php endif; ?>
+                <?php if ($pencatatan > 0) : ?>
+                  <p><i class="fas fa-exclamation-circle mr-1 text-warning"></i>Ada <?= number_format($pencatatan, 0, ',', '.'); ?> nota yang belum dilakukan pencatatan di Sakti.</p>
+                <?php endif; ?>
               </div>
             </div>
           </div>

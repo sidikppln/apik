@@ -3,11 +3,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Buku Pembantu</h1>
+          <h1>Pemindahbukuan</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active">Buku Pembantu DPK</li>
+            <li class="breadcrumb-item"><a href="">Pemindahbukuan</a></li>
+            <li class="breadcrumb-item active">Transaksi</li>
           </ol>
         </div>
       </div>
@@ -32,9 +33,6 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <?php foreach ($ref_kode_kelompok as $r) : ?>
-              <a href="<?= base_url('buku-pembantu/index/') . $r['kode']; ?>" class="btn btn-sm btn-outline-info <?= $kode_kelompok == $r['kode'] ? 'active' : ''; ?>"><?= $r['nama']; ?></a>
-            <?php endforeach; ?>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
@@ -53,29 +51,21 @@
               <th scope="col">#</th>
               <th scope="col">Tanggal</th>
               <th scope="col">Kode</th>
-              <th scope="col">Uraian</th>
-              <th scope="col">Debet</th>
-              <th scope="col">Kredit</th>
-              <th scope="col">Saldo</th>
+              <th scope="col">Jenis</th>
+              <th scope="col">Nominal</th>
             </tr>
           </thead>
           <tbody>
             <?php $no = $page + 1;
-            $s_awal = 0;
-            $s_akhir = 0;
-            foreach ($kas_umum as $r) : $s_akhir = $s_awal + ($r['debet'] - $r['kredit']); ?>
+            foreach ($pengeluaran as $r) : ?>
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
-                <td><?= date('d-m-Y h:i:s', $r['tanggal']); ?></td>
+                <td><?= date('d-m-Y', $r['tanggal']); ?></td>
                 <td><?= $r['kdsatker'] . '.' . $r['tahun'] . '.' . $r['kode_kelompok'] . '.' . $r['kode_jenis'] . '.' . $r['no_urut']; ?></td>
-                <td><?= $r['nama']; ?></td>
-                <td><?= number_format($r['debet'], 0, ',', '.'); ?></td>
-                <td><?= number_format($r['kredit'], 0, ',', '.'); ?></td>
-                <td><?= number_format($s_akhir, 0, ',', '.'); ?></td>
+                <td><?= $r['nama_jenis']; ?></td>
+                <td class="text-right"><?= number_format($r['kredit'], 2, ',', '.'); ?></td>
               </tr>
-            <?php
-              $s_awal = $s_akhir;
-            endforeach; ?>
+            <?php endforeach; ?>
           </tbody>
         </table>
       </div>

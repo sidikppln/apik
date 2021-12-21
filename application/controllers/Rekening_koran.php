@@ -11,43 +11,17 @@ class Rekening_Koran extends CI_Controller
         $this->load->model('Data_rekening_koran_model', 'rekening_koran_m');
         $this->load->model('View_jenis_model', 'view_jenis_m');
         $this->load->model('View_rekening_koran_model', 'view_rekening_koran_m');
+        $this->load->model('Ref_bank_model', 'ref_bank_m');
     }
 
-    public function index()
+    public function index($kode_bank = 1)
     {
+        $data['kode_bank'] = $kode_bank;
+        $data['ref_bank'] = $this->view_rekening_koran_m->getKodeBank();
+
         // setting halaman
-        $config['base_url'] = base_url('rekening-koran/index');
-        $config['total_rows'] = $this->view_rekening_koran_m->count();
-        $config['per_page'] = 10;
-        $config["num_links"] = 3;
-        $this->pagination->initialize($config);
-        $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $limit = $config["per_page"];
-        $offset = $data['page'];
-
-        // menangkap pencarian jika ada
-        $name = $this->input->post('name');
-        $data['name'] = $name;
-
-        // pilih tampilan data, semua atau berdasarkan pencarian
-        if ($name) {
-            $data['view_rekening_koran'] = $this->view_rekening_koran_m->find($name);
-        } else {
-            $data['view_rekening_koran'] = $this->view_rekening_koran_m->get($limit, $offset);
-        }
-
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('rekening_koran/index', $data);
-        $this->load->view('template/footer');
-    }
-
-    public function detail($tanggal = null)
-    {
-        // setting halaman
-        $config['base_url'] = base_url('rekening-koran/detail/' . $tanggal . '');
-        $config['total_rows'] = $this->rekening_koran_m->countTanggal($tanggal);
+        $config['base_url'] = base_url('rekening-koran/index/' . $kode_bank . '');
+        $config['total_rows'] = $this->view_rekening_koran_m->count($kode_bank);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -62,9 +36,39 @@ class Rekening_Koran extends CI_Controller
 
         // pilih tampilan data, semua atau berdasarkan pencarian
         if ($name) {
-            $data['rekening_koran'] = $this->rekening_koran_m->findTanggal($name, $tanggal);
+            $data['view_rekening_koran'] = $this->view_rekening_koran_m->find($name, $kode_bank);
         } else {
-            $data['rekening_koran'] = $this->rekening_koran_m->getTanggal($tanggal, $limit, $offset);
+            $data['view_rekening_koran'] = $this->view_rekening_koran_m->get($limit, $offset, $kode_bank);
+        }
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('rekening_koran/index', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function detail($tanggal = null, $kode_bank = 1)
+    {
+        // setting halaman
+        $config['base_url'] = base_url('rekening-koran/detail/' . $tanggal . '/' . $kode_bank . '');
+        $config['total_rows'] = $this->rekening_koran_m->countTanggal($tanggal, $kode_bank);
+        $config['per_page'] = 10;
+        $config["num_links"] = 3;
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+        $data['page'] = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
+        $limit = $config["per_page"];
+        $offset = $data['page'];
+
+        // menangkap pencarian jika ada
+        $name = $this->input->post('name');
+        $data['name'] = $name;
+
+        // pilih tampilan data, semua atau berdasarkan pencarian
+        if ($name) {
+            $data['rekening_koran'] = $this->rekening_koran_m->findTanggal($tanggal, $kode_bank, $name);
+        } else {
+            $data['rekening_koran'] = $this->rekening_koran_m->getTanggal($tanggal, $kode_bank, $limit, $offset);
         }
 
         $this->load->view('template/header');
@@ -96,53 +100,6 @@ class Rekening_Koran extends CI_Controller
         ]
     ];
 
-    public function create()
-    {
-        $validation = $this->form_validation->set_rules($this->rules);
-
-        if ($validation->run()) {
-            $data = [
-                'tanggal' => htmlspecialchars($this->input->post('tanggal', true)),
-                'uraian' => htmlspecialchars($this->input->post('uraian', true)),
-                'debet' => htmlspecialchars($this->input->post('debet', true)),
-                'kredit' => htmlspecialchars($this->input->post('kredit', true))
-            ];
-            $this->rekening_koran_m->create($data);
-            $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('rekening-koran');
-        }
-
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('rekening_koran/create');
-        $this->load->view('template/footer');
-    }
-
-    public function update($id)
-    {
-        if (!isset($id)) show_404();
-
-        $data['rekening_koran'] = $this->rekening_koran_m->getDetail($id);
-        $validation = $this->form_validation->set_rules($this->rules);
-
-        if ($validation->run()) {
-            $data = [
-                'tanggal' => htmlspecialchars($this->input->post('tanggal', true)),
-                'uraian' => htmlspecialchars($this->input->post('uraian', true)),
-                'debet' => htmlspecialchars($this->input->post('debet', true)),
-                'kredit' => htmlspecialchars($this->input->post('kredit', true))
-            ];
-            $this->rekening_koran_m->update($data, $id);
-            $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('rekening-koran');
-        }
-
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('rekening_koran/update', $data);
-        $this->load->view('template/footer');
-    }
-
     public function delete($id)
     {
         if (!isset($id)) show_404();
@@ -155,6 +112,8 @@ class Rekening_Koran extends CI_Controller
 
     public function import()
     {
+        $data['ref_bank'] = $this->ref_bank_m->get();
+
         $file_mimes = array('application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 
         if (isset($_FILES['file_csv']['name']) && in_array($_FILES['file_csv']['type'], $file_mimes)) {
@@ -174,6 +133,9 @@ class Rekening_Koran extends CI_Controller
                 $debet = $sheetData[$i]['5'];
                 $kredit = $sheetData[$i]['6'];
                 $data = [
+                    'kdsatker' => kdsatker(),
+                    'tahun' => tahun(),
+                    'kode_bank' => htmlspecialchars($this->input->post('kode_bank', true)),
                     'tanggal' => $tanggal,
                     'uraian' => $uraian,
                     'debet' => $debet,
@@ -187,7 +149,7 @@ class Rekening_Koran extends CI_Controller
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('rekening_koran/import');
+        $this->load->view('rekening_koran/import', $data);
         $this->load->view('template/footer');
     }
 }

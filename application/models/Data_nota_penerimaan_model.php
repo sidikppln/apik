@@ -5,12 +5,12 @@ class Data_nota_penerimaan_model extends CI_Model
 {
     private $_table = 'data_nota_penerimaan';
 
-    public function get($limit = null, $offset = 0, $kegiatan_id = null, $status = 0)
+    public function get($limit = null, $offset = 0, $aktivitas_id = null, $status = 0)
     {
         $this->db->select('a.*, b.nama AS nama_nota');
         $this->db->from('data_nota_penerimaan a');
         $this->db->join('view_ref_nota b', 'a.kode_nota =b.kode', 'left');
-        $this->db->where(['a.kegiatan_id' => $kegiatan_id, 'a.status' => $status]);
+        $this->db->where(['a.aktivitas_id' => $aktivitas_id, 'a.status' => $status]);
         $this->db->limit($limit, $offset);
         return $this->db->get()->result_array();
     }
@@ -20,19 +20,19 @@ class Data_nota_penerimaan_model extends CI_Model
         return $this->db->get_where($this->_table, ['id' => $id])->row_array();
     }
 
-    public function find($name = null, $kegiatan_id = null, $status = 0)
+    public function find($name = null, $aktivitas_id = null, $status = 0)
     {
         $this->db->select('a.*, b.nama AS nama_nota');
         $this->db->from('data_nota_penerimaan a');
         $this->db->join('view_ref_nota b', 'a.kode_nota =b.kode', 'left');
-        $this->db->where(['a.kegiatan_id' => $kegiatan_id, 'a.status' => $status]);
+        $this->db->where(['a.aktivitas_id' => $aktivitas_id, 'a.status' => $status]);
         $this->db->like('a.nomor', $name);
         return $this->db->get()->result_array();
     }
 
-    public function count($kegiatan_id = null, $status = 0)
+    public function count($aktivitas_id = null, $status = 0)
     {
-        $this->db->where(['kegiatan_id' => $kegiatan_id, 'status' => $status]);
+        $this->db->where(['aktivitas_id' => $aktivitas_id, 'status' => $status]);
         return $this->db->get($this->_table)->num_rows();
     }
 
@@ -58,5 +58,12 @@ class Data_nota_penerimaan_model extends CI_Model
     {
         $this->db->delete($this->_table, ['id' => $id]);
         return $this->db->affected_rows();
+    }
+
+    public function getBeranda()
+    {
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
+        $this->db->where('status', 0);
+        return $this->db->get($this->_table)->num_rows();
     }
 }

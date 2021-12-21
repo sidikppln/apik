@@ -3,11 +3,11 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Nota Pengeluaran</h1>
+          <h1>Pengesahan</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="">Nota Pengeluaran</a></li>
+            <li class="breadcrumb-item"><a href="">Pengesahan</a></li>
             <li class="breadcrumb-item active">Detail</li>
           </ol>
         </div>
@@ -33,7 +33,6 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('nota-pengeluaran/create/') . $jenis_aktivitas . '/' . $aktivitas_id; ?>" class="btn btn-sm btn-outline-info">Tambah</a>
           </div>
           <div class="col-lg-6">
             <?= form_open(); ?>
@@ -53,25 +52,30 @@
               <th scope="col">Nomor</th>
               <th scope="col">Tanggal</th>
               <th scope="col">Jenis</th>
-              <th scope="col">Nominal</th>
+              <th scope="col">Debet</th>
+              <th scope="col">Kredit</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
           <tbody>
             <?php $no = $page + 1;
-            foreach ($nota_pengeluaran as $r) : ?>
+            foreach ($nota as $r) : ?>
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= $r['nomor']; ?></td>
                 <td><?= date('d-m-Y', $r['tanggal']); ?></td>
                 <td><?= $r['nama_nota']; ?></td>
+                <td><?= number_format($r['debet'], 0, ',', '.'); ?></td>
                 <td><?= number_format($r['kredit'], 0, ',', '.'); ?></td>
                 <td>
                   <div class="btn-group">
-                    <a href="<?= base_url('nota-pengeluaran/transaksi/') . $jenis_aktivitas . '/' . $aktivitas_id . '/'  . $r['id'] . '/' . $r['kode_nota']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Transaksi</a>
-                    <a href="<?= base_url('nota-pengeluaran/update/') . $jenis_aktivitas . '/' . $aktivitas_id . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Ubah</a>
-                    <a href="<?= base_url('nota-pengeluaran/delete/') . $jenis_aktivitas . '/' . $aktivitas_id  . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
-                    <a href="<?= base_url('nota-pengeluaran/kirim/') . $jenis_aktivitas . '/' . $aktivitas_id  . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan mengirim data ini?');">Kirim</a>
+                    <?php if ($r['jenis_nota'] == 1) : ?>
+                      <a href="<?= base_url('pengesahan/transaksi-penerimaan/') . $jenis_aktivitas . '/' . $aktivitas_id . '/'  . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Transaksi</a>
+                    <?php else : ?>
+                      <a href="<?= base_url('pengesahan/transaksi-pengeluaran/') . $jenis_aktivitas . '/' . $aktivitas_id . '/'  . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Transaksi</a>
+                    <?php endif; ?>
+                    <a href="<?= base_url('pengesahan/proses/') . $jenis_aktivitas . '/' . $aktivitas_id  . '/' . $r['id'] . '/' . $r['jenis_nota']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan memproses data ini?');">Proses</a>
+                    <a href="<?= base_url('pengesahan/tolak/') . $jenis_aktivitas . '/' . $aktivitas_id  . '/' . $r['id'] . '/' . $r['jenis_nota']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Tolak</a>
                   </div>
                 </td>
               </tr>

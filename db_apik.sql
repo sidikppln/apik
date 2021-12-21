@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Waktu pembuatan: 10 Des 2021 pada 01.38
+-- Waktu pembuatan: 21 Des 2021 pada 01.55
 -- Versi server: 5.7.34
 -- Versi PHP: 7.4.21
 
@@ -20,6 +20,42 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_apik`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `data_aktivitas`
+--
+
+CREATE TABLE `data_aktivitas` (
+  `id` int(11) NOT NULL,
+  `kdsatker` varchar(6) DEFAULT NULL,
+  `tahun` varchar(4) DEFAULT NULL,
+  `kode` varchar(6) DEFAULT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `pokok` decimal(15,0) DEFAULT '0',
+  `hasil_bersih` decimal(15,0) DEFAULT '0',
+  `bea_pembeli` decimal(15,0) DEFAULT '0',
+  `bea_penjual` decimal(15,0) DEFAULT '0',
+  `bea_batal` decimal(15,0) DEFAULT '0',
+  `pph_final` decimal(15,0) DEFAULT '0',
+  `ujl_wanprestasi` decimal(15,0) DEFAULT '0',
+  `jml_peserta` decimal(15,0) DEFAULT '0',
+  `ujl` decimal(15,0) DEFAULT '0',
+  `hak_pp` decimal(15,0) DEFAULT '0',
+  `biad_ppn` decimal(15,0) DEFAULT '0',
+  `lebih` decimal(15,0) DEFAULT '0',
+  `lainnya` decimal(15,0) DEFAULT '0',
+  `jenis_aktivitas` int(1) DEFAULT NULL,
+  `status` int(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data untuk tabel `data_aktivitas`
+--
+
+INSERT INTO `data_aktivitas` (`id`, `kdsatker`, `tahun`, `kode`, `nama`, `pokok`, `hasil_bersih`, `bea_pembeli`, `bea_penjual`, `bea_batal`, `pph_final`, `ujl_wanprestasi`, `jml_peserta`, `ujl`, `hak_pp`, `biad_ppn`, `lebih`, `lainnya`, `jenis_aktivitas`, `status`) VALUES
+(10, '537831', '2021', 'BTIGSD', 'Sebidang tanah seluas 148 m2 berikut bangunan diatasnya terletak di Kelurahan/Desa Pondok Karya, Kecamatan Pondok Aren, Kabupaten/Kotamadya Tangerang, Provinsi Jawa Barat, sesuai Sertifikat Hak Milk Nomor 02858/Pondok Karya atas nama Nona Tanti Novian (se', '881818188', '842136369', '17636364', '17636364', '0', '22045455', '0', '4', '160000000', '0', '0', '0', '0', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -45,49 +81,18 @@ INSERT INTO `data_contoh` (`id`, `nomor`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_kegiatan`
---
-
-CREATE TABLE `data_kegiatan` (
-  `id` int(11) NOT NULL,
-  `kode` varchar(6) DEFAULT NULL,
-  `nama` varchar(255) DEFAULT NULL,
-  `pokok` decimal(15,0) DEFAULT '0',
-  `hasil_bersih` decimal(15,0) DEFAULT '0',
-  `bea_pembeli` decimal(15,0) DEFAULT '0',
-  `bea_penjual` decimal(15,0) DEFAULT '0',
-  `bea_batal` decimal(15,0) DEFAULT '0',
-  `pph_final` decimal(15,0) DEFAULT '0',
-  `ujl_wanprestasi` decimal(15,0) DEFAULT '0',
-  `jml_peserta` decimal(15,0) DEFAULT '0',
-  `ujl` decimal(15,0) DEFAULT '0',
-  `hak_pp` decimal(15,0) DEFAULT '0',
-  `biad_ppn` decimal(15,0) DEFAULT '0',
-  `lebih` decimal(15,0) DEFAULT '0',
-  `jenis` int(11) DEFAULT '0',
-  `status` int(1) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `data_kegiatan`
---
-
-INSERT INTO `data_kegiatan` (`id`, `kode`, `nama`, `pokok`, `hasil_bersih`, `bea_pembeli`, `bea_penjual`, `bea_batal`, `pph_final`, `ujl_wanprestasi`, `jml_peserta`, `ujl`, `hak_pp`, `biad_ppn`, `lebih`, `jenis`, `status`) VALUES
-(4, 'BTIGSD', 'Sebidang tanah seluas 148 m2 berikut bangunan diatasnya terletak di kelurahan Pondok Karya, Kecamatan Pondok Aren Kota Tangerang sesuai SHM Nomor 02858/Pondok Karya atas nama Nona Tanti Novianti, setempat dikenal Perumahan Bintaro Jaya Sektor 4, Jalan Cuc', '881818188', '842136370', '17636364', '17636364', '0', '22045455', '0', '4', '160000000', '0', '0', '0', 0, 0);
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `data_nota_penerimaan`
 --
 
 CREATE TABLE `data_nota_penerimaan` (
   `id` int(11) NOT NULL,
+  `kdsatker` varchar(6) DEFAULT NULL,
+  `tahun` varchar(4) DEFAULT NULL,
   `nomor` varchar(64) DEFAULT NULL,
   `tanggal` int(11) DEFAULT NULL,
   `debet` decimal(15,2) DEFAULT NULL,
   `kode_nota` varchar(2) DEFAULT NULL,
-  `kegiatan_id` int(11) DEFAULT NULL,
+  `aktivitas_id` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
@@ -99,11 +104,13 @@ CREATE TABLE `data_nota_penerimaan` (
 
 CREATE TABLE `data_nota_pengeluaran` (
   `id` int(11) NOT NULL,
+  `kdsatker` varchar(6) DEFAULT NULL,
+  `tahun` varchar(4) DEFAULT NULL,
   `nomor` varchar(64) DEFAULT NULL,
   `tanggal` int(11) DEFAULT NULL,
   `kredit` decimal(15,2) DEFAULT NULL,
   `kode_nota` varchar(2) DEFAULT NULL,
-  `kegiatan_id` int(11) DEFAULT NULL,
+  `aktivitas_id` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
@@ -125,6 +132,7 @@ CREATE TABLE `data_penerimaan` (
   `virtual_account` varchar(16) DEFAULT NULL,
   `rekening_koran_id` int(11) DEFAULT NULL,
   `nota_penerimaan_id` int(11) DEFAULT NULL,
+  `jenis_aktivitas` int(1) DEFAULT NULL,
   `status` int(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
@@ -144,6 +152,7 @@ CREATE TABLE `data_pengeluaran` (
   `no_urut` varchar(5) DEFAULT NULL,
   `kredit` decimal(15,2) DEFAULT NULL,
   `nota_pengeluaran_id` int(11) DEFAULT NULL,
+  `jenis_aktivitas` int(1) DEFAULT NULL,
   `status` int(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
@@ -155,12 +164,37 @@ CREATE TABLE `data_pengeluaran` (
 
 CREATE TABLE `data_rekening_koran` (
   `id` int(11) NOT NULL,
+  `kdsatker` varchar(6) DEFAULT NULL,
+  `tahun` varchar(4) DEFAULT NULL,
+  `kode_bank` int(1) DEFAULT NULL,
   `tanggal` varchar(255) DEFAULT NULL,
   `uraian` varchar(255) DEFAULT NULL,
   `debet` varchar(255) DEFAULT NULL,
   `kredit` varchar(255) DEFAULT NULL,
   `status` int(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `ref_bank`
+--
+
+CREATE TABLE `ref_bank` (
+  `id` int(11) NOT NULL,
+  `kode` int(1) DEFAULT NULL,
+  `nama` varchar(128) DEFAULT NULL,
+  `rekening` varchar(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data untuk tabel `ref_bank`
+--
+
+INSERT INTO `ref_bank` (`id`, `kode`, `nama`, `rekening`) VALUES
+(1, 1, 'Bank BNI', '1234567890'),
+(2, 2, 'Bank Mandiri', '1234567890'),
+(3, 3, 'Bank BRI', '1234567890');
 
 -- --------------------------------------------------------
 
@@ -198,7 +232,30 @@ INSERT INTO `ref_jenis` (`id`, `kode`, `nama`, `ref_kelompok_id`, `status`) VALU
 (15, '07', 'Biaya Administrasi', 2, 'Debet'),
 (16, '08', 'Biaya Administrasi', 2, 'Kredit'),
 (17, '01', 'PPh Pasal 21 Final', 3, 'Debet'),
-(18, '02', 'PPh Pasal 21 Final', 3, 'Kredit');
+(18, '02', 'PPh Pasal 21 Final', 3, 'Kredit'),
+(19, '09', 'Bea Lelang Batal', 2, 'Debet'),
+(20, '10', 'Bea Lelang Batal', 2, 'Kredit');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `ref_jenis_aktivitas`
+--
+
+CREATE TABLE `ref_jenis_aktivitas` (
+  `id` int(11) NOT NULL,
+  `kode` int(1) DEFAULT NULL,
+  `nama` varchar(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data untuk tabel `ref_jenis_aktivitas`
+--
+
+INSERT INTO `ref_jenis_aktivitas` (`id`, `kode`, `nama`) VALUES
+(1, 1, 'Lelang'),
+(2, 2, 'Piutang Negara'),
+(3, 3, 'Lainnya');
 
 -- --------------------------------------------------------
 
@@ -255,7 +312,9 @@ INSERT INTO `ref_nota` (`id`, `kode`, `nama`, `kode_kelompok`, `kode_jenis`, `st
 (15, '08', 'PPh Final', '3', '02', 'Kredit'),
 (16, '09', 'Nota Koreksi', '1', '05', 'Kredit'),
 (17, '10', 'Hak Penyerah Piutang', '1', '07', 'Kredit'),
-(18, '11', 'Biaya Administrasi', '2', '08', 'Kredit');
+(18, '11', 'Biaya Administrasi', '2', '08', 'Kredit'),
+(19, '12', 'Bea Lelang Batal', '2', '09', 'Debet'),
+(20, '13', 'Bea Lelang Batal', '2', '10', 'Kredit');
 
 -- --------------------------------------------------------
 
@@ -283,7 +342,7 @@ INSERT INTO `ref_satker` (`id`, `kdsatker`, `nmsatker`, `no_urut_penerimaan`, `n
 (3, '537827', 'KPKNL Banda Aceh', NULL, NULL, NULL, NULL),
 (4, '506069', 'KPKNL Lhokseumawe', NULL, NULL, NULL, NULL),
 (5, '411806', 'Kanwil DJKN Sumatera Utara', NULL, NULL, NULL, NULL),
-(6, '537831', 'KPKNL Medan', '00101', '00092', '00034', '00023'),
+(6, '537831', 'KPKNL Medan', '00116', '00113', '00045', '00036'),
 (7, '119703', 'KPKNL Pematang Siantar', NULL, NULL, NULL, NULL),
 (8, '506081', 'KPKNL Kisaran', NULL, NULL, NULL, NULL),
 (9, '506090', 'KPKNL Padang Sidimpuan', NULL, NULL, NULL, NULL),
@@ -414,8 +473,10 @@ INSERT INTO `system_access` (`id`, `role_id`, `sub_sub_menu_id`) VALUES
 (111, 5, 64),
 (112, 5, 65),
 (113, 5, 66),
-(114, 5, 67),
-(115, 5, 68);
+(116, 5, 69),
+(117, 5, 70),
+(118, 5, 71),
+(119, 5, 72);
 
 -- --------------------------------------------------------
 
@@ -480,10 +541,11 @@ INSERT INTO `system_sub_menu` (`id`, `menu_id`, `name`, `url`, `icon`, `urutan`)
 (1, 1, 'Beranda', 'beranda', 'nav-icon fas fa-tachometer-alt', 1),
 (2, 5, 'Setting', '#', 'nav-icon fas fa-wrench', 2),
 (21, 3, 'Buku Bendahara', '#', 'nav-icon fas fa-chart-line', 1),
-(26, 2, 'Verifikasi', '#', 'nav-icon fas fa-home', 2),
+(26, 2, 'Verifikator', '#', 'nav-icon fas fa-home', 2),
 (40, 2, 'API', '#', 'nav-icon fas fa-building', 1),
-(41, 2, 'Otorisasi', '#', 'nav-icon fas fa-archway', 3),
-(42, 5, 'Referensi', '#', 'nav-icon fas fa-history', 1);
+(41, 2, 'Otorisator', '#', 'nav-icon fas fa-archway', 3),
+(42, 5, 'Referensi', '#', 'nav-icon fas fa-history', 1),
+(43, 2, 'Bendahara', '#', 'nav-icon fas fa-user-tie', 4);
 
 -- --------------------------------------------------------
 
@@ -514,14 +576,16 @@ INSERT INTO `system_sub_sub_menu` (`id`, `menu_id`, `sub_menu_id`, `name`, `url`
 (31, 1, 1, 'Penting Hari Ini', 'beranda', 'nav-icon fas fa-angle-right', 1),
 (33, 3, 21, 'Buku Kas Umum', 'buku-kas-umum', 'nav-icon fas fa-angle-right', 1),
 (54, 2, 40, 'Rekening Koran', 'rekening-koran', 'nav-icon fa fa-angle-right', 1),
-(57, 2, 40, 'Kegiatan', 'kegiatan', 'nav-icon fa fa-angle-right', 2),
+(57, 2, 40, 'Aktivitas', 'aktivitas', 'nav-icon fa fa-angle-right', 2),
 (60, 3, 21, 'Buku Pembantu', 'buku-pembantu', 'nav-icon fa fa-angle-right', 2),
 (63, 2, 26, 'Nota Pengeluaran', 'nota-pengeluaran', 'nav-icon fa fa-angle-right', 3),
 (64, 2, 41, 'Pengesahan', 'pengesahan', 'nav-icon fa fa-angle-right', 1),
 (65, 5, 42, 'Satker', 'satker', 'nav-icon fa fa-angle-right', 1),
 (66, 5, 42, 'Kodifikasi', 'kodifikasi', 'nav-icon fa fa-angle-right', 2),
-(67, 2, 41, 'Pembukuan', 'pembukuan', 'nav-icon fa fa-angle-right', 2),
-(68, 2, 41, 'Arsip', 'arsip', 'nav-icon fa fa-angle-right', 3);
+(69, 5, 42, 'Nota', 'nota', 'nav-icon fa fa-angle-right', 3),
+(70, 2, 43, 'Pemindahbukuan', 'pemindahbukuan', 'nav-icon fa fa-angle-right', 1),
+(71, 2, 43, 'Pencatatan', 'pencatatan', 'nav-icon fa fa-angle-right', 2),
+(72, 2, 43, 'Pengarsipan', 'pengarsipan', 'nav-icon fa fa-angle-right', 3);
 
 -- --------------------------------------------------------
 
@@ -594,6 +658,7 @@ CREATE TABLE `view_kas_umum` (
 ,`nama` varchar(131)
 ,`kredit` decimal(15,2)
 ,`debet` decimal(18,2)
+,`jenis_aktivitas` int(11)
 );
 
 -- --------------------------------------------------------
@@ -617,6 +682,27 @@ CREATE TABLE `view_menu` (
 ,`icon_sub_sub_menu` varchar(64)
 ,`urutan_sub_sub_menu` int(2)
 ,`role_id` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `view_nota`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `view_nota` (
+`id` int(11)
+,`kdsatker` varchar(6)
+,`tahun` varchar(4)
+,`nomor` varchar(64)
+,`tanggal` int(11)
+,`kode_nota` varchar(2)
+,`aktivitas_id` int(11)
+,`status` int(11)
+,`debet` decimal(18,2)
+,`kredit` decimal(15,2)
+,`jenis_nota` bigint(20)
+,`jenis_aktivitas` int(11)
 );
 
 -- --------------------------------------------------------
@@ -682,7 +768,10 @@ CREATE TABLE `view_ref_nota` (
 -- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `view_rekening_koran` (
-`tanggal` varchar(2)
+`kdsatker` varchar(6)
+,`thn` varchar(4)
+,`kode_bank` int(1)
+,`tanggal` varchar(2)
 ,`bulan` varchar(2)
 ,`tahun` varchar(2)
 ,`jumlah` bigint(21)
@@ -706,7 +795,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_kas_umum`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_kas_umum`  AS SELECT `data_penerimaan`.`tanggal` AS `tanggal`, `data_penerimaan`.`kdsatker` AS `kdsatker`, `data_penerimaan`.`tahun` AS `tahun`, `data_penerimaan`.`kode_kelompok` AS `kode_kelompok`, `data_penerimaan`.`kode_jenis` AS `kode_jenis`, `data_penerimaan`.`no_urut` AS `no_urut`, `view_jenis`.`nama_jenis` AS `nama`, 0 AS `kredit`, `data_penerimaan`.`debet` AS `debet` FROM (`data_penerimaan` left join `view_jenis` on(((`data_penerimaan`.`kode_kelompok` = convert(`view_jenis`.`kode_kelompok` using utf8mb4)) and (`data_penerimaan`.`kode_jenis` = convert(`view_jenis`.`kode_jenis` using utf8mb4))))) WHERE (`data_penerimaan`.`nota_penerimaan_id` > 0) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_kas_umum`  AS SELECT `data_penerimaan`.`tanggal` AS `tanggal`, `data_penerimaan`.`kdsatker` AS `kdsatker`, `data_penerimaan`.`tahun` AS `tahun`, `data_penerimaan`.`kode_kelompok` AS `kode_kelompok`, `data_penerimaan`.`kode_jenis` AS `kode_jenis`, `data_penerimaan`.`no_urut` AS `no_urut`, `view_jenis`.`nama_jenis` AS `nama`, 0 AS `kredit`, `data_penerimaan`.`debet` AS `debet`, `data_penerimaan`.`jenis_aktivitas` AS `jenis_aktivitas` FROM (`data_penerimaan` left join `view_jenis` on(((`data_penerimaan`.`kode_kelompok` = convert(`view_jenis`.`kode_kelompok` using utf8mb4)) and (`data_penerimaan`.`kode_jenis` = convert(`view_jenis`.`kode_jenis` using utf8mb4))))) WHERE (`data_penerimaan`.`nota_penerimaan_id` > 0) ;
 
 -- --------------------------------------------------------
 
@@ -716,6 +805,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `view_menu`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_menu`  AS SELECT `a`.`id` AS `id_menu`, `a`.`name` AS `nama_menu`, `a`.`urutan` AS `urutan_menu`, `b`.`id` AS `id_sub_menu`, `b`.`name` AS `nama_sub_menu`, `b`.`url` AS `url_sub_menu`, `b`.`icon` AS `icon_sub_menu`, `b`.`urutan` AS `urutan_sub_menu`, `c`.`id` AS `id_sub_sub_menu`, `c`.`name` AS `nama_sub_sub_menu`, `c`.`url` AS `url_sub_sub_menu`, `c`.`icon` AS `icon_sub_sub_menu`, `c`.`urutan` AS `urutan_sub_sub_menu`, `d`.`role_id` AS `role_id` FROM (((`system_menu` `a` left join `system_sub_menu` `b` on((`a`.`id` = `b`.`menu_id`))) left join `system_sub_sub_menu` `c` on((`b`.`id` = `c`.`sub_menu_id`))) left join `system_access` `d` on((`c`.`id` = `d`.`sub_sub_menu_id`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `view_nota`
+--
+DROP TABLE IF EXISTS `view_nota`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_nota`  AS SELECT `data_nota_penerimaan`.`id` AS `id`, `data_nota_penerimaan`.`kdsatker` AS `kdsatker`, `data_nota_penerimaan`.`tahun` AS `tahun`, `data_nota_penerimaan`.`nomor` AS `nomor`, `data_nota_penerimaan`.`tanggal` AS `tanggal`, `data_nota_penerimaan`.`kode_nota` AS `kode_nota`, `data_nota_penerimaan`.`aktivitas_id` AS `aktivitas_id`, `data_nota_penerimaan`.`status` AS `status`, `data_nota_penerimaan`.`debet` AS `debet`, 0 AS `kredit`, 1 AS `jenis_nota`, `data_aktivitas`.`jenis_aktivitas` AS `jenis_aktivitas` FROM (`data_nota_penerimaan` left join `data_aktivitas` on((`data_nota_penerimaan`.`aktivitas_id` = `data_aktivitas`.`id`))) ;
 
 -- --------------------------------------------------------
 
@@ -751,23 +849,23 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_rekening_koran`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_rekening_koran`  AS SELECT left(`data_rekening_koran`.`tanggal`,2) AS `tanggal`, substr(`data_rekening_koran`.`tanggal`,4,2) AS `bulan`, substr(`data_rekening_koran`.`tanggal`,7,2) AS `tahun`, count(`data_rekening_koran`.`uraian`) AS `jumlah`, count(if((`data_rekening_koran`.`debet` <> '0'),`data_rekening_koran`.`debet`,NULL)) AS `debet`, count(if((`data_rekening_koran`.`kredit` <> '0'),`data_rekening_koran`.`kredit`,NULL)) AS `kredit` FROM `data_rekening_koran` GROUP BY left(`data_rekening_koran`.`tanggal`,2), substr(`data_rekening_koran`.`tanggal`,4,2), substr(`data_rekening_koran`.`tanggal`,7,2) ORDER BY substr(`data_rekening_koran`.`tanggal`,4,2) ASC, left(`data_rekening_koran`.`tanggal`,2) ASC, substr(`data_rekening_koran`.`tanggal`,7,2) ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_rekening_koran`  AS SELECT `data_rekening_koran`.`kdsatker` AS `kdsatker`, `data_rekening_koran`.`tahun` AS `thn`, `data_rekening_koran`.`kode_bank` AS `kode_bank`, left(`data_rekening_koran`.`tanggal`,2) AS `tanggal`, substr(`data_rekening_koran`.`tanggal`,4,2) AS `bulan`, substr(`data_rekening_koran`.`tanggal`,7,2) AS `tahun`, count(`data_rekening_koran`.`uraian`) AS `jumlah`, count(if((`data_rekening_koran`.`debet` <> '0'),`data_rekening_koran`.`debet`,NULL)) AS `debet`, count(if((`data_rekening_koran`.`kredit` <> '0'),`data_rekening_koran`.`kredit`,NULL)) AS `kredit` FROM `data_rekening_koran` GROUP BY `data_rekening_koran`.`kdsatker`, `data_rekening_koran`.`tahun`, `data_rekening_koran`.`kode_bank`, left(`data_rekening_koran`.`tanggal`,2), substr(`data_rekening_koran`.`tanggal`,4,2), substr(`data_rekening_koran`.`tanggal`,7,2) ORDER BY substr(`data_rekening_koran`.`tanggal`,4,2) ASC, left(`data_rekening_koran`.`tanggal`,2) ASC, substr(`data_rekening_koran`.`tanggal`,7,2) ASC ;
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indeks untuk tabel `data_aktivitas`
+--
+ALTER TABLE `data_aktivitas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `data_contoh`
 --
 ALTER TABLE `data_contoh`
   ADD PRIMARY KEY (`id`) USING BTREE;
-
---
--- Indeks untuk tabel `data_kegiatan`
---
-ALTER TABLE `data_kegiatan`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `data_nota_penerimaan`
@@ -800,9 +898,21 @@ ALTER TABLE `data_rekening_koran`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
+-- Indeks untuk tabel `ref_bank`
+--
+ALTER TABLE `ref_bank`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `ref_jenis`
 --
 ALTER TABLE `ref_jenis`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `ref_jenis_aktivitas`
+--
+ALTER TABLE `ref_jenis_aktivitas`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -876,52 +986,64 @@ ALTER TABLE `system_user`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `data_aktivitas`
+--
+ALTER TABLE `data_aktivitas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT untuk tabel `data_contoh`
 --
 ALTER TABLE `data_contoh`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `data_kegiatan`
---
-ALTER TABLE `data_kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT untuk tabel `data_nota_penerimaan`
 --
 ALTER TABLE `data_nota_penerimaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_nota_pengeluaran`
 --
 ALTER TABLE `data_nota_pengeluaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_penerimaan`
 --
 ALTER TABLE `data_penerimaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_pengeluaran`
 --
 ALTER TABLE `data_pengeluaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_rekening_koran`
 --
 ALTER TABLE `data_rekening_koran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3936;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5471;
+
+--
+-- AUTO_INCREMENT untuk tabel `ref_bank`
+--
+ALTER TABLE `ref_bank`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `ref_jenis`
 --
 ALTER TABLE `ref_jenis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT untuk tabel `ref_jenis_aktivitas`
+--
+ALTER TABLE `ref_jenis_aktivitas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `ref_kelompok`
@@ -933,7 +1055,7 @@ ALTER TABLE `ref_kelompok`
 -- AUTO_INCREMENT untuk tabel `ref_nota`
 --
 ALTER TABLE `ref_nota`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `ref_satker`
@@ -951,7 +1073,7 @@ ALTER TABLE `ref_sub_jenis`
 -- AUTO_INCREMENT untuk tabel `system_access`
 --
 ALTER TABLE `system_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT untuk tabel `system_menu`
@@ -969,13 +1091,13 @@ ALTER TABLE `system_role`
 -- AUTO_INCREMENT untuk tabel `system_sub_menu`
 --
 ALTER TABLE `system_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT untuk tabel `system_sub_sub_menu`
 --
 ALTER TABLE `system_sub_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT untuk tabel `system_sub_sub_sub_menu`

@@ -3,11 +3,11 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Kegiatan</h1>
+          <h1>Aktivitas</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Kegiatan</a></li>
+            <li class="breadcrumb-item"><a href="#">Aktivitas</a></li>
             <li class="breadcrumb-item active">Detail</li>
           </ol>
         </div>
@@ -35,7 +35,7 @@
           <div class="card-header">
             <div class="row">
               <div class="col-lg-6">
-                <a href="<?= base_url('kegiatan/update-piutang/') . $jenis . '/' . $id; ?>" class="btn btn-sm btn-outline-info">Ubah</a>
+                <a href="<?= base_url('aktivitas/update-lainnya/') . $jenis_aktivitas . '/' . $id; ?>" class="btn btn-sm btn-outline-info">Ubah</a>
               </div>
               <div class="col-lg-6">
               </div>
@@ -53,18 +53,8 @@
               <tbody>
                 <tr>
                   <td class="text-center">1</td>
-                  <td>Hak Penyerah Piutang</td>
-                  <td class="text-right"><?= number_format($kegiatan['hak_pp'], 0, ',', '.'); ?></td>
-                </tr>
-                <tr>
-                  <td class="text-center">2</td>
-                  <td>BIAD PPN</td>
-                  <td class="text-right"><?= number_format($kegiatan['biad_ppn'], 0, ',', '.'); ?></td>
-                </tr>
-                <tr>
-                  <td class="text-center">3</td>
-                  <td>Kelebihan</td>
-                  <td class="text-right"><?= number_format($kegiatan['lebih'], 0, ',', '.'); ?></td>
+                  <td>Lainnya</td>
+                  <td class="text-right"><?= number_format($aktivitas['lainnya'], 0, ',', '.'); ?></td>
                 </tr>
               </tbody>
             </table>

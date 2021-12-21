@@ -1,13 +1,30 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Data_penerimaan_model extends CI_Model
+class Ref_bank_model extends CI_Model
 {
-    private $_table = 'data_penerimaan';
+    protected $_table = 'ref_bank';
+
+    public function get($limit = null, $offset = 0)
+    {
+        $this->db->limit($limit, $offset);
+        return $this->db->get($this->_table)->result_array();
+    }
 
     public function getDetail($id)
     {
         return $this->db->get_where($this->_table, ['id' => $id])->row_array();
+    }
+
+    public function find($name = null)
+    {
+        $this->db->like('nama', $name);
+        return $this->db->get($this->_table)->result_array();
+    }
+
+    public function count()
+    {
+        return $this->db->get($this->_table)->num_rows();
     }
 
     public function create($data)
@@ -32,17 +49,5 @@ class Data_penerimaan_model extends CI_Model
     {
         $this->db->delete($this->_table, ['id' => $id]);
         return $this->db->affected_rows();
-    }
-
-    public function sumDebet($nota_penerimaan_id = null)
-    {
-        return $this->db->query("SELECT nota_penerimaan_id, SUM(debet) AS debet FROM data_penerimaan WHERE nota_penerimaan_id='$nota_penerimaan_id' GROUP BY nota_penerimaan_id")->row_array();
-    }
-
-    public function getBeranda()
-    {
-        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
-        $this->db->where('status', 0);
-        return $this->db->get($this->_table)->num_rows();
     }
 }

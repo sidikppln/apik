@@ -35,7 +35,7 @@ $uri = $this->uri->segment(1);
 
 
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column mb-5" data-widget="treeview" role="menu" data-accordion="false">
 
           <!-- untuk menampilkan menu -->
           <?php

@@ -3,11 +3,11 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Kegiatan</h1>
+          <h1>Pemindahbukuan</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active">Kegiatan</li>
+            <li class="breadcrumb-item active">Pemindahbukuan</li>
           </ol>
         </div>
       </div>
@@ -32,11 +32,9 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('kegiatan/create/') . $jenis; ?>" class="btn btn-sm btn-outline-info">Tambah</a>
-            <span style="width: 0px; height: 100px; border: 1px #BFC5CD solid;" class="ml-2 mr-2">
-            </span>
-            <a href="<?= base_url('kegiatan/index/0'); ?>" class="btn btn-sm btn-outline-info ml-1 <?= $this->uri->segment(3) == 0 ? 'active' : ''; ?>">Lelang</a>
-            <a href="<?= base_url('kegiatan/index/1'); ?>" class="btn btn-sm btn-outline-info ml-1 <?= $this->uri->segment(3) == 1 ? 'active' : ''; ?>">Piutang Negara</a>
+            <?php foreach ($ref_jenis_aktivitas as $r) : ?>
+              <a href="<?= base_url('pemindahbukuan/index/') . $r['kode']; ?>" class="btn btn-sm btn-outline-info ml-1 <?= $jenis_aktivitas == $r['kode'] ? 'active' : ''; ?>"><?= $r['nama']; ?></a>
+            <?php endforeach; ?>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
@@ -67,16 +65,14 @@
               </thead>
               <tbody>
                 <?php $no = $page + 1;
-                foreach ($kegiatan as $r) : ?>
+                foreach ($aktivitas as $r) : ?>
                   <tr>
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $r['kode']; ?></td>
                     <td><?= $r['nama']; ?></td>
                     <td>
                       <div class="btn-group">
-                        <a href="<?= base_url('kegiatan/detail/') . $jenis . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Detail</a>
-                        <a href="<?= base_url('kegiatan/update/') . $jenis . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Ubah</a>
-                        <a href="<?= base_url('kegiatan/delete/') . $jenis . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                        <a href="<?= base_url('pemindahbukuan/detail/') . $jenis_aktivitas . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Detail</a>
                       </div>
                     </td>
                   </tr>

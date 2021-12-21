@@ -31,6 +31,14 @@
                                     <?= form_error('file_csv'); ?>
                                 </div>
                             </div>
+                            <div class="form-group mb-2">
+                                <label for="">Pilih Bank:</label>
+                                <select name="kode_bank" class="form-control">
+                                    <?php foreach ($ref_bank as $r) : ?>
+                                        <option value="<?= $r['kode']; ?>"><?= $r['nama']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -39,6 +47,7 @@
                                 <a href="<?= base_url('rekening-koran'); ?>" class="btn btn-sm btn-outline-info">Batal</a>
                                 <button type="submit" class="btn btn-sm btn-outline-info ml-1">Simpan</button>
                             </div>
+
                         </div>
                     </div>
 

@@ -3,11 +3,11 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Nota Penerimaan</h1>
+          <h1>Pengesahan</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active">Nota Penerimaan</li>
+            <li class="breadcrumb-item active">Pengesahan</li>
           </ol>
         </div>
       </div>
@@ -33,7 +33,7 @@
         <div class="row">
           <div class="col-lg-6">
             <?php foreach ($ref_jenis_aktivitas as $r) : ?>
-              <a href="<?= base_url('nota-penerimaan/index/') . $r['kode']; ?>" class="btn btn-sm btn-outline-info ml-1 <?= $jenis_aktivitas == $r['kode'] ? 'active' : ''; ?>"><?= $r['nama']; ?></a>
+              <a href="<?= base_url('pengesahan/index/') . $r['kode']; ?>" class="btn btn-sm btn-outline-info ml-1 <?= $jenis_aktivitas == $r['kode'] ? 'active' : ''; ?>"><?= $r['nama']; ?></a>
             <?php endforeach; ?>
           </div>
           <div class="col-lg-6">
@@ -72,7 +72,7 @@
                     <td><?= $r['nama']; ?></td>
                     <td>
                       <div class="btn-group">
-                        <a href="<?= base_url('nota-penerimaan/detail/') . $jenis_aktivitas . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Detail</a>
+                        <a href="<?= base_url('pengesahan/detail/') . $jenis_aktivitas . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Detail</a>
                       </div>
                     </td>
                   </tr>

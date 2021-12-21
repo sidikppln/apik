@@ -1,46 +1,14 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Kegiatan extends CI_Controller
+class Aktivitas extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
         is_logged_in();
-        $this->load->model('Data_kegiatan_model', 'kegiatan_m');
-    }
-
-    public function index($jenis = 0)
-    {
-        $data['jenis'] = $jenis;
-
-        // setting halaman
-        $config['base_url'] = base_url('kegiatan/index/' . $jenis . '');
-        $config['total_rows'] = $this->kegiatan_m->count($jenis);
-        $config['per_page'] = 5;
-        $config["num_links"] = 3;
-        $this->pagination->initialize($config);
-        $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
-        $limit = $config["per_page"];
-        $offset = $data['page'];
-
-        // menangkap pencarian jika ada
-        $name = $this->input->post('name');
-        $data['name'] = $name;
-
-        // pilih tampilan data, semua atau berdasarkan pencarian
-        if ($name) {
-            $data['kegiatan'] = $this->kegiatan_m->find($name, $jenis);
-        } else {
-            $data['kegiatan'] = $this->kegiatan_m->get($limit, $offset, $jenis);
-        }
-
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('kegiatan/index', $data);
-        $this->load->view('template/footer');
+        $this->load->model('Data_aktivitas_model', 'aktivitas_m');
+        $this->load->model('Ref_jenis_aktivitas_model', 'jenis_aktivitas_m');
     }
 
     private $rules = [
@@ -56,9 +24,71 @@ class Kegiatan extends CI_Controller
         ]
     ];
 
-    public function create($jenis = 0)
+    public function index($jenis_aktivitas = 1)
     {
-        $data['jenis'] = $jenis;
+        $status = 0;
+        $data['jenis_aktivitas'] = $jenis_aktivitas;
+        $data['ref_jenis_aktivitas'] = $this->aktivitas_m->getJenisAktivitas($status);
+
+        // setting halaman
+        $config['base_url'] = base_url('aktivitas/index/' . $jenis_aktivitas . '');
+        $config['total_rows'] = $this->aktivitas_m->count($jenis_aktivitas, $status);
+        $config['per_page'] = 5;
+        $config["num_links"] = 3;
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $limit = $config["per_page"];
+        $offset = $data['page'];
+
+        // menangkap pencarian jika ada
+        $name = $this->input->post('name');
+        $data['name'] = $name;
+
+        // pilih tampilan data, semua atau berdasarkan pencarian
+        if ($name) {
+            $data['aktivitas'] = $this->aktivitas_m->find($name, $jenis_aktivitas, $status);
+        } else {
+            $data['aktivitas'] = $this->aktivitas_m->get($limit, $offset, $jenis_aktivitas, $status);
+        }
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('aktivitas/index', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function create()
+    {
+        $data['ref_jenis_aktivitas'] = $this->jenis_aktivitas_m->get();
+
+        $validation = $this->form_validation->set_rules($this->rules);
+
+        if ($validation->run()) {
+            $data = [
+                'kdsatker' => kdsatker(),
+                'tahun' => tahun(),
+                'kode' => htmlspecialchars($this->input->post('kode', true)),
+                'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'jenis_aktivitas' => htmlspecialchars($this->input->post('jenis_aktivitas', true))
+            ];
+            $this->aktivitas_m->create($data);
+            $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
+            redirect('aktivitas');
+        }
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('aktivitas/create', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function update($jenis_aktivitas = 1, $id = null)
+    {
+        if (!isset($id)) show_404();
+        $data['jenis_aktivitas'] = $jenis_aktivitas;
+        $data['ref_jenis_aktivitas'] = $this->jenis_aktivitas_m->get();
+        $data['aktivitas'] = $this->aktivitas_m->getDetail($id);
 
         $validation = $this->form_validation->set_rules($this->rules);
 
@@ -66,72 +96,54 @@ class Kegiatan extends CI_Controller
             $data = [
                 'kode' => htmlspecialchars($this->input->post('kode', true)),
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
-                'jenis' => $jenis
+                'jenis_aktivitas' => htmlspecialchars($this->input->post('jenis_aktivitas', true))
             ];
-            $this->kegiatan_m->create($data);
-            $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('kegiatan/index/' . $jenis . '');
-        }
-
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('kegiatan/create', $data);
-        $this->load->view('template/footer');
-    }
-
-    public function update($jenis = 0, $id = null)
-    {
-        if (!isset($id)) show_404();
-        $data['jenis'] = $jenis;
-
-        $data['kegiatan'] = $this->kegiatan_m->getDetail($id);
-        $validation = $this->form_validation->set_rules($this->rules);
-
-        if ($validation->run()) {
-            $data = [
-                'kode' => htmlspecialchars($this->input->post('kode', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true))
-            ];
-            $this->kegiatan_m->update($data, $id);
+            $this->aktivitas_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('kegiatan/index/' . $jenis . '');
+            redirect('aktivitas/index/' . $jenis_aktivitas . '');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('kegiatan/update', $data);
+        $this->load->view('aktivitas/update', $data);
         $this->load->view('template/footer');
     }
 
-    public function delete($jenis = 0, $id = null)
+    public function delete($jenis_aktivitas = 0, $id = null)
     {
         if (!isset($id)) show_404();
 
-        if ($this->kegiatan_m->delete($id)) {
+        if ($this->aktivitas_m->delete($id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('kegiatan/index/' . $jenis . '');
+        redirect('aktivitas/index/' . $jenis_aktivitas . '');
     }
 
-    public function detail($jenis = 0, $id = null)
+    public function detail($jenis_aktivitas = 0, $id = null)
     {
         if (!isset($id)) show_404();
-        $data['jenis'] = $jenis;
+        $data['jenis_aktivitas'] = $jenis_aktivitas;
         $data['id'] = $id;
-        $data['kegiatan'] = $this->kegiatan_m->getDetail($id);
+        $data['aktivitas'] = $this->aktivitas_m->getDetail($id);
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $jenis == 0 ? $this->load->view('kegiatan/detail_lelang', $data) : $this->load->view('kegiatan/detail_piutang', $data);
+        if ($jenis_aktivitas == 1) {
+            $this->load->view('aktivitas/detail_lelang', $data);
+        } else if ($jenis_aktivitas == 2) {
+            $this->load->view('aktivitas/detail_piutang', $data);
+        } else {
+            $this->load->view('aktivitas/detail_lainnya', $data);
+        }
         $this->load->view('template/footer');
     }
 
-    public function update_lelang($jenis = 0, $id = null)
+    public function update_lelang($jenis_aktivitas = 1, $id = null)
     {
         if (!isset($id)) show_404();
-        $data['jenis'] = $jenis;
+        $data['jenis_aktivitas'] = $jenis_aktivitas;
         $data['id'] = $id;
-        $data['kegiatan'] = $this->kegiatan_m->getDetail($id);
+        $data['aktivitas'] = $this->aktivitas_m->getDetail($id);
         $rules = [
             [
                 'field' => 'pokok',
@@ -192,23 +204,23 @@ class Kegiatan extends CI_Controller
                 'jml_peserta' => htmlspecialchars($this->input->post('jml_peserta', true)),
                 'ujl' => htmlspecialchars($this->input->post('ujl', true))
             ];
-            $this->kegiatan_m->update($data, $id);
+            $this->aktivitas_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('kegiatan/detail/' . $jenis . '/' . $id . '');
+            redirect('aktivitas/detail/' . $jenis_aktivitas . '/' . $id . '');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('kegiatan/update_lelang', $data);
+        $this->load->view('aktivitas/update_lelang', $data);
         $this->load->view('template/footer');
     }
 
-    public function update_piutang($jenis = 0, $id = null)
+    public function update_piutang($jenis_aktivitas = 1, $id = null)
     {
         if (!isset($id)) show_404();
-        $data['jenis'] = $jenis;
+        $data['jenis_aktivitas'] = $jenis_aktivitas;
         $data['id'] = $id;
-        $data['kegiatan'] = $this->kegiatan_m->getDetail($id);
+        $data['aktivitas'] = $this->aktivitas_m->getDetail($id);
         $rules = [
             [
                 'field' => 'hak_pp',
@@ -233,14 +245,43 @@ class Kegiatan extends CI_Controller
                 'biad_ppn' => htmlspecialchars($this->input->post('biad_ppn', true)),
                 'lebih' => htmlspecialchars($this->input->post('lebih', true))
             ];
-            $this->kegiatan_m->update($data, $id);
+            $this->aktivitas_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('kegiatan/detail/' . $jenis . '/' . $id . '');
+            redirect('aktivitas/detail/' . $jenis_aktivitas . '/' . $id . '');
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('kegiatan/update_piutang', $data);
+        $this->load->view('aktivitas/update_piutang', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function update_lainnya($jenis_aktivitas = 1, $id = null)
+    {
+        if (!isset($id)) show_404();
+        $data['jenis_aktivitas'] = $jenis_aktivitas;
+        $data['id'] = $id;
+        $data['aktivitas'] = $this->aktivitas_m->getDetail($id);
+        $rules = [
+            [
+                'field' => 'lainnya',
+                'label' => 'lainnya',
+                'rules' => 'numeric'
+            ]
+        ];
+        $validation = $this->form_validation->set_rules($rules);
+        if ($validation->run()) {
+            $data = [
+                'lainnya' => htmlspecialchars($this->input->post('lainnya', true))
+            ];
+            $this->aktivitas_m->update($data, $id);
+            $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
+            redirect('aktivitas/detail/' . $jenis_aktivitas . '/' . $id . '');
+        }
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('aktivitas/update_lainnya', $data);
         $this->load->view('template/footer');
     }
 }

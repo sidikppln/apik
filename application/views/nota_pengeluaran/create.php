@@ -37,7 +37,7 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="form-group">
-                            <a href="<?= base_url('nota-pengeluaran/detail/') . $jenis . '/' . $kegiatan_id; ?>" class="btn btn-sm btn-outline-info">Batal</a>
+                            <a href="<?= base_url('nota-pengeluaran/detail/') . $jenis_aktivitas . '/' . $aktivitas_id; ?>" class="btn btn-sm btn-outline-info">Batal</a>
                             <button type="submit" class="btn btn-sm btn-outline-info ml-1">Simpan</button>
                         </div>
                     </div>

@@ -7,7 +7,8 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active">Nota Penerimaan</li>
+            <li class="breadcrumb-item"><a href="">Nota Penerimaan</a></li>
+            <li class="breadcrumb-item active">Transaksi</li>
           </ol>
         </div>
       </div>
@@ -32,9 +33,6 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <?php foreach ($ref_jenis_aktivitas as $r) : ?>
-              <a href="<?= base_url('nota-penerimaan/index/') . $r['kode']; ?>" class="btn btn-sm btn-outline-info ml-1 <?= $jenis_aktivitas == $r['kode'] ? 'active' : ''; ?>"><?= $r['nama']; ?></a>
-            <?php endforeach; ?>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
@@ -47,40 +45,31 @@
         </div>
       </div>
       <div class="card-body">
-        <div class="row mb-2">
-          <div class="col">
-
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <table class="table table-bordered table-hover table-sm">
-              <thead>
-                <tr class="text-center">
-                  <th scope="col">#</th>
-                  <th scope="col">Nomor</th>
-                  <th scope="col">Nama</th>
-                  <th scope="col">Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $no = $page + 1;
-                foreach ($aktivitas as $r) : ?>
-                  <tr>
-                    <td class="text-center"><?= $no++; ?></td>
-                    <td><?= $r['kode']; ?></td>
-                    <td><?= $r['nama']; ?></td>
-                    <td>
-                      <div class="btn-group">
-                        <a href="<?= base_url('nota-penerimaan/detail/') . $jenis_aktivitas . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Detail</a>
-                      </div>
-                    </td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <table class="table table-bordered table-hover table-sm">
+          <thead>
+            <tr class="text-center">
+              <th scope="col">#</th>
+              <th scope="col">Tanggal</th>
+              <th scope="col">Kode</th>
+              <th scope="col">Jenis</th>
+              <th scope="col">Virtual Account</th>
+              <th scope="col">Nominal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php $no = $page + 1;
+            foreach ($penerimaan as $r) : ?>
+              <tr>
+                <td class="text-center"><?= $no++; ?></td>
+                <td><?= date('d-m-Y', $r['tanggal']); ?></td>
+                <td><?= $r['kdsatker'] . '.' . $r['tahun'] . '.' . $r['kode_kelompok'] . '.' . $r['kode_jenis'] . '.' . $r['no_urut']; ?></td>
+                <td><?= $r['nama_jenis']; ?></td>
+                <td><?= $r['virtual_account']; ?></td>
+                <td class="text-right"><?= number_format($r['debet'], 2, ',', '.'); ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
       </div>
       <div class="card-footer">
         <?= $name == null ? $pagination : ''; ?>

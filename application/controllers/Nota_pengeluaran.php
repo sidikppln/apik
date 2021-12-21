@@ -8,7 +8,7 @@ class Nota_pengeluaran extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
-        $this->load->model('Data_kegiatan_model', 'kegiatan_m');
+        $this->load->model('Data_aktivitas_model', 'aktivitas_m');
         $this->load->model('Data_nota_pengeluaran_model', 'nota_pengeluaran_m');
         $this->load->model('Data_pengeluaran_model', 'pengeluaran_m');
         $this->load->model('View_ref_nota_model', 'view_ref_nota_m');
@@ -16,13 +16,14 @@ class Nota_pengeluaran extends CI_Controller
         $this->load->model('View_jenis_model', 'view_jenis_m');
     }
 
-    public function index($jenis = 0)
+    public function index($jenis_aktivitas = 1)
     {
-        $data['jenis'] = $jenis;
+        $data['jenis_aktivitas'] = $jenis_aktivitas;
+        $data['ref_jenis_aktivitas'] = $this->aktivitas_m->getJenisAktivitas();
 
         // setting halaman
-        $config['base_url'] = base_url('nota-pengeluaran/index/' . $jenis . '');
-        $config['total_rows'] = $this->kegiatan_m->count($jenis);
+        $config['base_url'] = base_url('aktivitas/index/' . $jenis_aktivitas . '');
+        $config['total_rows'] = $this->aktivitas_m->count($jenis_aktivitas);
         $config['per_page'] = 5;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -37,9 +38,9 @@ class Nota_pengeluaran extends CI_Controller
 
         // pilih tampilan data, semua atau berdasarkan pencarian
         if ($name) {
-            $data['kegiatan'] = $this->kegiatan_m->find($name, $jenis);
+            $data['aktivitas'] = $this->aktivitas_m->find($name, $jenis_aktivitas);
         } else {
-            $data['kegiatan'] = $this->kegiatan_m->get($limit, $offset, $jenis);
+            $data['aktivitas'] = $this->aktivitas_m->get($limit, $offset, $jenis_aktivitas);
         }
 
         $this->load->view('template/header');
@@ -48,14 +49,14 @@ class Nota_pengeluaran extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function detail($jenis = 0, $kegiatan_id = null)
+    public function detail($jenis_aktivitas = 1, $aktivitas_id = null)
     {
-        $data['jenis'] = $jenis;
-        $data['kegiatan_id'] = $kegiatan_id;
+        $data['jenis_aktivitas'] = $jenis_aktivitas;
+        $data['aktivitas_id'] = $aktivitas_id;
         $status = 0;
         // setting halaman
-        $config['base_url'] = base_url('nota-pengeluaran/detail/' . $jenis . '/' . $kegiatan_id . '');
-        $config['total_rows'] = $this->nota_pengeluaran_m->count($kegiatan_id, $status);
+        $config['base_url'] = base_url('nota-pengeluaran/detail/' . $jenis_aktivitas . '/' . $aktivitas_id . '');
+        $config['total_rows'] = $this->nota_pengeluaran_m->count($aktivitas_id, $status);
         $config['per_page'] = 5;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -70,9 +71,9 @@ class Nota_pengeluaran extends CI_Controller
 
         // pilih tampilan data, semua atau berdasarkan pencarian
         if ($name) {
-            $data['nota_pengeluaran'] = $this->nota_pengeluaran_m->find($name, $kegiatan_id, $status);
+            $data['nota_pengeluaran'] = $this->nota_pengeluaran_m->find($name, $aktivitas_id, $status);
         } else {
-            $data['nota_pengeluaran'] = $this->nota_pengeluaran_m->get($limit, $offset, $kegiatan_id, $status);
+            $data['nota_pengeluaran'] = $this->nota_pengeluaran_m->get($limit, $offset, $aktivitas_id, $status);
         }
 
         $this->load->view('template/header');
@@ -89,10 +90,10 @@ class Nota_pengeluaran extends CI_Controller
         ]
     ];
 
-    public function create($jenis = 0, $kegiatan_id = null)
+    public function create($jenis_aktivitas = 1, $aktivitas_id = null)
     {
-        $data['jenis'] = $jenis;
-        $data['kegiatan_id'] = $kegiatan_id;
+        $data['jenis_aktivitas'] = $jenis_aktivitas;
+        $data['aktivitas_id'] = $aktivitas_id;
         $kdsatker = $this->session->userdata('kdsatker');
 
 
@@ -104,14 +105,16 @@ class Nota_pengeluaran extends CI_Controller
         if ($validation->run()) {
             $data = [
                 'nomor' => $no_nota,
+                'kdsatker' => kdsatker(),
+                'tahun' => tahun(),
                 'kode_nota' =>  htmlspecialchars($this->input->post('kode', true)),
-                'kegiatan_id' =>  $kegiatan_id,
+                'aktivitas_id' =>  $aktivitas_id,
                 'tanggal' => time()
             ];
             $this->ref_satker_m->updateNoNotaPengeluaran(['no_nota_pengeluaran' => $no_nota_next], $kdsatker);
             $this->nota_pengeluaran_m->create($data);
             $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('nota-pengeluaran/detail/' . $jenis . '/' . $kegiatan_id . '');
+            redirect('nota-pengeluaran/detail/' . $jenis_aktivitas . '/' . $aktivitas_id . '');
         }
 
         $this->load->view('template/header');
@@ -120,11 +123,11 @@ class Nota_pengeluaran extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function update($jenis = 0, $kegiatan_id = null, $id = null)
+    public function update($jenis_aktivitas = 1, $aktivitas_id = null, $id = null)
     {
         if (!isset($id)) show_404();
-        $data['jenis'] = $jenis;
-        $data['kegiatan_id'] = $kegiatan_id;
+        $data['jenis_aktivitas'] = $jenis_aktivitas;
+        $data['aktivitas_id'] = $aktivitas_id;
         $data['ref_nota'] = $this->view_ref_nota_m->get('kredit');
         $data['np'] = $this->nota_pengeluaran_m->getDetail($id);
 
@@ -137,7 +140,7 @@ class Nota_pengeluaran extends CI_Controller
             ];
             $this->nota_pengeluaran_m->update($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('nota-pengeluaran/detail/' . $jenis . '/' . $kegiatan_id . '');
+            redirect('nota-pengeluaran/detail/' . $jenis_aktivitas . '/' . $aktivitas_id . '');
         }
 
         $this->load->view('template/header');
@@ -146,27 +149,27 @@ class Nota_pengeluaran extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function delete($jenis = 0, $kegiatan_id = null, $id = null)
+    public function delete($jenis_aktivitas = 1, $aktivitas_id = null, $id = null)
     {
         if (!isset($id)) show_404();
 
         if ($this->nota_pengeluaran_m->delete($id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('nota-pengeluaran/detail/' . $jenis . '/' . $kegiatan_id . '');
+        redirect('nota-pengeluaran/detail/' . $jenis_aktivitas . '/' . $aktivitas_id . '');
     }
 
-    public function transaksi($jenis = 0, $kegiatan_id = null, $nota_pengeluaran_id = null, $kode_nota = null)
+    public function transaksi($jenis_aktivitas = 1, $aktivitas_id = null, $nota_pengeluaran_id = null, $kode_nota = null)
     {
         if (!isset($nota_pengeluaran_id)) show_404();
         $status = 1;
-        $data['jenis'] = $jenis;
-        $data['kegiatan_id'] = $kegiatan_id;
+        $data['jenis_aktivitas'] = $jenis_aktivitas;
+        $data['aktivitas_id'] = $aktivitas_id;
         $data['nota_pengeluaran_id'] = $nota_pengeluaran_id;
         $data['kode_nota'] = $kode_nota;
 
         // setting halaman
-        $config['base_url'] = base_url('nota-pengeluaran/transaksi/' . $jenis . '/' . $kegiatan_id . '/' . $nota_pengeluaran_id . '/' . $kode_nota . '');
+        $config['base_url'] = base_url('nota-pengeluaran/transaksi/' . $jenis_aktivitas . '/' . $aktivitas_id . '/' . $nota_pengeluaran_id . '/' . $kode_nota . '');
         $config['total_rows'] = $this->view_pengeluaran_m->count($status, $nota_pengeluaran_id);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
@@ -193,39 +196,39 @@ class Nota_pengeluaran extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function create_transaksi($jenis = 0, $kegiatan_id = null, $nota_pengeluaran_id = null, $kode_nota = null)
+    public function create_transaksi($jenis_aktivitas = 1, $aktivitas_id = null, $nota_pengeluaran_id = null, $kode_nota = null)
     {
-        $data['jenis'] = $jenis;
-        $data['kegiatan_id'] = $kegiatan_id;
+        $data['jenis_aktivitas'] = $jenis_aktivitas;
+        $data['aktivitas_id'] = $aktivitas_id;
         $data['nota_pengeluaran_id'] = $nota_pengeluaran_id;
         $data['kode_nota'] = $kode_nota;
         $kdsatker = $this->session->userdata('kdsatker');
         $data['view_jenis'] = $this->view_jenis_m->getPerNota($kode_nota);
-        $kegiatan = $this->kegiatan_m->getDetail($kegiatan_id);
+        $aktivitas = $this->aktivitas_m->getDetail($aktivitas_id);
         switch ($kode_nota) {
             case '05':
-                $kredit = $kegiatan['ujl'] * ($kegiatan['jml_peserta'] - 1);
+                $kredit = $aktivitas['ujl'] * ($aktivitas['jml_peserta'] - 1);
                 break;
             case '06':
-                $kredit = $kegiatan['hasil_bersih'];
+                $kredit = $aktivitas['hasil_bersih'];
                 break;
             case '07':
-                $kredit = $kegiatan['bea_penjual'];
+                $kredit = $aktivitas['bea_penjual'];
                 break;
             case '08':
-                $kredit = $kegiatan['pph_final'];
+                $kredit = $aktivitas['pph_final'];
                 break;
             case '09':
-                $kredit = $kegiatan['ujl_wanprestasi'];
+                $kredit = $aktivitas['ujl_wanprestasi'];
                 break;
             case '10':
-                $kredit = $kegiatan['hak_pp'];
+                $kredit = $aktivitas['hak_pp'];
                 break;
             case '11':
-                $kredit = $kegiatan['biad_ppn'];
+                $kredit = $aktivitas['biad_ppn'];
                 break;
             case '13':
-                $kredit = $kegiatan['bea_batal'];
+                $kredit = $aktivitas['bea_batal'];
                 break;
         }
 
@@ -242,6 +245,7 @@ class Nota_pengeluaran extends CI_Controller
                 'no_urut' => $no_urut,
                 'kredit' => $kredit,
                 'nota_pengeluaran_id' => $nota_pengeluaran_id,
+                'jenis_aktivitas' => $jenis_aktivitas,
                 'status' => 1
             ];
             $this->pengeluaran_m->create($data);
@@ -249,7 +253,7 @@ class Nota_pengeluaran extends CI_Controller
             $kredit = $this->pengeluaran_m->sumKredit($nota_pengeluaran_id)['kredit'];
             $this->nota_pengeluaran_m->update(['kredit' => $kredit], $nota_pengeluaran_id);
             $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('nota-pengeluaran/transaksi/' . $jenis . '/' . $kegiatan_id . '/' . $nota_pengeluaran_id . '/' . $kode_nota . '');
+            redirect('nota-pengeluaran/transaksi/' . $jenis_aktivitas . '/' . $aktivitas_id . '/' . $nota_pengeluaran_id . '/' . $kode_nota . '');
         }
 
         $this->load->view('template/header');
@@ -258,7 +262,7 @@ class Nota_pengeluaran extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function delete_transaksi($jenis = 0, $kegiatan_id = null, $nota_pengeluaran_id = null, $kode_nota = null, $id = null)
+    public function delete_transaksi($jenis_aktivitas = 1, $aktivitas_id = null, $nota_pengeluaran_id = null, $kode_nota = null, $id = null)
     {
         if (!isset($id)) show_404();
 
@@ -267,6 +271,18 @@ class Nota_pengeluaran extends CI_Controller
             $this->nota_pengeluaran_m->update(['kredit' => $kredit], $nota_pengeluaran_id);
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('nota-pengeluaran/transaksi/' . $jenis . '/' . $kegiatan_id . '/' . $nota_pengeluaran_id . '/' . $kode_nota . '');
+        redirect('nota-pengeluaran/transaksi/' . $jenis_aktivitas . '/' . $aktivitas_id . '/' . $nota_pengeluaran_id . '/' . $kode_nota . '');
+    }
+
+    public function kirim($jenis_aktivitas = 0, $aktivitas_id = null, $id = null)
+    {
+        if (!isset($id)) show_404();
+
+        $data = ['status' => 1];
+
+        if ($this->nota_pengeluaran_m->update($data, $id)) {
+            $this->session->set_flashdata('pesan', 'Data berhasil dikirim.');
+        }
+        redirect('nota-pengeluaran/detail/' . $jenis_aktivitas . '/' . $aktivitas_id . '');
     }
 }
