@@ -157,8 +157,12 @@ class Pengesahan extends CI_Controller
     public function proses($jenis_aktivitas = 0, $aktivitas_id = null, $id = null, $jenis_nota = 1)
     {
         if (!isset($id)) show_404();
+        if ($jenis_nota == 1) {
+            $data = ['status' => 3];
+        } else {
+            $data = ['status' => 2];
+        }
 
-        $data = ['status' => 2];
         $jenis_nota == 1 ? $nota = 'nota_penerimaan_m' : $nota = 'nota_pengeluaran_m';
         if ($this->$nota->update($data, $id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil diproses.');
