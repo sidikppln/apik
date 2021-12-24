@@ -3,11 +3,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Detail</h1>
+                    <h1>Bank</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Detail</a></li>
+                        <li class="breadcrumb-item"><a href="#">Bank</a></li>
                         <li class="breadcrumb-item active">Ubah</li>
                     </ol>
                 </div>
@@ -25,24 +25,24 @@
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="form-group mb-2">
-                                <label for="">Hak Penyerah Piutang:</label>
-                                <input type="text" name="hak_pp" class="form-control <?= form_error('hak_pp') ? 'is-invalid' : ''; ?>" value="<?= $aktivitas['hak_pp']; ?>">
+                                <label for="">Kode:</label>
+                                <input type="text" name="kode" class="form-control <?= form_error('kode') ? 'is-invalid' : ''; ?>" value="<?= $bank['kode']; ?>">
                                 <div class="invalid-feedback">
-                                    <?= form_error('hak_pp'); ?>
+                                    <?= form_error('kode'); ?>
                                 </div>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="">BIAD PPN:</label>
-                                <input type="text" name="biad_ppn" class="form-control <?= form_error('biad_ppn') ? 'is-invalid' : ''; ?>" value="<?= $aktivitas['biad_ppn']; ?>">
+                                <label for="">Nama:</label>
+                                <input type="text" name="nama" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>" value="<?= $bank['nama']; ?>">
                                 <div class="invalid-feedback">
-                                    <?= form_error('biad_ppn'); ?>
+                                    <?= form_error('nama'); ?>
                                 </div>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="">Kelebihan:</label>
-                                <input type="text" name="lebih" class="form-control <?= form_error('lebih') ? 'is-invalid' : ''; ?>" value="<?= $aktivitas['lebih']; ?>">
+                                <label for="">Rekening:</label>
+                                <input type="text" name="rekening" class="form-control <?= form_error('rekening') ? 'is-invalid' : ''; ?>" value="<?= $bank['rekening']; ?>">
                                 <div class="invalid-feedback">
-                                    <?= form_error('lebih'); ?>
+                                    <?= form_error('rekening'); ?>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-group">
-                                <a href="<?= base_url('aktivitas/detail/') . $jenis_aktivitas . '/' . $id; ?>" class="btn btn-sm btn-outline-info">Batal</a>
+                                <a href="<?= base_url('bank'); ?>" class="btn btn-sm btn-outline-info">Batal</a>
                                 <button type="submit" class="btn btn-sm btn-outline-info ml-1">Simpan</button>
                             </div>
                         </div>

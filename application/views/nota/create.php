@@ -64,8 +64,8 @@
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-group">
-                                <a href="<?= base_url('nota'); ?>" class="btn btn-sm btn-outline-success">Batal</a>
-                                <button type="submit" class="btn btn-sm btn-outline-success ml-1">Simpan</button>
+                                <a href="<?= base_url('nota'); ?>" class="btn btn-sm btn-outline-info">Batal</a>
+                                <button type="submit" class="btn btn-sm btn-outline-info ml-1">Simpan</button>
                             </div>
                         </div>
                     </div>

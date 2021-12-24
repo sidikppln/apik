@@ -3,12 +3,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Detail</h1>
+                    <h1>Sub Menu</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Detail</a></li>
-                        <li class="breadcrumb-item active">Ubah</li>
+                        <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                        <li class="breadcrumb-item active">Update</li>
                     </ol>
                 </div>
             </div>
@@ -25,32 +25,40 @@
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="form-group mb-2">
-                                <label for="">Hak Penyerah Piutang:</label>
-                                <input type="text" name="hak_pp" class="form-control <?= form_error('hak_pp') ? 'is-invalid' : ''; ?>" value="<?= $aktivitas['hak_pp']; ?>">
+                                <label for="">Nama:</label>
+                                <input type="text" name="name" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" value="<?= $sub_menu['name']; ?>">
                                 <div class="invalid-feedback">
-                                    <?= form_error('hak_pp'); ?>
+                                    <?= form_error('name'); ?>
                                 </div>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="">BIAD PPN:</label>
-                                <input type="text" name="biad_ppn" class="form-control <?= form_error('biad_ppn') ? 'is-invalid' : ''; ?>" value="<?= $aktivitas['biad_ppn']; ?>">
+                                <label for="">URL:</label>
+                                <input type="text" name="url" class="form-control <?= form_error('url') ? 'is-invalid' : ''; ?>" value="<?= $sub_menu['url']; ?>">
                                 <div class="invalid-feedback">
-                                    <?= form_error('biad_ppn'); ?>
+                                    <?= form_error('url'); ?>
                                 </div>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="">Kelebihan:</label>
-                                <input type="text" name="lebih" class="form-control <?= form_error('lebih') ? 'is-invalid' : ''; ?>" value="<?= $aktivitas['lebih']; ?>">
+                                <label for="">Icon:</label>
+                                <input type="text" name="icon" class="form-control <?= form_error('icon') ? 'is-invalid' : ''; ?>" value="<?= $sub_menu['icon']; ?>">
                                 <div class="invalid-feedback">
-                                    <?= form_error('lebih'); ?>
+                                    <?= form_error('icon'); ?>
                                 </div>
                             </div>
+                            <div class="form-group mb-2">
+                                <label for="">Urutan:</label>
+                                <input type="text" name="urutan" class="form-control <?= form_error('urutan') ? 'is-invalid' : ''; ?>" value="<?= $sub_menu['urutan']; ?>">
+                                <div class="invalid-feedback">
+                                    <?= form_error('urutan'); ?>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-group">
-                                <a href="<?= base_url('aktivitas/detail/') . $jenis_aktivitas . '/' . $id; ?>" class="btn btn-sm btn-outline-info">Batal</a>
+                                <a href="<?= base_url('menu/submenu/') . $menu_id; ?>" class="btn btn-sm btn-outline-info">Batal</a>
                                 <button type="submit" class="btn btn-sm btn-outline-info ml-1">Simpan</button>
                             </div>
                         </div>

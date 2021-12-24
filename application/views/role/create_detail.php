@@ -3,12 +3,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Akses</h1>
+                    <h1>Role</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Role</a></li>
-                        <li class="breadcrumb-item"><a href="#">Akses</a></li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div>
@@ -39,7 +38,7 @@
                         <form action="" method="post" autocomplete="off">
                             <div class="input-group">
                                 <input type="text" name="name" class="form-control form-control-sm" placeholder="Nama">
-                                <button class="btn btn-sm btn-outline-success" type="submit">Cari</button>
+                                <button class="btn btn-sm btn-outline-info" type="submit">Cari</button>
                             </div>
                         </form>
                     </div>
@@ -61,7 +60,7 @@
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['nama_menu'] . ' - ' . $r['nama_sub_menu'] . ' - ' . $r['name']; ?></td>
                                 <td>
-                                    <a href="<?= base_url('akses/pilih/') . $r['id'] . '/' . $role_id; ?>" class="btn btn-sm btn-outline-success">Pilih</a>
+                                    <a href="<?= base_url('role/pilih-detail/') . $r['id'] . '/' . $role_id; ?>" class="btn btn-sm btn-outline-info">Pilih</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

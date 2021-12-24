@@ -59,8 +59,8 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="form-group">
-                            <a href="<?= base_url('sub-sub-menu/index/') . $menu_id . '/' . $sub_menu_id; ?>" class="btn btn-sm btn-outline-secondary">Batal</a>
-                            <button type="submit" class="btn btn-sm btn-outline-secondary ml-1">Simpan</button>
+                            <a href="<?= base_url('menu/subsubmenu/') . $menu_id . '/' . $sub_menu_id; ?>" class="btn btn-sm btn-outline-info">Batal</a>
+                            <button type="submit" class="btn btn-sm btn-outline-info ml-1">Simpan</button>
                         </div>
                     </div>
                 </div>
