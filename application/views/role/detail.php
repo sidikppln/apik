@@ -3,14 +3,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Sub Sub Sub Menu</h1>
+          <h1>Role</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Menu</a></li>
-            <li class="breadcrumb-item"><a href="#">Sub Menu</a></li>
-            <li class="breadcrumb-item"><a href="#">Sub Sub Menu</a></li>
-            <li class="breadcrumb-item active">Sub Sub Sub Menu</li>
+            <li class="breadcrumb-item"><a href="#">Role</a></li>
+            <li class="breadcrumb-item active">Detail</li>
           </ol>
         </div>
       </div>
@@ -35,13 +33,13 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('sub-sub-sub-menu/create/') . $menu_id . '/' . $sub_menu_id . '/' . $sub_sub_menu_id; ?>" class="btn btn-sm btn-outline-success">Tambah</a>
+            <a href="<?= base_url('role/create-detail/') . $role_id; ?>" class="btn btn-sm btn-outline-info">Tambah</a>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">
               <div class="input-group">
                 <input type="text" name="name" class="form-control form-control-sm" placeholder="Nama">
-                <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
+                <button class="btn btn-sm btn-outline-info" type="submit">Cari</button>
               </div>
             </form>
           </div>
@@ -53,20 +51,19 @@
             <tr class="text-center">
               <th scope="col">#</th>
               <th scope="col">Nama</th>
-              <th scope="col">Urutan</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
           <tbody>
             <?php $no = $page + 1;
-            foreach ($sub_sub_sub_menu as $r) : ?>
+            foreach ($access as $r) : ?>
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
-                <td><?= $r['name']; ?></td>
-                <td><?= $r['urutan']; ?></td>
+                <td><?= $r['nama_menu'] . ' - ' . $r['nama_sub_menu'] . ' - ' . $r['name']; ?></td>
                 <td>
-                  <a href="<?= base_url('sub-sub-sub-menu/update/') . $r['id'] . '/' . $r['menu_id'] . '/' . $r['sub_menu_id'] . '/' . $r['sub_sub_menu_id']; ?>" class="btn btn-sm btn-outline-warning">Ubah</a>
-                  <a href="<?= base_url('sub-sub-sub-menu/delete/') . $r['id'] . '/' . $r['menu_id'] . '/' . $r['sub_menu_id'] . '/' . $r['sub_sub_menu_id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  <div class="btn-group">
+                    <a href="<?= base_url('role/delete-detail/') . $r['id'] . '/' . $r['role_id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                  </div>
                 </td>
               </tr>
             <?php endforeach; ?>
