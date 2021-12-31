@@ -7,6 +7,7 @@ class View_kas_umum_model extends CI_Model
 
     public function get($limit = null, $offset = 0)
     {
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         $this->db->limit($limit, $offset);
         $this->db->order_by('tanggal', 'asc');
         $this->db->order_by('kode_kelompok', 'asc');
@@ -16,18 +17,21 @@ class View_kas_umum_model extends CI_Model
 
     public function find($name = null)
     {
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         $this->db->like('nama', $name);
         return $this->db->get($this->_table)->result_array();
     }
 
     public function count()
     {
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         return $this->db->get($this->_table)->num_rows();
     }
 
     public function getPembantu($limit = null, $offset = 0, $kode_kelompok = null)
     {
         $this->db->where('kode_kelompok', $kode_kelompok);
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         $this->db->limit($limit, $offset);
         $this->db->order_by('tanggal', 'asc');
         $this->db->order_by('kode_kelompok', 'asc');
@@ -38,6 +42,7 @@ class View_kas_umum_model extends CI_Model
     public function findPembantu($name = null, $kode_kelompok = null)
     {
         $this->db->where('kode_kelompok', $kode_kelompok);
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         $this->db->like('nama', $name);
         return $this->db->get($this->_table)->result_array();
     }
@@ -45,6 +50,7 @@ class View_kas_umum_model extends CI_Model
     public function countPembantu($kode_kelompok = null)
     {
         $this->db->where('kode_kelompok', $kode_kelompok);
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         return $this->db->get($this->_table)->num_rows();
     }
 
@@ -62,7 +68,7 @@ class View_kas_umum_model extends CI_Model
 
     public function getKodeKelompok()
     {
-        $query = "SELECT distinct b.kode,b.nama FROM view_kas_umum a LEFT JOIN ref_kelompok b ON a.kode_kelompok=b.kode";
+        $query = "SELECT distinct b.kode,b.nama FROM view_kas_umum a LEFT JOIN ref_kelompok b ON a.kode_kelompok=b.kode WHERE a.kdsatker=" . kdsatker() . " AND a.tahun=" . tahun() . "";
         return $this->db->query($query)->result_array();
     }
 }

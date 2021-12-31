@@ -11,6 +11,7 @@ class View_nota_model extends CI_Model
         $this->db->from('view_nota a');
         $this->db->join('view_ref_nota b', 'a.kode_nota =b.kode', 'left');
         $this->db->where(['a.aktivitas_id' => $aktivitas_id, 'a.status' => $status]);
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         $this->db->limit($limit, $offset);
         return $this->db->get()->result_array();
     }
@@ -21,6 +22,7 @@ class View_nota_model extends CI_Model
         $this->db->from('view_nota a');
         $this->db->join('view_ref_nota b', 'a.kode_nota =b.kode', 'left');
         $this->db->where(['a.aktivitas_id' => $aktivitas_id, 'a.status' => $status]);
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         $this->db->like('a.nomor', $name);
         return $this->db->get()->result_array();
     }
@@ -28,12 +30,14 @@ class View_nota_model extends CI_Model
     public function count($status = 0)
     {
         $this->db->where('status', $status);
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         return $this->db->get($this->_table)->num_rows();
     }
 
 
     public function getBeranda($status = null)
     {
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         $this->db->where('status', $status);
         return $this->db->get($this->_table)->num_rows();
     }

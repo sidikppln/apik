@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Pengarsipan</h1>
+          <h1>Nota Penerimaan</h1>
         </div>
         <div class="col-sm-6">
         </div>
@@ -29,14 +29,15 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('pengarsipan/index/') . $jenis_aktivitas; ?>" class="btn btn-sm btn-outline-info">Kembali</a>
+            <a href="<?= base_url('nota-penerimaan/transaksi/') . $jenis_aktivitas . '/' . $aktivitas_id . '/' . $nota_penerimaan_id . '/' . $kode_nota; ?>" class="btn btn-sm btn-outline-info">Kembali</a>
+            <a href="<?= base_url('nota-penerimaan/pilih-semua-transaksi-ujl/') . $jenis_aktivitas . '/' . $aktivitas_id . '/' . $nota_penerimaan_id . '/' . $kode_nota; ?>" class="btn btn-sm btn-outline-info ml-2">Pilih Semua</a>
           </div>
           <div class="col-lg-6">
-            <?= form_open(); ?>
-            <div class="input-group">
-              <input type="text" name="name" class="form-control form-control-sm" placeholder="Nomor">
-              <button class="btn btn-sm btn-outline-info" type="submit">Cari</button>
-            </div>
+            <form action="" method="post" autocomplete="off">
+              <div class="input-group">
+                <input type="text" name="name" class="form-control form-control-sm" placeholder="Nama">
+                <button class="btn btn-sm btn-outline-success" type="submit">Cari</button>
+              </div>
             </form>
           </div>
         </div>
@@ -46,32 +47,30 @@
           <thead>
             <tr class="text-center">
               <th scope="col">#</th>
-              <th scope="col">Nomor</th>
               <th scope="col">Tanggal</th>
+              <th scope="col">Kode</th>
               <th scope="col">Jenis</th>
-              <th scope="col">Debet</th>
-              <th scope="col">Kredit</th>
+              <th scope="col">Virtual Account</th>
+              <th scope="col">Nominal</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
           <tbody>
             <?php $no = $page + 1;
-            foreach ($nota as $r) : ?>
+            foreach ($penerimaan as $r) : ?>
               <tr>
                 <td class="text-center"><?= $no++; ?></td>
-                <td><?= $r['nomor']; ?></td>
                 <td><?= date('d-m-Y', $r['tanggal']); ?></td>
-                <td><?= $r['nama_nota']; ?></td>
-                <td><?= number_format($r['debet'], 0, ',', '.'); ?></td>
-                <td><?= number_format($r['kredit'], 0, ',', '.'); ?></td>
+                <td><?= $r['kdsatker'] . '.' . $r['tahun'] . '.' . $r['kode_kelompok'] . '.' . $r['kode_jenis'] . '.' . $r['no_urut']; ?></td>
+                <td><?= $r['nama_jenis']; ?></td>
+                <td><?= $r['virtual_account']; ?></td>
+                <td class="text-right"><?= number_format($r['debet'], 2, ',', '.'); ?></td>
+                <!-- <td>
+                  <a href="<?= base_url('nota-penerimaan/pilih-transaksi/') . $jenis_aktivitas . '/' . $aktivitas_id . '/' . $nota_penerimaan_id . '/' . $kode_nota . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Pilih</a>
+                </td> -->
                 <td>
-                  <div class="btn-group">
-                    <?php if ($r['jenis_nota'] == 1) : ?>
-                      <a href="<?= base_url('pengarsipan/transaksi-penerimaan/') . $jenis_aktivitas . '/' . $aktivitas_id . '/'  . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Transaksi</a>
-                    <?php else : ?>
-                      <a href="<?= base_url('pengarsipan/transaksi-pengeluaran/') . $jenis_aktivitas . '/' . $aktivitas_id . '/'  . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Transaksi</a>
-                    <?php endif; ?>
-                    <a href="<?= base_url('pengarsipan/tolak/') . $jenis_aktivitas . '/' . $aktivitas_id  . '/' . $r['id'] . '/' . $r['jenis_nota']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Tolak</a>
+                  <div class="form-check">
+                    <input class="form-check-penerimaan" type="checkbox" <?= check_penerimaan($r['id']); ?> data-nota="<?= $nota_penerimaan_id; ?>" data-id="<?= $r['id']; ?>">
                   </div>
                 </td>
               </tr>

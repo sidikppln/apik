@@ -58,6 +58,7 @@ class Data_rekening_koran_model extends CI_Model
 
     public function get($limit = null, $offset = 0, $status = 0)
     {
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         $this->db->where(['status' => $status, 'debet' => '0']);
         $this->db->limit($limit, $offset);
         return $this->db->get($this->_table)->result_array();
@@ -65,6 +66,7 @@ class Data_rekening_koran_model extends CI_Model
 
     public function find($name = null, $status = 0)
     {
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         $this->db->where(['status' => $status, 'debet' => '0']);
         $this->db->like('uraian', $name);
         return $this->db->get($this->_table)->result_array();
@@ -72,6 +74,7 @@ class Data_rekening_koran_model extends CI_Model
 
     public function count($status = 0)
     {
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         $this->db->where(['status' => $status, 'debet' => '0']);
         return $this->db->get($this->_table)->num_rows();
     }

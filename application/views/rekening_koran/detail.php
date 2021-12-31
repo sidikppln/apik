@@ -6,9 +6,6 @@
           <h1>Rekening Koran</h1>
         </div>
         <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active">Rekening Koran</li>
-          </ol>
         </div>
       </div>
   </section>
@@ -30,6 +27,7 @@
 
     <div class="card">
       <div class="card-header">
+        <a href="<?= base_url('rekening-koran/index/') . $kode_bank; ?>" class="btn btn-sm btn-outline-info">Kembali</a>
       </div>
       <div class="card-body">
         <table class="table table-bordered table-hover table-sm">
