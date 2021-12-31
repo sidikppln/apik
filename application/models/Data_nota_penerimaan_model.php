@@ -11,6 +11,7 @@ class Data_nota_penerimaan_model extends CI_Model
         $this->db->from('data_nota_penerimaan a');
         $this->db->join('view_ref_nota b', 'a.kode_nota =b.kode', 'left');
         $this->db->where(['a.aktivitas_id' => $aktivitas_id, 'a.status' => $status]);
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         $this->db->limit($limit, $offset);
         return $this->db->get()->result_array();
     }
@@ -26,6 +27,7 @@ class Data_nota_penerimaan_model extends CI_Model
         $this->db->from('data_nota_penerimaan a');
         $this->db->join('view_ref_nota b', 'a.kode_nota =b.kode', 'left');
         $this->db->where(['a.aktivitas_id' => $aktivitas_id, 'a.status' => $status]);
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         $this->db->like('a.nomor', $name);
         return $this->db->get()->result_array();
     }
@@ -33,6 +35,7 @@ class Data_nota_penerimaan_model extends CI_Model
     public function count($aktivitas_id = null, $status = 0)
     {
         $this->db->where(['aktivitas_id' => $aktivitas_id, 'status' => $status]);
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
         return $this->db->get($this->_table)->num_rows();
     }
 

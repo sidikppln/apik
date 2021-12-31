@@ -71,14 +71,14 @@
                     <td class="text-center"><?= $no++; ?></td>
                     <td><?= $r['kode']; ?></td>
                     <td><?= $r['nama']; ?></td>
-                    <td><?= $r['status'] == 0 ? 'Aktif' : 'Non Aktif'; ?></td>
+                    <td><?= $r['status'] == 0 ? 'Belum di arsipkan' : 'Telah di arsipkan'; ?></td>
                     <td>
                       <div class="btn-group">
                         <a href="<?= base_url('pengarsipan/detail/') . $jenis_aktivitas . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0">Detail</a>
                         <?php if ($r['status'] == 0) : ?>
-                          <a href="<?= base_url('pengarsipan/non-aktif/') . $jenis_aktivitas . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menonaktifkan data ini?');">Non Aktifkan</a>
+                          <a href="<?= base_url('pengarsipan/non-aktif/') . $jenis_aktivitas . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menonaktifkan data ini?');">Arsipkan</a>
                         <?php else : ?>
-                          <a href="<?= base_url('pengarsipan/aktif/') . $jenis_aktivitas . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan mengaktifkan data ini?');">Aktifkan</a>
+                          <a href="<?= base_url('pengarsipan/aktif/') . $jenis_aktivitas . '/' . $r['id']; ?>" class="btn btn-sm btn-outline-info pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan mengaktifkan data ini?');">Batal Arsipkan</a>
                         <?php endif; ?>
                       </div>
                     </td>

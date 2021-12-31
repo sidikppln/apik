@@ -205,7 +205,11 @@ class Nota_penerimaan extends CI_Controller
 
         // setting halaman
         $config['base_url'] = base_url('nota-penerimaan/create-transaksi/' . $jenis_aktivitas . '/' . $aktivitas_id . '/'  . $nota_penerimaan_id . '/' . $kode_nota . '');
-        $config['total_rows'] = $this->view_penerimaan_m->countPerKode($status, $kode_nota);
+        if ($kode_nota == '01') {
+            $config['total_rows'] = $this->view_penerimaan_m->countPerKodeUjl($kode_nota);
+        } else {
+            $config['total_rows'] = $this->view_penerimaan_m->countPerKode($status, $kode_nota);
+        }
         $config['per_page'] = 5;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -220,14 +224,26 @@ class Nota_penerimaan extends CI_Controller
 
         // pilih tampilan data, semua atau berdasarkan pencarian
         if ($name) {
-            $data['penerimaan'] = $this->view_penerimaan_m->findPerKode($name, $status, $kode_nota);
+            if ($kode_nota == '01') {
+                $data['penerimaan'] = $this->view_penerimaan_m->findPerKodeUjl($name, $kode_nota);
+            } else {
+                $data['penerimaan'] = $this->view_penerimaan_m->findPerKode($name, $status, $kode_nota);
+            }
         } else {
-            $data['penerimaan'] = $this->view_penerimaan_m->getPerKode($limit, $offset, $status, $kode_nota);
+            if ($kode_nota == '01') {
+                $data['penerimaan'] = $this->view_penerimaan_m->getPerKodeUjl($limit, $offset, $kode_nota);
+            } else {
+                $data['penerimaan'] = $this->view_penerimaan_m->getPerKode($limit, $offset, $status, $kode_nota);
+            }
         }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('nota_penerimaan/create_transaksi', $data);
+        if ($kode_nota == '01') {
+            $this->load->view('nota_penerimaan/create_transaksi_ujl', $data);
+        } else {
+            $this->load->view('nota_penerimaan/create_transaksi', $data);
+        }
         $this->load->view('template/footer');
     }
 
@@ -333,11 +349,46 @@ class Nota_penerimaan extends CI_Controller
         redirect('nota-penerimaan/transaksi/' . $jenis_aktivitas . '/' . $aktivitas_id . '/' . $nota_penerimaan_id . '/' . $kode_nota . '');
     }
 
+    public function pilih_transaksi_ujl()
+    {
+        $nota_penerimaan_id = $this->input->post('nota_penerimaan_id');
+        $id = $this->input->post('id');
+
+        $data = [
+            'nota_penerimaan_id' => $nota_penerimaan_id,
+            'jenis_aktivitas' => 1,
+            'status' => 1
+        ];
+        $this->penerimaan_m->update($data, $id);
+
+        $debet = $this->penerimaan_m->sumDebet($nota_penerimaan_id)['debet'];
+        $this->nota_penerimaan_m->update(['debet' => $debet], $nota_penerimaan_id);
+    }
+
+    public function pilih_semua_transaksi_ujl($jenis_aktivitas = 1, $aktivitas_id = null, $nota_penerimaan_id = null, $kode_nota = null)
+    {
+        $transaksi = $this->view_penerimaan_m->getPerKode(null, 0, 0, $kode_nota);
+        foreach ($transaksi as $r) {
+            $data = [
+                'nota_penerimaan_id' => $nota_penerimaan_id,
+                'jenis_aktivitas' => 1,
+                'status' => 1
+            ];
+            $this->penerimaan_m->update($data, $r['id']);
+        }
+
+        $debet = $this->penerimaan_m->sumDebet($nota_penerimaan_id)['debet'];
+        $this->nota_penerimaan_m->update(['debet' => $debet], $nota_penerimaan_id);
+        $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
+        redirect('nota-penerimaan/create-transaksi/' . $jenis_aktivitas . '/' . $aktivitas_id . '/' . $nota_penerimaan_id . '/' . $kode_nota . '');
+    }
+
     public function delete_transaksi($jenis_aktivitas = 0, $aktivitas_id = null, $nota_penerimaan_id = null, $kode_nota = null, $id = null)
     {
         if (!isset($id)) show_404();
         $data = [
             'nota_penerimaan_id' => null,
+            'jenis_aktivitas' => null,
             'status' => 0
         ];
 

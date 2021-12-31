@@ -6,10 +6,6 @@
           <h1>Pencatatan</h1>
         </div>
         <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="">Pencatatan</a></li>
-            <li class="breadcrumb-item active">Detail</li>
-          </ol>
         </div>
       </div>
   </section>
@@ -33,6 +29,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
+            <a href="<?= base_url('pencatatan/index/') . $jenis_aktivitas; ?>" class="btn btn-sm btn-outline-info">Kembali</a>
           </div>
           <div class="col-lg-6">
             <?= form_open(); ?>

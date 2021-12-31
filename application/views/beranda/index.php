@@ -19,7 +19,10 @@
               <div class="info-box mb-3">
                 <div class="info-box-content">
                   <span class="info-box-text text-secondary">Aktivitas</span>
-                  <span class="info-box-number text-xl m-0"><?= number_format($aktivitas, 0, ',', '.'); ?></span>
+                  <span class="info-box-number text-xl m-0">
+                    <a href="<?= base_url('aktivitas'); ?>" class="text-dark">
+                      <?= number_format($aktivitas, 0, ',', '.'); ?>
+                    </a></span>
                 </div>
               </div>
             </div>
@@ -27,18 +30,25 @@
               <div class="info-box">
                 <div class="info-box-content">
                   <span class="info-box-text text-secondary">Rekening Koran</span>
-                  <span class="info-box-number text-xl m-0"><?= number_format($rekening_koran, 0, ',', '.'); ?></span>
+                  <span class="info-box-number text-xl m-0">
+                    <a href="<?= base_url('verifikasi'); ?>" class="text-dark">
+                      <?= number_format($rekening_koran, 0, ',', '.'); ?>
+                    </a></span>
                 </div>
               </div>
             </div>
 
-            <div class="clearfix hidden-md-up"></div>
+            <div class=" clearfix hidden-md-up">
+            </div>
 
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
                 <div class="info-box-content">
                   <span class="info-box-text text-secondary">Verifikasi</span>
-                  <span class="info-box-number text-xl m-0"><?= number_format($penerimaan, 0, ',', '.'); ?></span>
+                  <span class="info-box-number text-xl m-0">
+                    <a href="<?= base_url('verifikasi/index/1'); ?>" class="text-dark">
+                      <?= number_format($penerimaan, 0, ',', '.'); ?>
+                    </a></span>
                 </div>
               </div>
             </div>
@@ -46,7 +56,10 @@
               <div class="info-box mb-3">
                 <div class="info-box-content">
                   <span class="info-box-text text-secondary">Nota Penerimaan</span>
-                  <span class="info-box-number text-xl m-0"><?= number_format($nota_penerimaan, 0, ',', '.'); ?></span>
+                  <span class="info-box-number text-xl m-0">
+                    <a href="<?= base_url('nota-penerimaan'); ?>" class="text-dark">
+                      <?= number_format($nota_penerimaan, 0, ',', '.'); ?>
+                    </a></span>
                 </div>
               </div>
             </div>
@@ -57,7 +70,10 @@
               <div class="info-box">
                 <div class="info-box-content">
                   <span class="info-box-text text-secondary">Nota Pengeluaran</span>
-                  <span class="info-box-number text-xl m-0"><?= number_format($nota_pengeluaran, 0, ',', '.'); ?></span>
+                  <span class="info-box-number text-xl m-0">
+                    <a href="<?= base_url('nota-pengeluaran'); ?>" class="text-dark">
+                      <?= number_format($nota_pengeluaran, 0, ',', '.'); ?>
+                    </a></span>
                 </div>
               </div>
             </div>
@@ -65,7 +81,10 @@
               <div class="info-box mb-3">
                 <div class="info-box-content">
                   <span class="info-box-text text-secondary">Pengesahan</span>
-                  <span class="info-box-number text-xl m-0"><?= number_format($pengesahan, 0, ',', '.'); ?></span>
+                  <span class="info-box-number text-xl m-0">
+                    <a href="<?= base_url('pengesahan'); ?>" class="text-dark">
+                      <?= number_format($pengesahan, 0, ',', '.'); ?>
+                    </a></span>
                 </div>
               </div>
             </div>
@@ -76,7 +95,10 @@
               <div class="info-box mb-3">
                 <div class="info-box-content">
                   <span class="info-box-text text-secondary">Pemindahbukuan di Bank</span>
-                  <span class="info-box-number text-xl m-0"><?= number_format($pemindahbukuan, 0, ',', '.'); ?></span>
+                  <span class="info-box-number text-xl m-0">
+                    <a href="<?= base_url('pemindahbukuan'); ?>" class="text-dark">
+                      <?= number_format($pemindahbukuan, 0, ',', '.'); ?>
+                    </a></span>
                 </div>
               </div>
             </div>
@@ -84,7 +106,10 @@
               <div class="info-box mb-3">
                 <div class="info-box-content">
                   <span class="info-box-text text-secondary">Pencatatan di Sakti</span>
-                  <span class="info-box-number text-xl m-0"><?= number_format($pencatatan, 0, ',', '.'); ?></span>
+                  <span class="info-box-number text-xl m-0">
+                    <a href="<?= base_url('pencatatan'); ?>" class="text-dark">
+                      <?= number_format($pencatatan, 0, ',', '.'); ?>
+                    </a></span>
                 </div>
               </div>
             </div>
@@ -171,7 +196,7 @@
         <div class="col-lg-3">
           <div class="card card-default">
             <div class="card-header">
-              <h3 class="card-title text-bold pt-1 pb-1">Tugas yang belum selesai</h3>
+              <h3 class="card-title text-bold pt-1 pb-1">Tugas yang belum diselesaikan</h3>
             </div>
             <div class="card-body m-0">
               <div class="callout callout-info">

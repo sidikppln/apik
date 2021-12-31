@@ -49,6 +49,8 @@ class Rekening_Koran extends CI_Controller
 
     public function detail($tanggal = null, $kode_bank = 1)
     {
+        $data['kode_bank'] = $kode_bank;
+
         // setting halaman
         $config['base_url'] = base_url('rekening-koran/detail/' . $tanggal . '/' . $kode_bank . '');
         $config['total_rows'] = $this->rekening_koran_m->countTanggal($tanggal, $kode_bank);

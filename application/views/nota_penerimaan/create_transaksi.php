@@ -6,10 +6,6 @@
           <h1>Nota Penerimaan</h1>
         </div>
         <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Nota Penerimaan</a></li>
-            <li class="breadcrumb-item active">Tambah Transaksi</li>
-          </ol>
         </div>
       </div>
   </section>
@@ -33,6 +29,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
+            <a href="<?= base_url('nota-penerimaan/transaksi/') . $jenis_aktivitas . '/' . $aktivitas_id . '/' . $nota_penerimaan_id . '/' . $kode_nota; ?>" class="btn btn-sm btn-outline-info">Kembali</a>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">

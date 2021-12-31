@@ -33,6 +33,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
+            <a href="<?= base_url('pengarsipan/detail/') . $jenis_aktivitas . '/' . $aktivitas_id; ?>" class="btn btn-sm btn-outline-info">Kembali</a>
           </div>
           <div class="col-lg-6">
             <form action="" method="post" autocomplete="off">

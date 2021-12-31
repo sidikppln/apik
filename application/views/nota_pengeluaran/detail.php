@@ -6,10 +6,6 @@
           <h1>Nota Pengeluaran</h1>
         </div>
         <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="">Nota Pengeluaran</a></li>
-            <li class="breadcrumb-item active">Detail</li>
-          </ol>
         </div>
       </div>
   </section>
@@ -33,7 +29,8 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-6">
-            <a href="<?= base_url('nota-pengeluaran/create/') . $jenis_aktivitas . '/' . $aktivitas_id; ?>" class="btn btn-sm btn-outline-info">Tambah</a>
+            <a href="<?= base_url('nota-pengeluaran/index/') . $jenis_aktivitas; ?>" class="btn btn-sm btn-outline-info">Kembali</a>
+            <a href="<?= base_url('nota-pengeluaran/create/') . $jenis_aktivitas . '/' . $aktivitas_id; ?>" class="btn btn-sm btn-outline-info ml-2">Tambah</a>
           </div>
           <div class="col-lg-6">
             <?= form_open(); ?>

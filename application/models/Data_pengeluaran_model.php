@@ -7,7 +7,7 @@ class Data_pengeluaran_model extends CI_Model
 
     public function get($limit = null, $offset = 0)
     {
-        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_pengeluaran a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis LIMIT $limit OFFSET $offset")->result_array();
+        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_pengeluaran a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis WHERE a.kdsatker=" . kdsatker() . " AND a.tahun=" . tahun() . " LIMIT $limit OFFSET $offset")->result_array();
     }
 
     public function getDetail($id)
@@ -17,7 +17,7 @@ class Data_pengeluaran_model extends CI_Model
 
     public function find($name = null)
     {
-        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_nota_pengeluaran a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis WHERE a.nomor LIKE '%$name%'")->result_array();
+        return $this->db->query("SELECT a.*, b.nama_sub_jenis AS jenis FROM data_nota_pengeluaran a LEFT JOIN view_jenis b ON a.kode_kelompok=b.kode_kelompok AND a.kode_jenis=b.kode_jenis AND a.kode_sub_jenis=b.kode_sub_jenis WHERE a.kdsatker=" . kdsatker() . " AND a.tahun=" . tahun() . " AND a.nomor LIKE '%$name%'")->result_array();
     }
 
     public function count()
