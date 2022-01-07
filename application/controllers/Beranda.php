@@ -30,6 +30,7 @@ class Beranda extends CI_Controller
         $data['pengesahan'] = $this->view_nota_m->getBeranda(1);
         $data['pemindahbukuan'] = $this->view_nota_m->getBeranda(2);
         $data['pencatatan'] = $this->view_nota_m->getBeranda(3);
+        $data['arsip'] = $this->view_nota_m->getAll(10, 0, 4);
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');

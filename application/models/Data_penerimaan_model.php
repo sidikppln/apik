@@ -45,4 +45,10 @@ class Data_penerimaan_model extends CI_Model
         $this->db->where('status', 0);
         return $this->db->get($this->_table)->num_rows();
     }
+
+    public function cekStatus($id = null, $status = null)
+    {
+        $this->db->where(['id' => $id, 'status' => $status]);
+        return $this->db->get($this->_table)->num_rows();
+    }
 }

@@ -76,4 +76,15 @@ class View_nota_model extends CI_Model
         $this->db->where(['a.kdsatker' => kdsatker(), 'a.tahun' => tahun(), 'a.status' => $status, 'a.jenis_aktivitas' => $jenis_aktivitas]);
         return $this->db->get()->num_rows();
     }
+
+    public function getAll($limit = null, $offset = 0, $status = 0)
+    {
+        $this->db->select('a.*, b.nama AS nama_nota');
+        $this->db->from('view_nota a');
+        $this->db->join('view_ref_nota b', 'a.kode_nota =b.kode', 'left');
+        $this->db->where(['a.status' => $status]);
+        $this->db->where(['kdsatker' => kdsatker(), 'tahun' => tahun()]);
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result_array();
+    }
 }
