@@ -353,12 +353,20 @@ class Nota_penerimaan extends CI_Controller
     {
         $nota_penerimaan_id = $this->input->post('nota_penerimaan_id');
         $id = $this->input->post('id');
-
-        $data = [
-            'nota_penerimaan_id' => $nota_penerimaan_id,
-            'jenis_aktivitas' => 1,
-            'status' => 1
-        ];
+        $result = $this->penerimaan_m->cekStatus($id, 1);
+        if ($result) {
+            $data = [
+                'nota_penerimaan_id' => null,
+                'jenis_aktivitas' => null,
+                'status' => 0
+            ];
+        } else {
+            $data = [
+                'nota_penerimaan_id' => $nota_penerimaan_id,
+                'jenis_aktivitas' => 1,
+                'status' => 1
+            ];
+        }
         $this->penerimaan_m->update($data, $id);
 
         $debet = $this->penerimaan_m->sumDebet($nota_penerimaan_id)['debet'];

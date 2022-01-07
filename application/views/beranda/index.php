@@ -192,6 +192,49 @@
 
           </div>
 
+          <div class="row mt-3">
+            <div class="col">
+              <h3 class="mb-0">Arsip Transaksi</h3>
+              <span class="text-secondary">10 transaksi terakhir Nota Penerimaan dan Nota Pengeluaran yang telah dilakukan pencatatan di Sakti.</span>
+              <div class="card mt-2">
+                <!-- <div class="card-header border-transparent">
+                  <h3 class="card-title text-bold p-1">Informasi rekening</h3>
+                </div> -->
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-sm table-hover m-0">
+                      <thead class="text-info">
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Nomor</th>
+                          <th scope="col">Tanggal</th>
+                          <th scope="col">Jenis</th>
+                          <th scope="col">Debet</th>
+                          <th scope="col">Kredit</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php $no = 1;
+                        foreach ($arsip as $r) : ?>
+                          <tr>
+                            <td class="text-center"><?= $no++; ?></td>
+                            <td><?= $r['nomor']; ?></td>
+                            <td><?= date('d-m-Y', $r['tanggal']); ?></td>
+                            <td><?= $r['nama_nota']; ?></td>
+                            <td><?= number_format($r['debet'], 0, ',', '.'); ?></td>
+                            <td><?= number_format($r['kredit'], 0, ',', '.'); ?></td>
+                          </tr>
+                        <?php endforeach; ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="card-footer clearfix">
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
         <div class="col-lg-3">
           <div class="card card-default">
@@ -227,6 +270,7 @@
           </div>
         </div>
       </div>
+
 
 
 
