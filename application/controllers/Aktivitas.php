@@ -215,6 +215,9 @@ class Aktivitas extends CI_Controller
         $this->load->view('template/footer');
     }
 
+    // ini perubahan dana
+
+
     public function update_piutang($jenis_aktivitas = 1, $id = null)
     {
         if (!isset($id)) show_404();
