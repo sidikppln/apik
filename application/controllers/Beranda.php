@@ -37,4 +37,10 @@ class Beranda extends CI_Controller
         $this->load->view('beranda/index', $data);
         $this->load->view('template/footer');
     }
+
+    public function efretz()
+    {
+        //ini perubahan efretz
+        //test
+    }
 }
